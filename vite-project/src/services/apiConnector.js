@@ -1,0 +1,14 @@
+import axios from 'axios'
+const instance = axios.create()
+const apiConnector = (method, url, headers, bodyData, params)=>{
+    return instance({
+        method:`${method}`,
+        baseURL:`${url}`,
+        headers:headers ? headers : null,
+        data:bodyData ? bodyData : null,
+        params:params ? params : null
+    });
+    // return instance.request();
+}
+
+export default apiConnector;
