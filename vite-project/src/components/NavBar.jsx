@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { CiShoppingCart } from "react-icons/ci";
+import { Menu, X } from 'lucide-react';
 import apiConnector from "../services/apiConnector";
 import { categories } from "../services/apis.js";
 import { IoIosArrowDown } from "react-icons/io";
@@ -11,22 +12,23 @@ function NavBar() {
   const {token} = useSelector(state=>state.auth);
   const {user} = useSelector(state=>state.profile);
   const {cartItems} = useSelector(state=>state.cart);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const[catalogLinks, setCatalogLinks] = useState([])
   const fetchLinks = async()=>{
     try {
         const result = await apiConnector('GET', categories.CATEGORIES_API)
-        // console.log("categories data ",result.data.allTag)
         setCatalogLinks(result.data.allTag)
         console.log(catalogLinks)
-
     } catch (error) {
         console.log("Error while fetching Categories: ",error);
     }
-}
+  }
+
   useEffect(()=>{
        fetchLinks();
   },[])
+
   const navLinks = [
     {
       title: "Home",
@@ -46,78 +48,101 @@ function NavBar() {
     },
   ];
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div className="flex w-full justify-evenly text-white mt-5 border-b-[1px] border-gray-700 pb-2">
-      <div className="flex justify-between gap-10 w-5/12">
+    <div className="relative flex flex-col lg:flex-row w-full justify-evenly text-white mt-5 border-b-[1px] border-gray-700 pb-2">
+      <div className="flex justify-between items-center px-4 lg:px-0 lg:w-5/12">
         <div className="">Logo</div>
-        <nav className="">
-          <ul className="flex justify-between gap-7 items-start text-white font-semibold">
+        
+        {/* Hamburger Menu Button */}
+        <button 
+          className="lg:hidden p-2 hover:bg-gray-800 rounded-md"
+          onClick={toggleMenu}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {/* Navigation Links */}
+        <nav className={`${isMenuOpen ? 'flex' : 'hidden'} lg:flex absolute lg:relative top-full lg:top-0 left-0 w-full lg:w-auto bg-gray-900 lg:bg-transparent mt-2 lg:mt-0 py-4 lg:py-0 z-50`}>
+          <ul className="flex flex-col lg:flex-row w-full lg:w-auto justify-between gap-4 lg:gap-7 items-center lg:items-start text-white font-semibold">
             {navLinks.map((item, index) => (
               item.title === "Catalog" ? ( 
               <div key={index} className="relative group cursor-pointer pb-2">
                     <p className="flex items-center gap-1">{item.title}
                         <IoIosArrowDown className="pt-1"/>
                     </p>
-                    <div className="lg:w-[120px] bg-white rounded-lg absolute left-[-40%] translate-y-[7%]
+                    <div className="lg:w-[120px] w-full bg-white rounded-lg absolute left-1/2 lg:left-[-40%] -translate-x-1/2 lg:translate-x-0 translate-y-[7%]
                     invisible group-hover:visible group-hover:opacity-100 flex flex-col items-center gap-2 z-10 py-2">
                         <div className="w-6 h-6 bg-white absolute left-[72%] rotate-45 -translate-y-[50%]"></div>
                         {
                             catalogLinks.length ? (
                                 catalogLinks.map((element, index)=>{
-                                    console.log(element.name)
-                                    return <Link to={`/categories/${element.name}`} 
-                                                className="text-sm text-black ">
-                                            {element.name}
-                                            </Link>
-                                    // <p key={index} className="text-sm text-black">{element.name}</p>
+                                    return <Link 
+                                      key={index}
+                                      to={`/categories/${element.name}`} 
+                                      className="text-sm text-black hover:text-purple-600 transition-all duration-200"
+                                      onClick={() => setIsMenuOpen(false)}
+                                    >
+                                      {element.name}
+                                    </Link>
                                 })
                             ) : ( <div></div> )
                         }
                     </div>
               </div> ) : (
-                <Link key={index} to={item.link}>
-                <li
-                  className={`cursor-pointer ${
-                    location.pathname === item.link
-                      ? "text-purple-800"
-                      : "text-white"
-                  } hover:text-purple-600 transition-all duration-200 hover:scale-95`}
+                <Link 
+                  key={index} 
+                  to={item.link}
+                  onClick={() => setIsMenuOpen(false)}
                 >
-                  {item.title}
-                </li>
-              </Link>
+                  <li
+                    className={`cursor-pointer ${
+                      location.pathname === item.link
+                        ? "text-purple-800"
+                        : "text-white"
+                    } hover:text-purple-600 transition-all duration-200 hover:scale-95`}
+                  >
+                    {item.title}
+                  </li>
+                </Link>
               )
             ))}
           </ul>
         </nav>
       </div>
-      <div className="">
-        
-            {user && user?.accountType !== "Instructor" && (
-                <Link to={'/dashboard/cart'}>
-                    <CiShoppingCart/>
-                    {
-                        cartItems > 0 && <span>{cartItems}</span>
-                        
-                    }
-                </Link>
-            )}
 
-            {token === null && (
-                <Link to={'/login'}>
-                    <button className="bg-gray-800 border-[.1px] border-gray-700 hover:scale-95 transition-all duration-200 px-2 py-1 mx-2 rounded-md">
-                        Log In
-                    </button>
-                </Link>
-            )}
-            {token === null && (
-                <Link to={'/signup'}>
-                    <button className="bg-gray-800 border-[.1px] border-gray-700 hover:scale-95 transition-all duration-200 px-2 py-1 mx-2 rounded-md">
-                        Sign Up
-                    </button>
-                </Link>
-            )}
-        
+      {/* Auth Buttons and Cart */}
+      <div className={`${isMenuOpen ? 'flex' : 'hidden'} lg:flex flex-col lg:flex-row items-center gap-2 mt-4 lg:mt-0 pb-4 lg:pb-0`}>
+        {user && user?.accountType !== "Instructor" && (
+          <Link to={'/dashboard/cart'} onClick={() => setIsMenuOpen(false)}>
+            <div className="relative">
+              <CiShoppingCart className="w-6 h-6"/>
+              {cartItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartItems}
+                </span>
+              )}
+            </div>
+          </Link>
+        )}
+
+        {token === null && (
+          <>
+            <Link to={'/login'} onClick={() => setIsMenuOpen(false)}>
+              <button className="w-full lg:w-auto bg-gray-800 border-[.1px] border-gray-700 hover:scale-95 transition-all duration-200 px-6 py-2 rounded-md">
+                Log In
+              </button>
+            </Link>
+            <Link to={'/signup'} onClick={() => setIsMenuOpen(false)}>
+              <button className="w-full lg:w-auto bg-gray-800 border-[.1px] border-gray-700 hover:scale-95 transition-all duration-200 px-6 py-2 rounded-md">
+                Sign Up
+              </button>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
