@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../services/authApi';
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -53,8 +57,10 @@ function Login() {
       const handleSubmit = (e) => {
         e.preventDefault();
         if (validateForm()) {
+          const {email, password} = formData;
           // Handle form submission
           console.log('Form submitted:', formData);
+          dispatch(login(email, password,navigate))
         }
       };
     
