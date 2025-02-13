@@ -8,6 +8,8 @@ import SignupPage from './pages/SignupPage'
 import ForgotPassword from './pages/ForgotPassword'
 import UpdatePassword from './pages/UpdatePassword'
 import VerifyEmail from './pages/VerifyEmail'
+import About from './pages/About'
+import ContactUs from './pages/ContactUs'
 function App() {
 
 
@@ -22,6 +24,8 @@ function App() {
         <Route path='/forget-password' element={<ForgotPassword/>}/>
         <Route path='/verify-email' element={<VerifyEmail/>}/>
         <Route path='/reset-password/:id' element={<UpdatePassword/>}/>
+        <Route path='/about' element={<About/>}/>
+        <Route path='/contact' element={<ContactUs/>}/>
       </Routes>
     </div>
 
