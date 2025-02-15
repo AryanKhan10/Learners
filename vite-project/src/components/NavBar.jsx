@@ -7,6 +7,7 @@ import apiConnector from "../services/apiConnector";
 import { categories } from "../services/apis.js";
 import { IoIosArrowDown } from "react-icons/io";
 import LoginDropDown from "./LoginDropDown.jsx";
+import logo from '../assets/logo.png'
 function NavBar() {
 
   const location = useLocation();
@@ -17,8 +18,8 @@ function NavBar() {
   const { totalIems } = useSelector((state) => state.cart);
   
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  console.log("cart ", totalIems);
-  console.log(user);
+  // console.log("cart ", totalIems);
+  // console.log(user);
   const [catalogLinks, setCatalogLinks] = useState([]);
   const fetchLinks = async () => {
     try {
@@ -58,10 +59,10 @@ function NavBar() {
   };
 
   return (
-    <div className="relative flex flex-col lg:flex-row w-full justify-evenly text-white mt-5 border-b-[1px] border-gray-700 pb-2">
+    <div className="fixed -top-6 left-0 right-0 pt-2 bg-gray-900 flex flex-col lg:flex-row w-full justify-evenly text-white mt-5 border-b-[1px] border-gray-700 pb-2">
       <div className="flex justify-between items-center px-4 lg:px-0 lg:w-5/12">
-        <div className="">Logo</div>
-
+        {/* <div className="">Logo</div> */}
+        <img className="w-[60px] h-[60px] rounded-full" src={logo} alt="learner" loading="lazy"/>
         {/* Hamburger Menu Button */}
         <button
           className="lg:hidden p-2 hover:bg-gray-800 rounded-md"
@@ -170,15 +171,14 @@ function NavBar() {
                   src={user?.image}
                   alt="profile"
                   loading="lazy"
-                  className="rounded-full w-[35px] bg-orange-500"
+                  className="rounded-full w-[35px] h-[35px] bg-orange-500"
                 />
                 <IoIosArrowDown className="pt-1" />
               </p>
               <div
-                className="lg:w-[120px]  rounded-lg lg:absolute left-1/2 lg:left-[-40%] -translate-x-1/2 lg:translate-x-0 translate-y-[7%]
+                className="lg:w-[120px]  rounded-lg lg:absolute left-12 lg:left-[-40%] -translate-x-1 lg:translate-x-0 translate-y-[%]
                     invisible group-hover:visible group-hover:opacity-100 flex flex-col items-center gap-2  py-2"
               >
-                {/* <div className="w-6 h-6 bg-white absolute left-[72%] rotate-45 -translate-y-[50%]"></div> */}
                 {
                   <Link to={"/"} onClick={() => setIsMenuOpen(false)}>
                     <LoginDropDown />

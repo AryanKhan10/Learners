@@ -13,3 +13,7 @@ export const authEndpoints = {
     SIGNUP_API: `${BASE_URL}/auth/signup`,
     LOGIN_API: `${BASE_URL}/auth/login`
 };
+export const profileEndpoints = {
+    UPDATEPROPIC_API: `${BASE_URL}/profile/updateProfilePicture`,
+
+};
