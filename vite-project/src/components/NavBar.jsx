@@ -59,7 +59,7 @@ function NavBar() {
   };
 
   return (
-    <div className="fixed -top-6 left-0 right-0 pt-2 bg-gray-900 flex flex-col lg:flex-row w-full justify-evenly text-white mt-5 border-b-[1px] border-gray-700 pb-2">
+    <div className="fixed -top-6 left-0 right-0 z-50 pt-2 bg-gray-900 flex flex-col lg:flex-row w-full justify-evenly text-white mt-5 border-b-[1px] border-gray-700 pb-2">
       <div className="flex justify-between items-center px-4 lg:px-0 lg:w-5/12">
         {/* <div className="">Logo</div> */}
         <img className="w-[60px] h-[60px] rounded-full" src={logo} alt="learner" loading="lazy"/>

@@ -15,10 +15,13 @@ import MyProfile from "./components/MyProfile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Error from './pages/Error'
 import Settings from "./components/Settings";
+import Enrolled from "./components/Dashboard/Enrolled";
+import Cart from "./components/Dashboard/Cart/Cart";
 function App() {
   return (
     <div className="w-screen min-h-screen bg-gray-900 flex flex-col ">
       <NavBar />
+      <div className="mt-20">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -36,11 +39,14 @@ function App() {
             }
           >
             <Route path="profile" element={<MyProfile />} />
+            <Route path="enrolled-courses" element={<Enrolled />} />
+            <Route path="cart" element={<Cart />} />
             <Route path="settings" element={<Settings />} />
           </Route>
 
           <Route path="*" element={<Error/>}/>
       </Routes>
+      </div>
     </div>
   );
 }

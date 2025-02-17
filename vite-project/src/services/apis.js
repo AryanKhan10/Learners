@@ -15,5 +15,11 @@ export const authEndpoints = {
 };
 export const profileEndpoints = {
     UPDATEPROPIC_API: `${BASE_URL}/profile/updateProfilePicture`,
+    UPDATEPERSONALINFO_API: `${BASE_URL}/profile/updateProfile`,
+
+};
+export const coursesEndpoints = {
+    GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/profile/getUserData`,
+    // UPDATEPERSONALINFO_API: `${BASE_URL}/profile/updateProfile`,
 
 };

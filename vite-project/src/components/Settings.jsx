@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Buttons from './Home/Buttons'
 // import { setUser } from '../slices/profile'
 import { updateProfile } from '../services/profile'
-
+import { useNavigate } from 'react-router-dom'
+import {updatePersonalInfo} from '../services/profile'
 function Settings() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const fileInputRef = useRef(null)
   const {user} = useSelector(state =>state.profile)
   const {token} = useSelector(state => state.auth )
@@ -16,12 +18,12 @@ function Settings() {
   const [loading, setLoading] = useState(false)
   const [profile, setProfile] = useState(null)
 
-  // console.log(loading)
+  console.log("user ",user)
   const [formData, setFormData] = useState({
     firstName: user?.firstName ?? "",
     lastName: user?.lastName ?? "",
     dateOfBirth: user?.additionalDetails?.dateOfBirth ?? "",
-    gender: user?.additionalDetails?.gender ?? "",
+    gender: user?.additionalDetails?.gender ?? "Male",
     contactNumber: user?.additionalDetails?.contactNumber ?? "",
     about: user?.additionalDetails?.about ?? "",
     currentPassword: '',
@@ -47,9 +49,19 @@ function Settings() {
   }
   const handleUploadImage = ()=>{
     // dispatch(setUser(selectedImage))
+    if(!profile){
+      return
+    }
     dispatch(updateProfile(profile,token, setLoading))
     setProfile(null)
     // console.log(user)
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault()
+    const {gender, about, dateOfBirth, contactNumber} = formData; 
+    console.log("entered")
+    dispatch(updatePersonalInfo(gender, about, dateOfBirth, contactNumber, token))
   }
   return (
     <div className="min-h-screen p-6 max-w-4xl mx-auto text-white">
@@ -106,7 +118,7 @@ function Settings() {
     </div>
 
     {/* Profile Information */}
-    <div className="bg-gray-900 rounded-lg p-6 mb-6">
+    <form onSubmit={handleFormSubmit} className="bg-gray-900 rounded-lg p-6 mb-6">
       <h2 className="text-xl mb-6">Profile Information</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
@@ -176,14 +188,15 @@ function Settings() {
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-3">
-        <Buttons linkto="/dashboard/profile" active={false} color="text-white">
+        {/* <Buttons type="submit" linkto="/dashboard/profile" active={false} color="text-white">
           Cancel
         </Buttons>
-        <Buttons linkto="/dashboard/profile" active={true}>
+        <Buttons type="submit" linkto="/dashboard/profile" active={true}>
           Save
-        </Buttons>
+        </Buttons> */}
+        <button type='submit' className='text-white'>Save</button>
       </div>
-    </div>
+    </form>
 
     {/* Password Section */}
     <div className="bg-gray-900 rounded-lg p-6 mb-6">

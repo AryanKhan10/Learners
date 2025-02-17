@@ -15,8 +15,20 @@ const profileSlice = createSlice({
         updateProfilePic(state,value){
             console.log(value);
             state.user.image=value.payload;
+        },
+        updateProfileInfo(state,value){
+            // console.log("Before",state.user)
+            state.user={
+                ...state.user,
+                ...value.payload
+            }
+            console.log("hi")
+            localStorage.setItem("user", JSON.stringify(state.user))
+            // localStorage.setItem("user", JSON.stringify(res.data.user))
+
+            console.log("Done")
         }
     } 
 })
-export const {setUser, updateProfilePic} = profileSlice.actions;
+export const {setUser, updateProfilePic,updateProfileInfo} = profileSlice.actions;
 export default profileSlice.reducer
