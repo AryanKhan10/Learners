@@ -9,7 +9,7 @@ function SideBarLinks({ link }) {
     <NavLink
       id={link.id}
       to={link.path}
-      className={`flex items-center gap-2 px-4 py-4 text-sm font-medium transition-all duration-200
+      className={`flex items-center gap-2 px-2 xsm:px-4 py-4 text-sm font-medium transition-all duration-200
                 ${
                   link.path === location.pathname
                     ? "bg-blue-900/50 border-l-4 border-blue-400 text-blue-400"

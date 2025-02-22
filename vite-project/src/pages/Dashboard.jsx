@@ -27,7 +27,7 @@ function Dashboard() {
       <SideBar/>
 
         {/* we don't know which page to show */}
-      <div className="ml-10 sm:ml-60 md:ml-72 me-3"> 
+      <div className="ml-14 xssm:ml-10 xsm:ml-14 sm:ml-48 md:ml-72 me-3"> 
         <Outlet/>
       </div>
     </div>

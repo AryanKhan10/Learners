@@ -20,6 +20,13 @@ export const profileEndpoints = {
 };
 export const coursesEndpoints = {
     GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/profile/getUserData`,
+    CREATE_COURSE_API: `${BASE_URL}/course/createCourse`,
     // UPDATEPERSONALINFO_API: `${BASE_URL}/profile/updateProfile`,
+
+};
+export const sectionEndpoints = {
+    // GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/profile/getUserData`,
+    CREATE_SECTION_API: `${BASE_URL}/course/addSection`,
+    UPDATE_SECTION_API: `${BASE_URL}/course/updateSection`,
 
 };

@@ -17,7 +17,13 @@ import Error from './pages/Error'
 import Settings from "./components/Settings";
 import Enrolled from "./components/Dashboard/Enrolled";
 import Cart from "./components/Dashboard/Cart/Cart";
+import AddCourse from "./components/Dashboard/AddCourse/AddCourse";
+import { useSelector } from "react-redux";
+
 function App() {
+
+  const {user} = useSelector(state=>state.profile)
+  
   return (
     <div className="w-screen min-h-screen bg-gray-900 flex flex-col ">
       <NavBar />
@@ -39,9 +45,21 @@ function App() {
             }
           >
             <Route path="profile" element={<MyProfile />} />
-            <Route path="enrolled-courses" element={<Enrolled />} />
-            <Route path="cart" element={<Cart />} />
             <Route path="settings" element={<Settings />} />
+
+            {
+              user?.accountType === "Student" && 
+                  <>
+                    <Route path="enrolled-courses" element={<Enrolled />} />
+                    <Route path="cart" element={<Cart />} />
+                  </>
+
+            }
+            {
+              user?.accountType === "Instructor" && 
+                  <Route path="add-course" element={<AddCourse />} />
+
+            }
           </Route>
 
           <Route path="*" element={<Error/>}/>
