@@ -28,5 +28,8 @@ export const sectionEndpoints = {
     // GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/profile/getUserData`,
     CREATE_SECTION_API: `${BASE_URL}/course/addSection`,
     UPDATE_SECTION_API: `${BASE_URL}/course/updateSection`,
+    DELETE_SECTION_API: `${BASE_URL}/course/deleteSection`,
+    DELETE_SUB_SECTION_API: `${BASE_URL}/course/deleteSubSection`,
+
 
 };

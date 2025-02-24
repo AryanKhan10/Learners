@@ -8,6 +8,7 @@ import apiConnector from "../../../services/apiConnector";
 import toast from "react-hot-toast";
 
 function CourseInformation() {
+
   const { course, editCourse } = useSelector((state) => state.course);
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
@@ -57,9 +58,13 @@ function CourseInformation() {
       setValue("coursePrice", course.price);
       setValue("courseBenefits", course.whatYouWillLearn);
       setValue("courseTag", course.tag);
+      setTags(course.tag); // ensure UI updates accordingly
       setValue("courseCategory", course.category);
       setValue("courseRequirement", course.instructions);
+      setInstructions(course.instructions); // ensure UI updates accordingly
       setValue("courseThumbnail", course.thumbnail);
+      // console.log("course.thumbnail: ", course.thumbnail);
+      setThumbnailPreview(course.thumbnail);  
     }
   }, [editCourse]);
 
@@ -295,7 +300,7 @@ function CourseInformation() {
               {thumbnailPreview && (
                 <div className="w-40 h-24 relative">
                   <img
-                    src={thumbnailPreview || "/placeholder.svg"}
+                    src={thumbnailPreview || "/placeholder.svg" || courseThumbnail}
                     alt="Thumbnail preview"
                     className="w-full h-full object-cover rounded-lg"
                   />
@@ -404,7 +409,7 @@ function CourseInformation() {
             {editCourse && (
               <button
                 type="submit"
-                onChange={() => dispatch(setStep(2))}
+                onClick={() => dispatch(setStep(2))}
                 className="w-full bg-gray-500 text-white py-3 rounded-md hover:bg-gray-700 transition-colors"
               >
                 Continue Without Saving

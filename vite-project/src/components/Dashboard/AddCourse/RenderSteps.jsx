@@ -41,7 +41,8 @@ function RenderSteps() {
       <div className="lg:w-7/12">
       <div className="flex items-center justify-between mb-1">
         {courseSteps.map((item) => (
-          <div className="flex items-center">
+          <div key={item.id}
+           className="flex items-center">
             {/* highlighted number */}
             <div
               className={`${
@@ -59,7 +60,7 @@ function RenderSteps() {
       </div>
       <div className="flex gap-28  mb-10 max-w-3xl">
         {courseSteps.map((item) => (
-          <div className="text-white">{item.name}</div>
+          <div key={item.id} className="text-white">{item.name}</div>
         ))}
       </div>
       {step === 1 && <CourseInformation />}

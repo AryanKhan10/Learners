@@ -28,7 +28,7 @@ export async function updateSection (data,token){
             {authentication: `Bearer ${token}`}
          )
          console.log(res);
-         if(!res.message.success){
+         if(!res.data.success){
             throw new Error("Couldn't Update section")
          }
          result = res.data.course;
@@ -38,4 +38,64 @@ export async function updateSection (data,token){
         console.log("Failed to update section ", error);
         toast.error("Couldn't Update section");
     }
+}
+export async function deleteSubSection(subSecId, token) {
+    try {
+        const response = await apiConnector("DELETE", sectionEndpoints.DELETE_SUB_SECTION_API, null, 
+            { authentication: `Bearer ${token}` }, {params:subSecId});
+            if(!response.data.success){
+                throw new Error("Couldn't Delete the subSection")
+            }
+            toast.success("SubSection deleted!")
+            return response.data.course
+    } catch (error) {
+        console.log("Couldn't Delete subSection",error)
+        toast.error("SubSection could not deleted!")
+    }
+    
+}
+export async function deleteSection(secId, token) {
+    try {
+        const response = await apiConnector("DELETE", sectionEndpoints.DELETE_SECTION_API, null, 
+            { authentication: `Bearer ${token}` }, {params:secId});
+            if(!response.data.success){
+                throw new Error("Couldn't Delete the section")
+            }
+            toast.success("Section deleted!")
+            return response.data.course
+    } catch (error) {
+        console.log("Couldn't Delete section",error)
+        toast.error("Section could not deleted!")
+    }
+    
+}
+export async function updateSubSec(secId, token) {
+    try {
+        const response = await apiConnector("DELETE", sectionEndpoints.DELETE_SECTION_API, null, 
+            { authentication: `Bearer ${token}` }, {params:secId});
+            if(!response.data.success){
+                throw new Error("Couldn't Delete the section")
+            }
+            toast.success("Section deleted!")
+            return response.data.course
+    } catch (error) {
+        console.log("Couldn't Delete section",error)
+        toast.error("Section could not deleted!")
+    }
+    
+}
+export async function createSubSec(secId, token) {
+    try {
+        const response = await apiConnector("DELETE", sectionEndpoints.DELETE_SECTION_API, null, 
+            { authentication: `Bearer ${token}` }, {params:secId});
+            if(!response.data.success){
+                throw new Error("Couldn't Delete the section")
+            }
+            toast.success("Section deleted!")
+            return response.data.course
+    } catch (error) {
+        console.log("Couldn't Delete section",error)
+        toast.error("Section could not deleted!")
+    }
+    
 }

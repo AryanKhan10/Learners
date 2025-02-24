@@ -16,6 +16,7 @@ function CourseBuilder() {
     const [loading, setLoading] = useState(false);
     console.log(course)
     const cancelEdit = () => {
+      console.log("cancel")
       setEditSecName(false);
       setValue("sectionName", "");
     }
@@ -39,6 +40,7 @@ function CourseBuilder() {
     }
 
     const handleEditSectionName = (sectionId, sectionName)=>{
+      console.log("in")
       if(sectionId === sectionName){
         cancelEdit();
         return;
@@ -81,7 +83,7 @@ function CourseBuilder() {
         {/* Name */}
         <div className='my-6'>
             <label className="block mb-2">
-              Secrion Name <span className="text-red-500">*</span>
+              Section Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
