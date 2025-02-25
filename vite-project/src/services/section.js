@@ -21,6 +21,24 @@ export async function createSection (data,token){
         toast.error("Couldn't create a section");
     }
 }
+export async function createSubSec (data,token){
+    let result=null;
+    try {
+        const res = await apiConnector("POST",sectionEndpoints.CREATE_SUB_SECTION_API, data,
+            {authentication: `Bearer ${token}`}
+         )
+         console.log(res);
+         if(!res.data.success){
+            throw new Error("Couldn't create section")
+         }
+         result = res.data.section;
+         toast.success("SubSection Created!!");
+         return result;
+    } catch (error) {
+        console.log("Failed to create a subSection ", error);
+        toast.error("Couldn't create a subSection");
+    }
+}
 export async function updateSection (data,token){
     let result=null;
     try {
@@ -71,21 +89,6 @@ export async function deleteSection(sectionId,courseId, token) {
     
 }
 export async function updateSubSec(secId, token) {
-    try {
-        const response = await apiConnector("DELETE", sectionEndpoints.DELETE_SECTION_API, null, 
-            { authentication: `Bearer ${token}` }, {params:secId});
-            if(!response.data.success){
-                throw new Error("Couldn't Delete the section")
-            }
-            toast.success("Section deleted!")
-            return response.data.course
-    } catch (error) {
-        console.log("Couldn't Delete section",error)
-        toast.error("Section could not deleted!")
-    }
-    
-}
-export async function createSubSec(secId, token) {
     try {
         const response = await apiConnector("DELETE", sectionEndpoints.DELETE_SECTION_API, null, 
             { authentication: `Bearer ${token}` }, {params:secId});

@@ -47,7 +47,7 @@ function SubSecModal({ modalData, setModalData, add = false, view = false, edit 
     formData.append("subSectionId", modalData._id)
 
     if (currentData.lectureTitle !== modalData.Title) {
-      formData.append("sectionName", currentData.lectureTitle)
+      formData.append("title", currentData.lectureTitle)
     }
     if (currentData.lectureDesc !== modalData.description) {
       formData.append("description", currentData.lectureDesc)
@@ -77,14 +77,16 @@ function SubSecModal({ modalData, setModalData, add = false, view = false, edit 
     }
     const formData = new FormData()
     formData.append("sectionId", modalData)
-    formData.append("sectionName", data.lectureTitle)
+    formData.append("title", data.lectureTitle)
     formData.append("description", data.lectureDesc)
     formData.append("video", data.lectureVideo)
 
     setLoading(true)
     const result = await createSubSec(formData, token)
     if (result) {
-      dispatch(setCourse(result))
+      const updatedSections = course.courseContent.map( (section) => section._id === result._id ? result: section )
+      const updatedCourse = { ...course, courseContent:updatedSections }
+      dispatch(setCourse(updatedCourse))
     }
     setModalData(null)
     setLoading(false)
@@ -146,6 +148,7 @@ function SubSecModal({ modalData, setModalData, add = false, view = false, edit 
               {errors.lectureDesc && <p className="mt-1 text-sm text-red-500">{errors.lectureDesc.message}</p>}
             </div>
 
+                {/* buttons */}
             {!view && (
               <div>
                 <button

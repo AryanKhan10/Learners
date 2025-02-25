@@ -29,6 +29,8 @@ export const sectionEndpoints = {
     CREATE_SECTION_API: `${BASE_URL}/course/addSection`,
     UPDATE_SECTION_API: `${BASE_URL}/course/updateSection`,
     DELETE_SECTION_API: `${BASE_URL}/course/deleteSection`,
+    CREATE_SUB_SECTION_API: `${BASE_URL}/course/addSubSection`,
+    UPDATE_SUB_SECTION_API: `${BASE_URL}/course/updateSubSection`,
     DELETE_SUB_SECTION_API: `${BASE_URL}/course/deleteSubSection`,
 
 

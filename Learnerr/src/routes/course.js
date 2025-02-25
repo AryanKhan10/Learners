@@ -11,11 +11,13 @@ router.post("/createCourse", auth, isInstructor, createCourse)
 router.post("/addSection", auth, isInstructor, createSection)
 router.post("/updateSection", auth, isInstructor, updateSection)
 router.delete("/deleteSection", auth, isInstructor, deleteSection)
+
+router.post("/getCourseDetails", getCourseDetails)
+router.get("/getAllCourses", getAllCourses)
+
 router.post("/addSubSection", auth, isInstructor, createSubSec)
 router.post("/updateSubSection", auth, isInstructor, updateSubSec)
 router.delete("/deleteSubSection/:subSectionId", auth, isInstructor, deleteSubSec)
-router.post("/getCourseDetails", getCourseDetails)
-router.get("/getAllCourses", getAllCourses)
 
 router.post("/createCategory",auth, isAdmin, createCategory)
 router.get("/getCategories", getAllCategory)

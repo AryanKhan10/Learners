@@ -66,6 +66,7 @@ function UploadFile({
     };
 
     const onButtonClick = () => {
+        console.log("onButtonClick")
         inputRef.current?.click();
     };
 
