@@ -47,9 +47,9 @@ const cartSlice = createSlice({
         // removeFromCart(state,value){
         //     state.totalIems -= value.payload
         // },
-        // resetCart(state){
-        //     state.totalIems = 0
-        // },
+        resetCart(state){
+            state.totalIems = 0
+        },
     } 
 })
 export const {AddToCart, RemoveFromCart, resetCart} = cartSlice.actions;

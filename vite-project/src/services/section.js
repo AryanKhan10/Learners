@@ -14,7 +14,7 @@ export async function createSection (data,token){
             throw new Error("Couldn't create section")
          }
          result = res.data.course;
-         toast.success("Section Updated");
+         toast.success("Section Created!!");
          return result;
     } catch (error) {
         console.log("Failed to create a section ", error);
@@ -31,7 +31,7 @@ export async function updateSection (data,token){
          if(!res.data.success){
             throw new Error("Couldn't Update section")
          }
-         result = res.data.course;
+         result = res.data.section;
          toast.success("Course Updated");
          return result;
     } catch (error) {
@@ -54,14 +54,15 @@ export async function deleteSubSection(subSecId, token) {
     }
     
 }
-export async function deleteSection(secId, token) {
+export async function deleteSection(sectionId,courseId, token) {
     try {
-        const response = await apiConnector("DELETE", sectionEndpoints.DELETE_SECTION_API, null, 
-            { authentication: `Bearer ${token}` }, {params:secId});
+        const response = await apiConnector("DELETE", sectionEndpoints.DELETE_SECTION_API , {courseId:courseId,sectionId:sectionId}, 
+            { authentication: `Bearer ${token}` });
             if(!response.data.success){
                 throw new Error("Couldn't Delete the section")
             }
             toast.success("Section deleted!")
+            console.log(response.data)
             return response.data.course
     } catch (error) {
         console.log("Couldn't Delete section",error)

@@ -10,7 +10,7 @@ const router = express.Router();
 router.post("/createCourse", auth, isInstructor, createCourse)
 router.post("/addSection", auth, isInstructor, createSection)
 router.post("/updateSection", auth, isInstructor, updateSection)
-router.delete("/deleteSection/:sectionId", auth, isInstructor, deleteSection)
+router.delete("/deleteSection", auth, isInstructor, deleteSection)
 router.post("/addSubSection", auth, isInstructor, createSubSec)
 router.post("/updateSubSection", auth, isInstructor, updateSubSec)
 router.delete("/deleteSubSection/:subSectionId", auth, isInstructor, deleteSubSec)

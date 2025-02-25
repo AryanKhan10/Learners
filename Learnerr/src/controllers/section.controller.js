@@ -65,32 +65,51 @@ const updateSection = async (req, res) => {
 
 const deleteSection = async (req, res) => {
     try {
-        const {sectionId} = req.params; // /sectin:id/ can be done via body 
-        console.log(sectionId)
-        //dlt section
-        const section=await Section.findByIdAndDelete({_id:sectionId})
-        // console.log("Section dlt")
+        const { sectionId, courseId } = req.body; 
         
-        //remove the section from course (pull out section from an array of cource section in course schema )
-        await Course.updateOne({courseContent : sectionId},{$pull:{courseContent:sectionId}})
-        console.log("Course dlt")
+        console.log("Deleting Section ID:", sectionId, "from Course ID:", courseId);
 
-        //dlt all the subsections associated with this section
-        await SubSection.deleteMany({_id:{$in: section.subSection}}) //delete all the subSections whose id is in section.subSection array
+        // Delete the section
+        const section = await Section.findByIdAndDelete({_id:sectionId});
+        if (!section) {
+            return res.status(404).json({ success: false, message: "Section not found!" });
+        }
+        
+        // Remove the section reference from the course
+        const course = await Course.findByIdAndUpdate(
+            courseId, 
+            { $pull: { courseContent: sectionId } }, 
+            { new: true } // Return updated document
+        );
 
-        const updatedSec= await Section.findById(sectionId).populate("subSection").exec();
+        console.log("Section removed from course");
+
+        // Delete all subsections associated with this section
+        if (section.subSection && section.subSection.length > 0) {
+            await SubSection.deleteMany({ _id: { $in: section.subSection } });
+            console.log("SubSections deleted");
+        }
+
+        // Get updated course with populated courseContent and subSections
+        const updatedCourse = await Course.findById(courseId)
+            .populate({ path: "courseContent", populate: { path: "subSection" } })
+            .exec();
+
         res.status(200).json({
-            success:true,
-            section:updatedSec,
-            message:"Section deleted successfully!",
-        })
+            success: true,
+            course: updatedCourse,
+            message: "Section deleted successfully!",
+        });
+
     } catch (error) {
+        console.error("Error while deleting section:", error);
         res.status(500).json({
-            success:false,
-            message:"Something went wrong while deleting the section.",
-            error:error
-        })
+            success: false,
+            message: "Something went wrong while deleting the section.",
+            error: error.message
+        });
     }
-}
+};
+
 
 export {createSection, updateSection, deleteSection}

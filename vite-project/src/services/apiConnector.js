@@ -1,7 +1,7 @@
 import axios from 'axios'
 const instance = axios.create()
 const apiConnector = (method, url, bodyData, headers, params)=>{
-    console.log(bodyData)
+    console.log(params)
     return instance({
         method:`${method}`,
         baseURL:`${url}`,
