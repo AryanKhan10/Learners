@@ -3,9 +3,10 @@ import { SubSection } from "../models/subSection.model.js";
 import fileUpload from "../utiles/uploadFile.js";
 const createSubSec = async (req,res) => {
     try {
+        console.log(req.files)
         const {title,description,timeDuration,sectionId} = req.body;
-        const vedio = req.files.vedio;
-        console.log( typeof(sectionId))
+        const vedio = req.files.video;
+        console.log( vedio)
         if(!title || !timeDuration || !description || !vedio || !sectionId ){
             return res.status(401).json({
                 success:false,
@@ -24,7 +25,7 @@ const createSubSec = async (req,res) => {
         });
         console.log("subSection ",subSection)
         
-        const section = await Section.findByIdAndUpdate( sectionId, {$push:{subSection: subSection._id}}, {new:true});
+        const section = await Section.findByIdAndUpdate( sectionId, {$push:{subSection: subSection._id}}, {new:true}).populate("subSection");
         
                 
             console.log("Section ",section)

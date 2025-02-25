@@ -10,7 +10,7 @@ function NestedView({ handleEditSectionName }) {
   const dispatch = useDispatch()
   const { course } = useSelector((state) => state.course)
   const { token } = useSelector((state) => state.auth)
-
+console.log(course)
   const [addSubsection, setAddSubSection] = useState(null)
   const [view, setView] = useState(null)
   const [edit, setEdit] = useState(null)
@@ -73,7 +73,7 @@ function NestedView({ handleEditSectionName }) {
             </summary>
 
             <div className="mt-4 pl-6 space-y-2">
-              {section?.courseContent?.subSection?.map((subSec) => (
+              {section?.subSection?.map((subSec) => (
                 <div
                   key={subSec._id}
                   className="flex justify-between items-center py-2 border-b border-gray-700 last:border-b-0"

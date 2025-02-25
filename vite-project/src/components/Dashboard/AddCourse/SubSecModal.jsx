@@ -10,6 +10,9 @@ import { X } from "lucide-react"
 import UploadFile from "./UploadFile"
 
 function SubSecModal({ modalData, setModalData, add = false, view = false, edit = false }) {
+
+      const [duration, setDuration] = useState(null); // State to store video duration
+  
   const dispatch = useDispatch()
   const {
     register,
@@ -22,7 +25,7 @@ function SubSecModal({ modalData, setModalData, add = false, view = false, edit 
   const { course } = useSelector((state) => state.course)
   const { token } = useSelector((state) => state.auth)
   const [loading, setLoading] = useState(false)
-
+console.log(course)
   useEffect(() => {
     if (view || edit) {
       setValue("lectureTitle", modalData.Title)
@@ -54,6 +57,8 @@ function SubSecModal({ modalData, setModalData, add = false, view = false, edit 
     }
     if (currentData.lectureVideo !== modalData.videoUrl) {
       formData.append("video", currentData.lectureVideo)
+    formData.append("timeDuration", duration)
+
     }
 
     setLoading(true)
@@ -66,6 +71,7 @@ function SubSecModal({ modalData, setModalData, add = false, view = false, edit 
   }
 
   const submit = async (data) => {
+    console.log(data)
     if (view) return
     if (edit) {
       if (!isFormUpdated()) {
@@ -80,6 +86,8 @@ function SubSecModal({ modalData, setModalData, add = false, view = false, edit 
     formData.append("title", data.lectureTitle)
     formData.append("description", data.lectureDesc)
     formData.append("video", data.lectureVideo)
+    formData.append("timeDuration", duration)
+    // console.log(video)
 
     setLoading(true)
     const result = await createSubSec(formData, token)
@@ -111,8 +119,11 @@ function SubSecModal({ modalData, setModalData, add = false, view = false, edit 
         <div className="overflow-y-auto flex-grow">
           <form onSubmit={handleSubmit(submit)} className="p-6 space-y-4">
             <UploadFile
+
               name="lectureVideo"
               label="Lecture Video"
+              setDuration={setDuration}
+                duration={duration}
               register={register}
               setValue={setValue}
               errors={errors}
