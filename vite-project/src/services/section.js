@@ -47,14 +47,14 @@ export async function updateSection (data,token){
          )
          console.log(res);
          if(!res.data.success){
-            throw new Error("Couldn't Update section")
+            throw new Error("Couldn't Update SubSection")
          }
          result = res.data.section;
-         toast.success("Course Updated");
+         toast.success("subSection Updated");
          return result;
     } catch (error) {
-        console.log("Failed to update section ", error);
-        toast.error("Couldn't Update section");
+        console.log("Failed to update subSection ", error);
+        toast.error("Couldn't Update subSection");
     }
 }
 export async function deleteSubSection(subSecId, token) {
@@ -88,15 +88,15 @@ export async function deleteSection(sectionId,courseId, token) {
     }
     
 }
-export async function updateSubSec(secId, token) {
+export async function updateSubSec(data, token) {
     try {
-        const response = await apiConnector("DELETE", sectionEndpoints.DELETE_SECTION_API, null, 
-            { authentication: `Bearer ${token}` }, {params:secId});
+        const response = await apiConnector("POST", sectionEndpoints.UPDATE_SUB_SECTION_API, data, 
+            { authentication: `Bearer ${token}` });
             if(!response.data.success){
                 throw new Error("Couldn't Delete the section")
             }
             toast.success("Section deleted!")
-            return response.data.course
+            return response.data.subsection
     } catch (error) {
         console.log("Couldn't Delete section",error)
         toast.error("Section could not deleted!")

@@ -16,7 +16,8 @@ function UploadFile({
     const [preview, setPreview] = useState(null);
     const [dragActive, setDragActive] = useState(false);
     const inputRef = useRef(null);
-    console.log(viewData)
+
+
     useEffect(() => {
         if (viewData) {
             setPreview(viewData);
@@ -128,12 +129,16 @@ function UploadFile({
                             ) : (
                                 <img src={preview} alt="Preview" className="w-full h-full object-cover" />
                             )}
-                            <button
+                            {
+                                editData && (
+                                    <button
                                 onClick={removeFile}
                                 className="absolute top-2 right-2 p-1 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors duration-200"
                             >
                                 <X size={16} />
                             </button>
+                                )
+                            }
                         </div>
                     ) : (
                         <div className="flex flex-col items-center justify-center py-8">

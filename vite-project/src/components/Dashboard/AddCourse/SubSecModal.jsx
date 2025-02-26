@@ -11,7 +11,7 @@ import UploadFile from "./UploadFile"
 
 function SubSecModal({ modalData, setModalData, add = false, view = false, edit = false }) {
 
-      const [duration, setDuration] = useState(null); // State to store video duration
+      const [duration, setDuration] = useState(0); // State to store video duration
   
   const dispatch = useDispatch()
   const {
@@ -65,7 +65,15 @@ console.log(modalData)
     setLoading(true)
     const result = await updateSubSec(formData, token)
     if (result) {
-      dispatch(setCourse(result))
+        const updatedCourse = course.courseContent = course.courseContent.map(section => {
+          return {
+              ...section,
+              subSection: section.subSection.map(sub => 
+                  sub._id === result._id ? { ...sub, ...result } : sub
+              )
+          };
+      });
+      dispatch(setCourse(updatedCourse))
     }
     setModalData(null)
     setLoading(false)
