@@ -10,13 +10,13 @@ function UploadFile({
     setValue, 
     errors, 
     video = false,
-    viewData = null,
-    editData = null 
+    viewData,
+    editData 
 }) {
     const [preview, setPreview] = useState(null);
     const [dragActive, setDragActive] = useState(false);
     const inputRef = useRef(null);
-
+    console.log(viewData)
     useEffect(() => {
         if (viewData) {
             setPreview(viewData);

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const subSectionSchema = new mongoose.Schema(
     {
-        videoUrl:{
+        videoURL:{
             type: String
         },
         timeDuration:{

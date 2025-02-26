@@ -25,19 +25,20 @@ function SubSecModal({ modalData, setModalData, add = false, view = false, edit 
   const { course } = useSelector((state) => state.course)
   const { token } = useSelector((state) => state.auth)
   const [loading, setLoading] = useState(false)
-console.log(course)
+console.log(modalData)
   useEffect(() => {
     if (view || edit) {
-      setValue("lectureTitle", modalData.Title)
+      setValue("lectureTitle", modalData.title)
       setValue("lectureDesc", modalData.description)
-      setValue("lectureVideo", modalData.videoUrl)
+      setValue("lectureVideo", modalData.videoURL)
+      setDuration(modalData.timeDuration)
     }
   }, [view, edit, modalData, setValue])
 
   const isFormUpdated = () => {
     const currentData = getValues()
     return (
-      currentData.lectureTitle !== modalData.Title ||
+      currentData.lectureTitle !== modalData.title ||
       currentData.lectureDesc !== modalData.description ||
       currentData.lectureVideo !== modalData.videoUrl
     )
@@ -55,7 +56,7 @@ console.log(course)
     if (currentData.lectureDesc !== modalData.description) {
       formData.append("description", currentData.lectureDesc)
     }
-    if (currentData.lectureVideo !== modalData.videoUrl) {
+    if (currentData.lectureVideo !== modalData.videoURL) {
       formData.append("video", currentData.lectureVideo)
     formData.append("timeDuration", duration)
 
@@ -128,8 +129,8 @@ console.log(course)
               setValue={setValue}
               errors={errors}
               video={true}
-              viewData={view ? modalData.videoUrl : null}
-              editData={edit ? modalData.videoUrl : null}
+              viewData={view ? modalData.videoURL : null}
+              editData={edit ? modalData.videoURL : null}
             />
 
             <div>

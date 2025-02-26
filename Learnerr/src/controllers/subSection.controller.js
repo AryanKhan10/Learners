@@ -3,10 +3,10 @@ import { SubSection } from "../models/subSection.model.js";
 import fileUpload from "../utiles/uploadFile.js";
 const createSubSec = async (req,res) => {
     try {
-        console.log(req.files)
+        // console.log(req.files)
         const {title,description,timeDuration,sectionId} = req.body;
         const vedio = req.files.video;
-        console.log( vedio)
+        console.log("video here", vedio)
         if(!title || !timeDuration || !description || !vedio || !sectionId ){
             return res.status(401).json({
                 success:false,
