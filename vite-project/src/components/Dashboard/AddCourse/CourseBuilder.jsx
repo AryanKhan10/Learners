@@ -45,7 +45,7 @@ function CourseBuilder() {
       toast.error("Please add at least one section")
       return
     }
-    if (course.courseContent.some((section) => section.Subsection.length === 0)) {
+    if (course.courseContent.some((section) => section.subSection.length === 0)) {
       toast.error("Please add at least one lecture in each section")
       return
     }

@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CourseInformation from "./CourseInformation";
 import CourseBuilder from "./CourseBuilder";
+import Publish from "./Publish";
 import { Zap } from "lucide-react"
 function RenderSteps() {
   const { step } = useSelector((state) => state.course);
@@ -65,7 +66,7 @@ function RenderSteps() {
       </div>
       {step === 1 && <CourseInformation />}
       {step===2 && <CourseBuilder/>}
-  {/* {step===3 && <Publish/>} */}
+  {step===3 && <Publish/>}
 
 </div>
 
