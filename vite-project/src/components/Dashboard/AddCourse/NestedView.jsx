@@ -24,8 +24,9 @@ console.log(course)
     setConfirmationModal(null)
   }
 
-  const handleDeleteSubSection = async (subSecId, secId) => {
-    const result = await deleteSubSection(subSecId, token)
+  const handleDeleteSubSection = async (courseId, subSecId, secId) => {
+    const result = await deleteSubSection(courseId, subSecId, token)
+    console.log(result)
     if (result) {
       dispatch(setCourse(result))
     }
@@ -96,7 +97,7 @@ console.log(course)
                           text2: "This lecture will be deleted",
                           btn1Text: "Delete",
                           btn2Text: "Cancel",
-                          btn1Handler: () => handleDeleteSubSection(subSec._id, section._id),
+                          btn1Handler: () => handleDeleteSubSection(course._id, subSec._id, section._id),
                           btn2Handler: () => setConfirmationModal(null),
                         })
                       }

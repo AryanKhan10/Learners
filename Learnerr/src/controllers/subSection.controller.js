@@ -1,3 +1,4 @@
+import { Course } from "../models/course.model.js";
 import { Section } from "../models/section.model.js";
 import { SubSection } from "../models/subSection.model.js";
 import fileUpload from "../utiles/uploadFile.js";
@@ -87,16 +88,22 @@ const updateSubSec = async (req,res) => {
 
 const deleteSubSec = async (req,res) => {
     try {
-        const {subSectionId} =  req.params;
+        const {subSectionId,courseId} =  req.body;
 
         //delete subsec
         await SubSection.findByIdAndDelete(subSectionId)
 
         //pull out subsec from section schema
-        await Section.updateOne({subSection:subSectionId},{$pull:{subSection:subSectionId}})
+        await Section.updateOne({subSection:subSectionId},{$pull:{subSection:subSectionId}},{new:true})
+        const course =await Course.findById(courseId)
+                            .populate({path:"courseContent",populate:{path:"subSection"}})
+                            .exec();
+
+        console.log("course ",course)
         res.status(200).json({
             success:true,
             message:"Sub Section deleted successfully.",
+            course
         })
     } catch (error) {
         res.status(500).json({
