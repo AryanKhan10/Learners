@@ -46,6 +46,7 @@ console.log(modalData)
 
   const handleEditSubmit = async () => {
     const currentData = getValues()
+    console.log(currentData)
     const formData = new FormData()
     formData.append("sectionId", modalData.sectionId)
     formData.append("subSectionId", modalData._id)
@@ -63,9 +64,10 @@ console.log(modalData)
     }
 
     setLoading(true)
+    console.log("updating")
     const result = await updateSubSec(formData, token)
     if (result) {
-        const updatedCourse = course.courseContent = course.courseContent.map(section => {
+        const subSection = course.courseContent.map(section => {
           return {
               ...section,
               subSection: section.subSection.map(sub => 
@@ -73,7 +75,7 @@ console.log(modalData)
               )
           };
       });
-      dispatch(setCourse(updatedCourse))
+      dispatch(setCourse({ ...course, courseContent: subSection }))
     }
     setModalData(null)
     setLoading(false)

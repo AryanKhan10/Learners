@@ -47,20 +47,27 @@ const createSubSec = async (req,res) => {
 const updateSubSec = async (req,res) => {
     try {
         const {title,description,timeDuration,subSectionId} = req.body;
-        const vedio = req.files.vedio;
-        // console.log(timeDuration, title, description, subSectionId, vedio)
-        if(!title || !timeDuration || !description || !vedio || !subSectionId){
-            return res.status(401).json({
-                success:false,
-                message:"All fields are required.",
-            })
+        const vedio = req.files?.video;
+        console.log(timeDuration, title, description, subSectionId, vedio)
+
+        //at least one field is provided
+        if (!title && !timeDuration && !description && !video) {
+            return res.status(400).json({
+                success: false,
+                message: "At least one field (title, description, timeDuration, or video) must be provided.",
+            });
         }
-        
-        const uploadDetails = await fileUpload(vedio, process.env.FOLDER)
+        console.log("ved ")
+        let uploadDetails;
+        if(vedio){
+            uploadDetails = await fileUpload(vedio, process.env.FOLDER)
+            console.log("vedio ",uploadDetails.secure_url)
+            
+        }
         // console.log("ved ")
         //update subsection
         const subsection = await SubSection.findByIdAndUpdate({_id:subSectionId},
-            {title,description,timeDuration,videoURL:uploadDetails.secure_url},
+            {title,description,timeDuration,videoURL:uploadDetails?.secure_url},
             {new:true})
             // console.log("ved ")
         res.status(200).json({
@@ -72,7 +79,7 @@ const updateSubSec = async (req,res) => {
         console.log(error)
         res.status(500).json({
             success:false,
-            message:"Something went wrong while creating section.",
+            message:"Something went wrong while updating sunSection.",
             error:error
         })
     }

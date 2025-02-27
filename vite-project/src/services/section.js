@@ -90,16 +90,17 @@ export async function deleteSection(sectionId,courseId, token) {
 }
 export async function updateSubSec(data, token) {
     try {
+        console.log(data)
         const response = await apiConnector("POST", sectionEndpoints.UPDATE_SUB_SECTION_API, data, 
             { authentication: `Bearer ${token}` });
             if(!response.data.success){
-                throw new Error("Couldn't Delete the section")
+                throw new Error("Couldn't update the subSection")
             }
-            toast.success("Section deleted!")
+            toast.success("SubSection Updated!")
             return response.data.subsection
     } catch (error) {
-        console.log("Couldn't Delete section",error)
-        toast.error("Section could not deleted!")
+        console.log("Couldn't update subSection",error)
+        toast.error("SubSection could not Updated!")
     }
     
 }
