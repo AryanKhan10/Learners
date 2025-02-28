@@ -53,7 +53,7 @@ function CourseInformation() {
       setNewThumbnailSelected(false);
     }
   };
-  
+
   useEffect(() => {
     fetchLinks();
     if (editCourse) {
@@ -95,7 +95,6 @@ function CourseInformation() {
       formData.append("courseId", course._id);
       if(course?.courseTitle !== current.courseTitle ){
       formData.append("courseTitle", data.courseTitle);
-      console("here")
       }
       if(course?.courseDescription !== current.courseDescription ){
       formData.append("courseDescription", data.courseDescription);
@@ -103,7 +102,7 @@ function CourseInformation() {
       if(course?.coursePrice !== current.coursePrice ){
       formData.append("price", data.coursePrice);
       }
-      // if(course?.courseThumbnail !== current.courseThumbnail ){
+      // if(course?.courseThumbnail !== current.courseThumbnail ){ this code executes if the thumbnail is changed or not
       // formData.append("thumbnail", data.courseThumbnail[0]);
       // }
       if (newThumbnailSelected && data.courseThumbnail && data.courseThumbnail.length > 0) {
@@ -123,7 +122,8 @@ function CourseInformation() {
       }
 
 
-      //TODO: update course pending
+
+      //TODO: update course pending A flag is needed to if there is any thing to update then api should be called
       setLoading(true);
      try {
       const res = await apiConnector("POST", coursesEndpoints.EDIT_COURSE_API,formData,{authentication:`Bearer ${token}`});

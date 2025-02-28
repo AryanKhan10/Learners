@@ -32,16 +32,23 @@ console.log(modalData)
       setValue("lectureDesc", modalData.description)
       setValue("lectureVideo", modalData.videoURL)
       setDuration(modalData.timeDuration)
+      // const currentData = getValues()
+      // console.log(modalData.title)
     }
   }, [view, edit, modalData, setValue])
 
   const isFormUpdated = () => {
     const currentData = getValues()
-    return (
+    console.log(currentData)
+    if (
       currentData.lectureTitle !== modalData.title ||
       currentData.lectureDesc !== modalData.description ||
-      currentData.lectureVideo !== modalData.videoUrl
-    )
+      currentData.lectureVideo !== modalData.videoURL
+    ) {
+      console.log(currentData.lectureTitle, modalData.title,modalData.description, currentData.lectureDesc, currentData.lectureVideo, modalData.videoUrl) 
+      return false
+    }
+    else return true
   }
 
   const handleEditSubmit = async () => {
@@ -85,9 +92,12 @@ console.log(modalData)
     console.log(data)
     if (view) return
     if (edit) {
-      if (!isFormUpdated()) {
+
+      if (isFormUpdated()) {
+
         toast.error("No changes made to the form")
       } else {
+        // console.log(!isFormUpdated())
         handleEditSubmit()
       }
       return
@@ -99,6 +109,7 @@ console.log(modalData)
     formData.append("video", data.lectureVideo)
     formData.append("timeDuration", duration)
     // console.log(video)
+
 
     setLoading(true)
     const result = await createSubSec(formData, token)
