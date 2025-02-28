@@ -14,6 +14,7 @@ function CourseInformation() {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
+  const [newThumbnailSelected, setNewThumbnailSelected] = useState(false);
   const [tags, setTags] = useState([]);
   const [instructions, setInstructions] = useState([]);
   const [tagInput, setTagInput] = useState("");
@@ -45,11 +46,14 @@ function CourseInformation() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setThumbnailPreview(reader.result);
+        setNewThumbnailSelected(true);
       };
       reader.readAsDataURL(file);
+    } else {
+      setNewThumbnailSelected(false);
     }
   };
-
+  
   useEffect(() => {
     fetchLinks();
     if (editCourse) {
@@ -63,8 +67,10 @@ function CourseInformation() {
       setValue("courseRequirement", course.instructions);
       setInstructions(course.instructions); // ensure UI updates accordingly
       setValue("courseThumbnail", course.thumbnail);
-      // console.log("course.thumbnail: ", course.thumbnail);
+      // const value =getValues();
+      // console.log("value: ", value);
       setThumbnailPreview(course.thumbnail);  
+      // console.log("course.thumbnail: ", course.thumbnail);
     }
   }, [editCourse]);
 
@@ -78,6 +84,7 @@ function CourseInformation() {
   const onSubmit = async (data) => {
     // console.log(data);
     const current = getValues();
+    console.log("current: ",current)
     const formData = new FormData();
     console.log("tags: ",data.courseTag)
     const parsedTags = data.courseTag.split(",");
@@ -85,8 +92,10 @@ function CourseInformation() {
     console.log("parsedTags: ",parsedTags)
 
     if(editCourse){
+      formData.append("courseId", course._id);
       if(course?.courseTitle !== current.courseTitle ){
       formData.append("courseTitle", data.courseTitle);
+      console("here")
       }
       if(course?.courseDescription !== current.courseDescription ){
       formData.append("courseDescription", data.courseDescription);
@@ -94,8 +103,11 @@ function CourseInformation() {
       if(course?.coursePrice !== current.coursePrice ){
       formData.append("price", data.coursePrice);
       }
-      if(course?.courseThumbnail !== current.courseThumbnail ){
-      formData.append("thumbnail", data.courseThumbnail[0]);
+      // if(course?.courseThumbnail !== current.courseThumbnail ){
+      // formData.append("thumbnail", data.courseThumbnail[0]);
+      // }
+      if (newThumbnailSelected && data.courseThumbnail && data.courseThumbnail.length > 0) {
+        formData.append("thumbnail", data.courseThumbnail[0])
       }
       if(course?.courseCategory !== current.courseCategory ){
       formData.append("category", data.courseCategory);
@@ -110,19 +122,20 @@ function CourseInformation() {
       formData.append("whatYouWillLearn", data.courseBenefits);
       }
 
+
       //TODO: update course pending
-    //   setLoading(true);
-    //  try {
-    //   const res = await apiConnector("POST", coursesEndpoints.EDIT_COURSE_API,formData,{authentication:`Bearer ${token}`});
-    //   console.log(res)
-    //   dispatch(setCourse(res.data.course));
-    //   dispatch(setStep(2))
-    //   toast.success("Course Created")
-    //  } catch (error) {
-    //   toast.error("Error creating course")
-    //   console.log("error creating course",error)
-    //  }
-    //   setLoading(false)
+      setLoading(true);
+     try {
+      const res = await apiConnector("POST", coursesEndpoints.EDIT_COURSE_API,formData,{authentication:`Bearer ${token}`});
+      console.log(res)
+      dispatch(setCourse(res.data.data));
+      dispatch(setStep(2))
+      toast.success("Course Updated successfully")
+     } catch (error) {
+      toast.error("Error Updating course")
+      console.log("error updating course",error)
+     }
+      setLoading(false)
     }
     else{
       
@@ -277,7 +290,7 @@ function CourseInformation() {
                     accept="image/*"
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     {...register("courseThumbnail", {
-                      required: "Thumbnail is required",
+                      required: editCourse ? false : "Thumbnail is required",
                     })}
                     onChange={handleThumbnailChange}
                   />

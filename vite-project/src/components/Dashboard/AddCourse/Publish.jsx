@@ -1,31 +1,58 @@
-import React from 'react'
-import Buttons from '../../Home/Buttons'
+import React, { useState } from "react";
+import Buttons from "../../Home/Buttons";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { setStep } from "../../../slices/course";
 
 function Publish() {
+  const dispatch = useDispatch();
+  const { course } = useSelector((state) => state.course);
+  const { token } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+
+  console.log(course);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm();
+  const goBack = () => {
+    dispatch(setStep(2));
+  };
+  const submit = () => {};
   return (
     <div className="w-full max-w-md p-6 rounded-lg bg-gray-800 text-white shadow-lg">
       <h2 className="text-xl font-semibold mb-4">Publish Settings</h2>
 
-      <div className="mb-6">
-        <label className="flex items-center space-x-2 cursor-pointer">
-          <input
-            type="checkbox"
-            // checked={isPublic}
-            // onChange={handleCheckboxChange}
-            className="h-4 w-4 rounded border-gray-600 text-yellow-500 focus:ring-yellow-500"
-          />
-          <span className="text-gray-400">Make this course as public</span>
-        </label>
-      </div>
+      <form onSubmit={handleSubmit(submit)}>
+        <div className="mb-6">
+          <label className="flex items-center space-x-2 cursor-pointer">
+            <input
+              type="checkbox"
+              // checked={isPublic}
+              // onChange={handleCheckboxChange}
+              {...register("isPublic")}
+              className="h-4 w-4 rounded border-gray-600 text-yellow-500 focus:ring-yellow-500"
+            />
+            <span className="text-gray-400">Make this course as public</span>
+          </label>
+        </div>
 
-      <div className="flex justify-end space-x-2">
-        <Buttons active={false} >
-          Back
-        </Buttons>
-        <Buttons active={true} >Save Changes</Buttons>
-      </div>
+        <div className="flex justify-end space-x-2">
+          <button onClick={goBack} type="submit" disabled={loading}
+            className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-all duration-200">
+            Back
+          </button>
+          <button disabled={loading}
+            className="bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition-all duration-200">
+            Save Changes
+          </button>
+        </div>
+      </form>
     </div>
-  )
+  );
 }
 
-export default Publish
+export default Publish;

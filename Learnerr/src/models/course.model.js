@@ -48,6 +48,10 @@ const courseSchema = new mongoose.Schema(
                 ref:"User"
             }
         ],
+        status:{
+            type: String,
+            default: "draft",
+            enum: ["draft", "published"]},
         courseContent: [
             {
                 type: mongoose.Schema.Types.ObjectId,

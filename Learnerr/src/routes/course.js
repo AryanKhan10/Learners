@@ -3,12 +3,13 @@ import { auth, isAdmin, isInstructor, isStudent } from "../middlewares/auth.midd
 import { createReview, getAvgReview, getAllRating} from "../controllers/ratingAndReview.js"
 import { createCategory, getAllCategory, categoryPageDetails } from "../controllers/category.controller.js";
 import { createSection, updateSection, deleteSection } from "../controllers/section.controller.js"
-import { createCourse, getCourseDetails, getAllCourses } from "../controllers/courses.controller.js"
+import { createCourse, getCourseDetails, getAllCourses, editCourse } from "../controllers/courses.controller.js"
 import { createSubSec, updateSubSec, deleteSubSec } from "../controllers/subSection.controller.js";
 const router = express.Router();
 
 router.post("/createCourse", auth, isInstructor, createCourse)
 router.post("/addSection", auth, isInstructor, createSection)
+router.post("/editCourse", auth, isInstructor, editCourse)
 router.post("/updateSection", auth, isInstructor, updateSection)
 router.delete("/deleteSection", auth, isInstructor, deleteSection)
 

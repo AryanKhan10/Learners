@@ -1,3 +1,4 @@
+import path from "path";
 import {Category} from "../models/category.model.js"
 import {Course} from "../models/course.model.js"
 import {User} from "../models/user.model.js"
@@ -142,5 +143,74 @@ const getAllCourses = async (req, res) => {
         })
     }
 }
+const editCourse = async (req, res) => {
+    try {
+        console.log("req.body ",req.body)
+        const {courseId} = req.body;
+        const updates = req.body 
+        console.log("updates ",updates)
+        const course = await Course.findById(courseId)
 
-export { createCourse, getCourseDetails, getAllCourses }
+        if(!course){
+            return res.status(404).json({
+                success: false,
+                message: "Course not found.",
+            })
+        }
+
+        console.log("req.files ",req.files)
+        if(req.files){
+            const thumbnail = req.files.thumbnail;
+            const image = await uploadFile(thumbnail, process.env.FOLDER)
+            course.thumbnail = image.secure_url
+        }
+
+        for (let key in updates) {
+            if(updates.hasOwnProperty(key)){
+                if(key === "tag" || key === "instructions"){
+                    course[key] = JSON.parse(updates[key])
+            }else{
+                course[key] = updates[key]
+            }
+
+        }
+    }
+        await course.save()
+
+        const updatedCourse = await Course.findById(courseId)
+            .populate({
+                path:"instructor",
+                populate:{
+                    path:"additionalDetails"
+                }
+            })
+            .populate("category")
+            .populate({
+                path:"courseContent",
+                populate:{
+                    path:"subSection"
+                }
+            })
+            .populate("ratingAndReview").exec();
+        console.log("updatedCourse ",updatedCourse)
+
+        res.status(200).json({
+            success: true,
+            message: "Course updated.",
+            data: updatedCourse
+        })
+
+
+
+    } 
+    catch (error) {
+        console.log("Error while updating course:", error)
+        res.status(500).json({
+            success: false,
+            message: "Error while updating course.",
+            error: error
+        })
+    }
+}
+
+export { createCourse, getCourseDetails, getAllCourses, editCourse }

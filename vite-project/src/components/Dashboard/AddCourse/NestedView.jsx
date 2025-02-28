@@ -10,7 +10,7 @@ function NestedView({ handleEditSectionName }) {
   const dispatch = useDispatch()
   const { course } = useSelector((state) => state.course)
   const { token } = useSelector((state) => state.auth)
-console.log(course)
+  console.log(course)
   const [addSubsection, setAddSubSection] = useState(null)
   const [view, setView] = useState(null)
   const [edit, setEdit] = useState(null)
