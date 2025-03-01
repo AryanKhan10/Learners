@@ -1,4 +1,3 @@
-import { setCourse } from "../slices/course";
 import apiConnector from "./apiConnector";
 import { sectionEndpoints } from "./apis";
 import toast from "react-hot-toast";

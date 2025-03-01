@@ -1,8 +1,7 @@
 import toast from "react-hot-toast";
 import apiConnector from "./apiConnector";
 import { coursesEndpoints, profileEndpoints } from "./apis";
-import { updateProfileInfo, updateProfilePic } from "../slices/profile";
-import { setLoading } from "../slices/auth";
+import { updateProfilePic } from "../slices/profile";
 
 export function updateProfile(profile, token, setLoading) {
   return async (dispatch) => {

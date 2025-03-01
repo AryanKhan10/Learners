@@ -158,7 +158,7 @@ const editCourse = async (req, res) => {
             })
         }
 
-        console.log("req.files ",req.files)
+        // console.log("req.files ",req.files)
         if(req.files){
             const thumbnail = req.files.thumbnail;
             const image = await uploadFile(thumbnail, process.env.FOLDER)
@@ -192,7 +192,7 @@ const editCourse = async (req, res) => {
                 }
             })
             .populate("ratingAndReview").exec();
-        console.log("updatedCourse ",updatedCourse)
+        // console.log("updatedCourse ",updatedCourse)
 
         res.status(200).json({
             success: true,

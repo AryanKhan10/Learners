@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Buttons from "../../Home/Buttons";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { resetCourseState, setStep } from "../../../slices/course";
+import apiConnector from "../../../services/apiConnector.js";
+import { coursesEndpoints } from "../../../services/apis.js";
 
+import toast from "react-hot-toast";
 function Publish() {
   const dispatch = useDispatch();
   const { course } = useSelector((state) => state.course);
@@ -34,7 +37,7 @@ function Publish() {
     // Navigate("/dashboard/my-courses");
   }
 
-  const handleCoursePublish = async (data) => {
+  const handleCoursePublish = async () => {
     if(course?.status === "published" && getValues("isPublic") === true ||
       course?.status !== "draft" && getValues("isPublic") === false) {
         // no updates made, so no need to update the course means if it was already draft/ published and user didn't change the status
@@ -42,9 +45,38 @@ function Publish() {
         goToCourses();
       return;
     }
+
     //update course status
+    console.log(getValues())
+    const courseStatus = getValues("isPublic") ? "published" : "draft";
+    console.log(courseStatus)
     const formData = new FormData();
-    formData.append("isPublic", data.isPublic);
+
+    formData.append("courseId", course._id);
+    formData.append("status", courseStatus);
+    setLoading(true);
+
+    try {
+      const res = await apiConnector("POST", coursesEndpoints.EDIT_COURSE_API,formData,{authentication:`Bearer ${token}`});
+      console.log(res)
+      dispatch(setStep(2))
+      if(res.data.data){
+        console.log("Course status updated successfully",res.data.data);
+        // goToCourses()
+      }
+      toast.success("Course Updated successfully")
+     } catch (error) {
+      toast.error("Error Updating course")
+      console.log("error updating course",error)
+     }
+      setLoading(false)
+      
+    // const result = await editCourse(formData, token);
+    // if(result){
+    //   console.log("Course status updated successfully",result);
+    //   // goToCourses()
+    // }
+    // setLoading(false);
   }
   const submit = () => {
     handleCoursePublish();
