@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Buttons from "../../Home/Buttons";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { setStep } from "../../../slices/course";
+import { resetCourseState, setStep } from "../../../slices/course";
 
 function Publish() {
   const dispatch = useDispatch();
@@ -18,10 +18,38 @@ function Publish() {
     getValues,
     formState: { errors },
   } = useForm();
+
   const goBack = () => {
     dispatch(setStep(2));
   };
-  const submit = () => {};
+
+  useEffect(() => { 
+    if(course?.status === "published") { // if course is already published and user is editing it
+      setValue("isPublic", true); 
+    }
+  }, [setValue, course]);
+
+  const goToCourses = () => {
+    dispatch(resetCourseState());
+    // Navigate("/dashboard/my-courses");
+  }
+
+  const handleCoursePublish = async (data) => {
+    if(course?.status === "published" && getValues("isPublic") === true ||
+      course?.status !== "draft" && getValues("isPublic") === false) {
+        // no updates made, so no need to update the course means if it was already draft/ published and user didn't change the status
+
+        goToCourses();
+      return;
+    }
+    //update course status
+    const formData = new FormData();
+    formData.append("isPublic", data.isPublic);
+  }
+  const submit = () => {
+    handleCoursePublish();
+  };
+
   return (
     <div className="w-full max-w-md p-6 rounded-lg bg-gray-800 text-white shadow-lg">
       <h2 className="text-xl font-semibold mb-4">Publish Settings</h2>
