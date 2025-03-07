@@ -292,4 +292,4 @@ const getFullCourse = async(req, res) => {
     }
 }
 
-export { createCourse, getCourseDetails, getAllCourses, editCourse, instructorCourses }
+export { createCourse, getCourseDetails, getAllCourses, editCourse, instructorCourses, getFullCourse}
