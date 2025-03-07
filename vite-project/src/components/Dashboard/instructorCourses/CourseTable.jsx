@@ -1,116 +1,126 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {Table, Tbody, Td, Th, Thead, Tr} from 'react-super-responsive-table'
-import { fetchInstructorCourse } from '../../../services/course';
-function CourseTable({courses, setCourse}) {
+import { Table, Tbody, Td, Th, Thead, Tr } from 'react-super-responsive-table'
+import { fetchInstructorCourse } from '../../../services/course'
+import { Pencil, Trash2 } from 'lucide-react'
 
-    const dispatch = useDispatch();
-    const {token} = useSelector( state=> state.auth);
-    const [loading, setloading] = useState(false);
+function CourseTable({ courses, setCourse }) {
+    const dispatch = useDispatch()
+    const { token } = useSelector(state => state.auth)
+    const [loading, setloading] = useState(false)
     const [confirmationModal, setConfirmationModal] = useState(null)
 
-
-    // console.log("Course ",courses)
-    const handleCourseDelete = async(courseId)=>{
+    const handleCourseDelete = async (courseId) => {
         setloading(true)
         await deleteCourse(token, courseId)
-        const result = await fetchInstructorCourse(token);
-        if(result){
+        const result = await fetchInstructorCourse(token)
+        if (result) {
             dispatch(setCourse(result))
         }
         setloading(false)
     }
-  return (
-    <div>
-      <div>
-       <Table>
-        <Thead>
-            <Tr>
-                <Th>
-                    Courses
-                </Th>
-                <Th>
-                    Duration
-                </Th>
-                <Th>
-                    Price
-                </Th>
-                <Th>
-                    Action
-                </Th>
-            </Tr>
-        </Thead>
-        <Tbody>
-            {
-                courses?.length === 0 ? (
-                    <Tr>
-                        <Td>
-                            No Courses Found
-                        </Td>
+
+    return (
+        <div className="overflow-x-auto">
+            <Table className="w-full">
+                <Thead>
+                    <Tr className="border-b border-white/10">
+                        <Th className="py-4 px-4 text-left text-sm font-semibold text-white/80">
+                            Courses
+                        </Th>
+                        <Th className="py-4 px-4 text-left text-sm font-semibold text-white/80">
+                            Duration
+                        </Th>
+                        <Th className="py-4 px-4 text-left text-sm font-semibold text-white/80">
+                            Price
+                        </Th>
+                        <Th className="py-4 px-4 text-left text-sm font-semibold text-white/80">
+                            Action
+                        </Th>
                     </Tr>
-                ): (
-                    courses?.map((course)=>
-
-                        <Tr key={course._id} className='flex gap-x-10 p-8 border-2 border-gray-500'>
-                            <Td className='flex gap-x-4'>
-                                <img src={course?.thumbnail} loading='lazy'
-                                    className='h-[150px] w-[220px] rounded-lg object-cover' 
-                                />
-                                <div className="">
-                                    <p>{course.courseTitle}</p>
-                                    <p>{course.courseDescription}</p>
-                                    <p>Created: </p>
-                                    {
-                                        course.status === "draft" ? (
-                                            <p>DRAFTED</p>
-                                        ):
-                                        ( <p>PUBLISHED</p> )
-                                    }
-                                </div>
-                            </Td>
-
-                            <Td>
-                                2h 30min
-                            </Td>
-                            <Td>
-                                ${course.price}
-                            </Td>
-                            <Td>
-                                <button
-                                    disabled={loading}
-                                    // onClick={()=>{navigate}}
-                                    >
-                                    Edit
-                                </button>
-                                <button
-                                    disabled={loading}
-                                    onClick={()=>{
-                                        setConfirmationModal({
-                                            text1:"Do you want to delete this course?",
-                                            text2:"All the data related to the course will be deleted",
-                                            btn1:"Delete",
-                                            btn2:"Cancel",
-                                            btn1Handler:!loading ? ()=>handleCourseDelete(course._id): ()=>{},
-                                            btn2Handler: !loading ? ()=>setConfirmationModal(null):()=>{}
-                                        })
-                                    }}
-                                    >
-                                    Delete
-                                </button>
+                </Thead>
+                <Tbody>
+                    {courses?.length === 0 ? (
+                        <Tr>
+                            <Td colSpan="4" className="py-8 text-center text-white/60">
+                                No Courses Found
                             </Td>
                         </Tr>
- 
-                    )
-                )
-            }
-        </Tbody>
-       </Table>
-       {
-        confirmationModal && <confirmationModal modalData = {confirmationModal}/>
-       }
-      </div>
-    </div>
-  )
+                    ) : (
+                        courses?.map((course) => (
+                            <Tr
+                                key={course._id}
+                                className="border-b border-white/10 hover:bg-white/5 transition-colors"
+                            >
+                                <Td className="py-6 px-4">
+                                    <div className="flex gap-4">
+                                        <img
+                                            src={course?.thumbnail}
+                                            loading="lazy"
+                                            className="h-[100px] w-[150px] rounded-lg object-cover"
+                                            alt={course.courseTitle}
+                                        />
+                                        <div className="flex flex-col gap-2">
+                                            <h3 className="text-lg font-semibold text-white">
+                                                {course.courseTitle}
+                                            </h3>
+                                            <p className="text-sm text-white/60 line-clamp-2">
+                                                {course.courseDescription}
+                                            </p>
+                                            <div className="flex items-center gap-2 mt-1">
+                                                <span className="text-xs text-white/40">
+                                                    Created: 
+                                                </span>
+                                                <span className={`px-2 py-1 text-xs rounded-full ${
+                                                    course.status === "draft"
+                                                        ? "bg-yellow-500/20 text-yellow-500"
+                                                        : "bg-green-500/20 text-green-500"
+                                                }`}>
+                                                    {course.status.toUpperCase()}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Td>
+                                <Td className="py-6 px-4 text-white/80">
+                                    2h 30min
+                                </Td>
+                                <Td className="py-6 px-4 text-white/80">
+                                    ${course.price}
+                                </Td>
+                                <Td className="py-6 px-4">
+                                    <div className="flex gap-2">
+                                        <button
+                                            disabled={loading}
+                                            className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                                        >
+                                            <Pencil className="w-5 h-5" />
+                                        </button>
+                                        <button
+                                            disabled={loading}
+                                            onClick={() => {
+                                                setConfirmationModal({
+                                                    text1: "Do you want to delete this course?",
+                                                    text2: "All the data related to the course will be deleted",
+                                                    btn1: "Delete",
+                                                    btn2: "Cancel",
+                                                    btn1Handler: !loading ? () => handleCourseDelete(course._id) : () => {},
+                                                    btn2Handler: !loading ? () => setConfirmationModal(null) : () => {}
+                                                })
+                                            }}
+                                            className="p-2 text-red-400 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
+                                        >
+                                            <Trash2 className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                </Td>
+                            </Tr>
+                        ))
+                    )}
+                </Tbody>
+            </Table>
+            {confirmationModal && <confirmationModal modalData={confirmationModal} />}
+        </div>
+    )
 }
-
-export default CourseTable
+export default CourseTable;
