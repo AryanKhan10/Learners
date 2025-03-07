@@ -3,6 +3,7 @@ import {Category} from "../models/category.model.js"
 import {Course} from "../models/course.model.js"
 import {User} from "../models/user.model.js"
 import uploadFile from "../utiles/uploadFile.js";
+import { CourseProgress } from "../models/courseProgress.model.js";
 
 const createCourse = async (req, res) => {
     try {
@@ -212,5 +213,83 @@ const editCourse = async (req, res) => {
         })
     }
 }
+const instructorCourses = async(req, res) =>{
+    try {
+        const instructorId = req.user.userId;
 
-export { createCourse, getCourseDetails, getAllCourses, editCourse }
+        const instructorCourses = await Course.findById({
+            instructor:instructorId
+        }).sort({createdAt:-1})
+
+        res.status(200).json({
+            success:true,
+            data:instructorCourses
+
+        })
+    } catch (error) {
+        res.status(500).json({
+            success:false,
+            message:"Failed to retrieve instructor courses",
+            error:error.message
+        })
+    }
+}
+const getFullCourse = async(req, res) => {
+    try {
+        const {courseId} = req.body
+        const userId =req.user.userId
+        const course = await Course.findOne(courseId)
+                                    .populate({
+                                        path:"instructor",
+                                        populate:{
+                                            path:"additionalDetails"
+                                        }
+                                    })
+                                    .populate("category")
+                                    .populate({
+                                        path:"courseContent",
+                                        populate:{
+                                            path:"subSection"
+                                        }
+                                    })
+                                    .populate("ratingAndReview").exec();
+        if(!course){
+            return res.status(201).json({
+                success: false,
+                message: `couldn't fetch course with id ${courseId}`
+            })
+        }
+        const courseProgress = await CourseProgress.findOne({
+            courseID:courseId, 
+            userId:userId
+        })
+        console.log("Course Progress ", courseProgress)
+
+        let totalDuration = 0;
+        course.courseContent.forEach( (section) => {
+            section.forEach( (subSec) => {
+                const timeDuration = parseInt(subSec.timeDuration)
+                totalDuration += timeDuration
+            })
+        })
+        const duration = convertSecondsToDuration(totalDuration);
+
+        res.status(200).json({
+            success: true,
+            data: {
+                course,
+                totalDuration:duration,
+                completedVedios: courseProgress?.completedVedios ? completedVedios :[]
+            }
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to get full course detail",
+            error: error.message
+        })
+    }
+}
+
+export { createCourse, getCourseDetails, getAllCourses, editCourse, instructorCourses }
