@@ -15,7 +15,7 @@ router.delete("/deleteSection", auth, isInstructor, deleteSection)
 
 router.post("/getCourseDetails", getCourseDetails)
 router.get("/getAllCourses", getAllCourses)
-router.get("/getInstructorCourses", instructorCourses)
+router.get("/getInstructorCourse",auth, instructorCourses)
 router.get("/getFullCourseDetails", getFullCourse)
 
 router.post("/addSubSection", auth, isInstructor, createSubSec)
