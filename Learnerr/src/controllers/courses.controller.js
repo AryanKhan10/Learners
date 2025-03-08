@@ -4,6 +4,8 @@ import {Course} from "../models/course.model.js"
 import {User} from "../models/user.model.js"
 import uploadFile from "../utiles/uploadFile.js";
 import { CourseProgress } from "../models/courseProgress.model.js";
+import { Section } from "../models/section.model.js";
+import { SubSection } from "../models/subSection.model.js";
 
 const createCourse = async (req, res) => {
     try {
@@ -293,5 +295,59 @@ const getFullCourse = async(req, res) => {
         })
     }
 }
+const deleteCourse = async(req, res) => {
+try {
+    const {courseId} = req.body;
+    const course = await Course.findById(courseId);
+    if(!course){
+        return res.status(404).json({
+            success:false,
+            message:"Course not found."
+        })
+    }
 
-export { createCourse, getCourseDetails, getAllCourses, editCourse, instructorCourses, getFullCourse}
+    //unEnroll students
+    const studentsEnrolled = course.studentsEnrolled;
+    studentsEnrolled.forEach( async (student) => {
+        const studentId = student._id;
+        await User.findByIdAndUpdate(studentId,
+            {$pull:{courses:courseId}}
+        )
+    })
+    //delete section and subsection
+    const courseSections = course.courseContent;
+    for (const sectionId of courseSections) {
+        //delete subsection
+        const section = await Section.findById(sectionId);
+
+        if(section){
+            const subSections = section.subSection;
+            for (const subSecId of subSections) {
+                await SubSection.findByIdAndDelete(subSecId);
+            }
+
+        }
+
+        // delete section
+        await Section.findByIdAndDelete(sectionId);
+    }
+
+    // delete course 
+    await Course.findByIdAndDelete(courseId);
+
+    res.status(200).json({
+        success:true,
+        message:"Course deleted successfully."
+    })
+
+} catch (error) {
+    console.log("Error while deleting Instructor's Course")
+    res.status(500).json({
+        success:false,
+        message:"Couldn't delete Course",
+        error:error
+    })
+}
+}
+
+export { createCourse, getCourseDetails, getAllCourses, editCourse, instructorCourses, getFullCourse, deleteCourse}

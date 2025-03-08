@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom'
 import { fetchInstructorCourse } from '../../services/course'
 import { Plus } from 'lucide-react'
 import CourseTable from './instructorCourses/CourseTable'
+import ConfirmationModal from '../ConfirmationModal'
 
 function MyCourses() {
     const { token } = useSelector(state => state.auth)
     const navigate = useNavigate()
     const [courses, setCourses] = useState([])
+    const [confirmationModal, setConfirmationModal] = useState(null)
+
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -35,9 +38,10 @@ function MyCourses() {
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-lg rounded-xl shadow-xl p-6">
-                    {courses && <CourseTable courses={courses} setCourses={setCourses} />}
+                    {courses && <CourseTable courses={courses} setCourses={setCourses} setConfirmationModal={setConfirmationModal} />}
                 </div>
             </div>
+            {confirmationModal && <ConfirmationModal data={confirmationModal} />}
         </div>
     )
 }

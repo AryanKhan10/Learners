@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Table, Tbody, Td, Th, Thead, Tr } from 'react-super-responsive-table'
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import { fetchInstructorCourse } from '../../../services/course'
 import { Pencil, Trash2 } from 'lucide-react'
-
-function CourseTable({ courses, setCourse }) {
+function CourseTable({ courses, setCourse, setConfirmationModal }) {
     const dispatch = useDispatch()
     const { token } = useSelector(state => state.auth)
     const [loading, setloading] = useState(false)
-    const [confirmationModal, setConfirmationModal] = useState(null)
 
     const handleCourseDelete = async (courseId) => {
         setloading(true)
@@ -102,8 +101,8 @@ function CourseTable({ courses, setCourse }) {
                                                 setConfirmationModal({
                                                     text1: "Do you want to delete this course?",
                                                     text2: "All the data related to the course will be deleted",
-                                                    btn1: "Delete",
-                                                    btn2: "Cancel",
+                                                    btn1Text: "Delete",
+                                                    btn2Text: "Cancel",
                                                     btn1Handler: !loading ? () => handleCourseDelete(course._id) : () => {},
                                                     btn2Handler: !loading ? () => setConfirmationModal(null) : () => {}
                                                 })
@@ -119,7 +118,6 @@ function CourseTable({ courses, setCourse }) {
                     )}
                 </Tbody>
             </Table>
-            {confirmationModal && <confirmationModal modalData={confirmationModal} />}
         </div>
     )
 }

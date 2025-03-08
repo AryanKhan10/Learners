@@ -1,7 +1,8 @@
 import React from 'react'
-import Buttons from './Home/Buttons';
 import ModalBtn from './ModalBtn';
 function ConfirmationModal({data}) {
+
+
   return (
     <div className="h-screen fixed left-0 top-0 z-50 w-full bg-black/10 backdrop-blur-md flex justify-center items-center">
   <div className="flex flex-col px-12 py-8 gap-4 border-[.4px] border-gray-800 bg-[#0e172f] rounded-xl">
