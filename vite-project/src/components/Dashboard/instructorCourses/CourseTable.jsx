@@ -4,19 +4,21 @@ import { Table, Tbody, Td, Th, Thead, Tr } from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import { fetchInstructorCourse } from '../../../services/course'
 import { Pencil, Trash2 } from 'lucide-react'
-function CourseTable({ courses, setCourse, setConfirmationModal }) {
+import { deleteCourse } from '../../../services/course'
+function CourseTable({ courses, setCourses, setConfirmationModal }) {
     const dispatch = useDispatch()
     const { token } = useSelector(state => state.auth)
     const [loading, setloading] = useState(false)
 
     const handleCourseDelete = async (courseId) => {
         setloading(true)
-        await deleteCourse(token, courseId)
+        await deleteCourse(courseId, token)
         const result = await fetchInstructorCourse(token)
         if (result) {
-            dispatch(setCourse(result))
+            setCourses(result)
         }
         setloading(false)
+        setConfirmationModal(null)
     }
 
     return (

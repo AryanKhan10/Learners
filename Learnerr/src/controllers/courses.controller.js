@@ -217,7 +217,7 @@ const editCourse = async (req, res) => {
 }
 const instructorCourses = async(req, res) =>{
     try {
-        console.log(req.user)
+        // console.log(req.user)
         const instructorId = req.user.userId;
 
         const instructorCourses = await Course.find({
@@ -297,7 +297,8 @@ const getFullCourse = async(req, res) => {
 }
 const deleteCourse = async(req, res) => {
 try {
-    const {courseId} = req.body;
+    // const {courseId} = req.body;
+    console.log("courseId ",courseId)
     const course = await Course.findById(courseId);
     if(!course){
         return res.status(404).json({
@@ -318,6 +319,7 @@ try {
     const courseSections = course.courseContent;
     for (const sectionId of courseSections) {
         //delete subsection
+        console.log(sectionId)
         const section = await Section.findById(sectionId);
 
         if(section){

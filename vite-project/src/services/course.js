@@ -20,7 +20,14 @@ export async function fetchInstructorCourse (token) {
 }
 export async function deleteCourse (courseId,token) {
     try {
-        
+        const response = await apiConnector("DELETE", coursesEndpoints.DELETE_COURSE_API, { courseId },
+            { Authentication: `Bearer ${token}` })
+            console.log(response)
+        if (!response.data.success) {
+            throw new Error(response.data.message)
+        }
+        toast.success("Course Deleted!")
+        return true;
     } catch (error) {
         console.log("Error while deleting Instructor's Course")
         toast.error("Couldn't delete Course")
