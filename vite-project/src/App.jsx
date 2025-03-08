@@ -20,6 +20,7 @@ import Cart from "./components/Dashboard/Cart/Cart";
 import AddCourse from "./components/Dashboard/AddCourse/AddCourse";
 import { useSelector } from "react-redux";
 import MyCourses from "./components/Dashboard/MyCourses";
+import EditCourse from "./components/Dashboard/EditCourse/EditCourse";
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
                   <>
                     <Route path="add-course" element={<AddCourse />} />
                     <Route path="my-courses" element={<MyCourses/>} />
+                    <Route path="edit-course/:courseId" element={<EditCourse/>} />
                   </>
 
             }

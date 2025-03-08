@@ -240,9 +240,10 @@ const instructorCourses = async(req, res) =>{
 }
 const getFullCourse = async(req, res) => {
     try {
+        // console.log(req)
         const {courseId} = req.body
         const userId =req.user.userId
-        const course = await Course.findOne(courseId)
+        const course = await Course.findOne({_id:courseId})
                                     .populate({
                                         path:"instructor",
                                         populate:{
@@ -276,6 +277,14 @@ const getFullCourse = async(req, res) => {
                 totalDuration += timeDuration
             })
         })
+        function convertSecondsToDuration(totalSeconds) {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+        
+            return `${hours}h ${minutes}m ${seconds}s`;
+        }
+        
         const duration = convertSecondsToDuration(totalDuration);
 
         res.status(200).json({

@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { Table, Tbody, Td, Th, Thead, Tr } from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import { fetchInstructorCourse } from '../../../services/course'
 import { Pencil, Trash2 } from 'lucide-react'
 import { deleteCourse } from '../../../services/course'
 function CourseTable({ courses, setCourses, setConfirmationModal }) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const { token } = useSelector(state => state.auth)
     const [loading, setloading] = useState(false)
 
@@ -92,8 +94,11 @@ function CourseTable({ courses, setCourses, setConfirmationModal }) {
                                 <Td className="py-6 px-4">
                                     <div className="flex gap-2">
                                         <button
+                                            onClick={()=>{
+                                                navigate(`/dashboard/edit-course/${course._id}`)
+                                            }}
                                             disabled={loading}
-                                            className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                                            className="p-2 text-white/60 hover:text-blue-500 rounded-lg transition-colors"
                                         >
                                             <Pencil className="w-5 h-5" />
                                         </button>
