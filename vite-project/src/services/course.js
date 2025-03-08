@@ -11,7 +11,7 @@ export async function fetchInstructorCourse (token) {
         if(!res.data.success){
             throw new Error(res.data.message)
         }
-        toast.success("Instructor courses fetched!")
+        // toast.success("Instructor courses fetched!")
          return res.data.data
     } catch (error) {
         console.log("Error while fetching Instructor Courses",error)
@@ -19,6 +19,7 @@ export async function fetchInstructorCourse (token) {
     }
 }
 export async function deleteCourse (courseId,token) {
+    const toastId = toast.loading("Deleting Course...")
     try {
         const response = await apiConnector("DELETE", coursesEndpoints.DELETE_COURSE_API, { courseId },
             { Authentication: `Bearer ${token}` })
@@ -27,6 +28,7 @@ export async function deleteCourse (courseId,token) {
             throw new Error(response.data.message)
         }
         toast.success("Course Deleted!")
+        toast.remove(toastId)
         return true;
     } catch (error) {
         console.log("Error while deleting Instructor's Course")
