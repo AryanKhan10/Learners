@@ -24,8 +24,8 @@ function MyCourses() {
     }, [])
 
     return (
-        <div className="p-6 md:p-8 lg:p-10">
-            <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl p-6 md:p-8 lg:p-10">
+            <div className=" mx-auto">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold text-white">My Courses</h1>
                     <button 
@@ -37,7 +37,7 @@ function MyCourses() {
                     </button>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-lg rounded-xl shadow-xl p-6">
+                <div className=" rounded-xl shadow-xl p-6">
                     {courses && <CourseTable courses={courses} setCourses={setCourses} setConfirmationModal={setConfirmationModal} />}
                 </div>
             </div>
