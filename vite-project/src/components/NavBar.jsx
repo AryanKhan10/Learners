@@ -95,7 +95,7 @@ function NavBar() {
                         return (
                           <Link
                             key={index}
-                            to={`/categories/${element.name}`}
+                            to={`/categories/${element.name.split(" ").join("-").toLowerCase()}`}
                             className="text-sm text-black hover:text-purple-600 transition-all duration-200"
                             onClick={() => setIsMenuOpen(false)}
                           >
