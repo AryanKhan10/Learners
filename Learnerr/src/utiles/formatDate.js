@@ -11,5 +11,5 @@ export const formateDate = (dateString) => {
     const period = hour>=12 ? "PM" :"AM";
     const formateTime = `${hour % 12}:${minutes.toString().padStart(2, "0")} ${period}`;
 
-    return `${formateDate} | ${formateDate}`;
+    return `${formatedDate} | ${formateTime}`;
 }
