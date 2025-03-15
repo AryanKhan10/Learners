@@ -21,6 +21,7 @@ import AddCourse from "./components/Dashboard/AddCourse/AddCourse";
 import { useSelector } from "react-redux";
 import MyCourses from "./components/Dashboard/MyCourses";
 import EditCourse from "./components/Dashboard/EditCourse/EditCourse";
+import Catalog from "./pages/Catalog";
 
 function App() {
 
@@ -39,6 +40,8 @@ function App() {
         <Route path="/reset-password/:id" element={<UpdatePassword />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/catalog/:catalogName" element={<Catalog />} />
+
 
           <Route path="/dashboard" element={
             <ProtectedRoute>

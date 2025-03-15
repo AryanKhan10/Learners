@@ -18,6 +18,10 @@ export const profileEndpoints = {
     UPDATEPERSONALINFO_API: `${BASE_URL}/profile/updateProfile`,
 
 };
+export const catalogEndpoints = {
+    GET_CATALOG_DETAIL_API: `${BASE_URL}/course/getCategoryPageDetails`,
+
+};
 export const coursesEndpoints = {
     GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/profile/getUserData`,
     CREATE_COURSE_API: `${BASE_URL}/course/createCourse`,
