@@ -90,7 +90,7 @@ function NavBar() {
                     invisible group-hover:visible group-hover:opacity-100 flex flex-col items-center gap-2 z-10 py-2"
                   >
                     <div className="w-6 h-6 bg-white absolute left-[62%] rotate-45 -translate-y-[50%]"></div>
-                    {catalogLinks.length ? (
+                    {catalogLinks?.length ? (
                       catalogLinks.map((element, index) => {
                         return (
                           <Link

@@ -1,6 +1,5 @@
-import { randomInt } from "crypto";
 import {Category} from "../models/category.model.js"
-
+import { Course } from "../models/course.model.js";
 const createCategory = async (req, res) => {
     try {
         const {name, description} = req.body;
@@ -49,16 +48,18 @@ const getAllCategory = async (req, res) => {
 const categoryPageDetails = async (req, res) => { 
     try { 
             //get categoryId 
+            console.log("categoryId",req.body)
             const {categoryId} = req.body; 
 
             //get courses for specified categoryId 
             const selectedCategory = await Category.findById(categoryId)
                                     .populate({
-                                        path:"course",
-                                        match:{state: "Publish"},
+                                        path:"courses",
+                                        match:{status: "published"},
                                         populate:"ratingAndReview"
                                     }) .exec();
-           
+           console.log("selectedCategory", selectedCategory)
+        //    console.log("selectedCategory", !selectedCategory)
 
             //validation 
             if(!selectedCategory) { 
@@ -69,7 +70,7 @@ const categoryPageDetails = async (req, res) => {
             } 
 
             if(selectedCategory.courses.length === 0){
-                res.status(401).json({
+               return res.status(401).json({
                     success:false,
                     message:"No course found for the selected category"
                 })
@@ -77,21 +78,22 @@ const categoryPageDetails = async (req, res) => {
 
             //get courses for different categories 
             const categoriesExempt = await Category.find({ _id: {$ne: categoryId} });
-
+            function getRandomInt(max) {
+                return Math.floor(Math.random() * max);
+            }
+            
             const differentCategories= await Category.findOne( categoriesExempt[getRandomInt(categoriesExempt.length)]._id )
-                                                    .populate({
-                                                        path:"course",
-                                                        match:{state: "Publish"},
-                                                    }) .exec();
-                                                    
+                                    .populate({path:"courses",match: {status: "published"}}).exec();
+                                                   console.log(differentCategories) 
             //get top selling courses //HW - write it on your own
             const allCategory= await Category.find()
                                         .populate({
-                                            path:"course",
-                                            match:{state: "Publish"},
+                                            path:"courses",
+                                            match:{status: "published"},
                                         }) .exec();
 
             const allCourses = allCategory.flatMap((category) => category.courses);
+            console.log("allCourses", allCourses)
             const mostSellingCourse = allCourses.sort((a,b) => b.sold - a.sold).slice(0,10)
 
             
