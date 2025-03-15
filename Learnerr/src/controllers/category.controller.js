@@ -56,7 +56,12 @@ const categoryPageDetails = async (req, res) => {
                                     .populate({
                                         path:"courses",
                                         match:{status: "published"},
-                                        populate:"ratingAndReview"
+                                        populate:"ratingAndReview",
+                                        populate:{
+                                            path:"instructor",
+                                            populate:"additionalDetails"
+                                        }
+
                                     }) .exec();
            console.log("selectedCategory", selectedCategory)
         //    console.log("selectedCategory", !selectedCategory)
@@ -83,13 +88,24 @@ const categoryPageDetails = async (req, res) => {
             }
             
             const differentCategories= await Category.findOne( categoriesExempt[getRandomInt(categoriesExempt.length)]._id )
-                                    .populate({path:"courses",match: {status: "published"}}).exec();
+                                    .populate({path:"courses",
+                                               match: {status: "published"},
+                                               populate:{
+                                                path:"instructor",
+                                                populate:"additionalDetails"
+                                            }
+                                            
+                                            }).exec();
                                                    console.log(differentCategories) 
             //get top selling courses //HW - write it on your own
             const allCategory= await Category.find()
                                         .populate({
                                             path:"courses",
                                             match:{status: "published"},
+                                            populate:{
+                                                path:"instructor",
+                                                populate:"additionalDetails"
+                                            }
                                         }) .exec();
 
             const allCourses = allCategory.flatMap((category) => category.courses);
