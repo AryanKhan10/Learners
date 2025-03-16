@@ -87,16 +87,16 @@ function NavBar() {
                   </p>
                   <div
                     className="w-[140px] bg-white rounded-lg absolute left-1/2 lg:left-[-40%] -translate-x-1/2 lg:translate-x-0 translate-y-[7%]
-                    invisible group-hover:visible group-hover:opacity-100 flex flex-col items-center gap-2 z-10 py-2"
+                     invisible group-hover:visible group-hover:opacity-100 flex flex-col z-[1000] "
                   >
-                    <div className="w-6 h-6 bg-white absolute left-[62%] rotate-45 -translate-y-[50%]"></div>
+                    <div className="w-6 h-6 bg-white absolute left-[62%] rotate-45 -translate-y-[50%] z-[-1000]"></div>
                     {catalogLinks?.length ? (
                       catalogLinks.map((element, index) => {
                         return (
                           <Link
                             key={index}
                             to={`/catalog/${element.name.split(" ").join("-").toLowerCase()}`}
-                            className="text-sm text-black hover:text-purple-600 transition-all duration-200"
+                            className="text-sm text-black hover:bg-slate-300 px-4 py-3 rounded-lg"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {element.name}
