@@ -38,7 +38,7 @@ function Course_Card({course, key, Height, SliderHeight, Width}) {
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-lg font-bold text-cyan-400">${course?.price}</p>
-                <span className="rounded-full bg-cyan-900/50 px-3 py-1 text-xs font-medium text-cyan-300 ring-1 ring-cyan-700/50 transition-colors duration-300 group-hover:bg-cyan-800/50 group-hover:text-cyan-200 group-hover:ring-cyan-500/50">
+                <span className="rounded-full px-3 py-1 text-xs font-medium text-cyan-300 ring-1 ring-cyan-700/50 transition-colors duration-300 group-hover:bg-cyan-800/50 group-hover:text-cyan-200 group-hover:ring-cyan-500/50">
                   Enroll Now
                 </span>
               </div>
