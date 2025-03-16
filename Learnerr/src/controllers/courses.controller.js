@@ -381,24 +381,21 @@ const buyCourse = async (req, res) => {
         }
 
         const user = course.studentsEnrolled.includes(userId);
-        if(!user){
+        console.log(user)
+        if(user){
             return res.status(404).json({
                 success: false,
                 message: "User already enrolled"
             })
         }
-        const updatedCourse = await Course.findOneAndUpdate({
-            _id:courseId,
-            $push:{studentsEnrolled:userId},
-            new:true
-        }).populate("studentsEnrolled")
+        const updatedCourse = await Course.findOneAndUpdate(
+            {_id:courseId},
+            {$push:{studentsEnrolled:userId}},{new:true}).populate("studentsEnrolled")
         console.log(updatedCourse)
 
-        const newUser = await User.findByIdAndUpdate({
-            _id:userId,
-            $push:{courses: courseId},
-            new:true
-        })
+        const newUser = await User.findByIdAndUpdate(
+            {_id:userId},
+            {$push:{courses: courseId}},{new:true})
 
         
         const info = await mailSender(email, 'Enrolledment Mail', `Congratulations! You have enrolled yourself in ${updatedCourse?.courseTitle}`)
@@ -416,6 +413,30 @@ const buyCourse = async (req, res) => {
         })
     }
 };
+const getEnrolledCourses = async (req, res)=>{
+    try {
+        const userId = req.user.userId;
+        const enrolledCourses = await Course.find({studentsEnrolled: {$in: userId}})
+        if(!enrolledCourses){
+            return res.status(404).json({
+                success: false,
+                message:"User has not been enrolled in any of the course"
+            })
+        }
+
+        res.status(200).json({
+            success:true,
+            message:"Fetched all enrolled courses",
+            data: enrolledCourses
+        })
+    } catch (error) {
+        res.status(500).json({
+            success:false,
+            message:"Something went wrong while fetching enrolled courses",
+            error:error.message
+        })
+    }
+}
 export {
   createCourse,
   getCourseDetails,

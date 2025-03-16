@@ -74,7 +74,7 @@ const CoursePage = () => {
           </div>
 
           {/* Course card - right side (1/3 width on large screens) */}
-          <BuyCard course={course}/>
+          <BuyCard Course={course}/>
         </div>
       </div>
     </div>
