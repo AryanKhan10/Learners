@@ -13,7 +13,7 @@ function Course_Card({course, key, Height, SliderHeight, Width}) {
 
   return (
     <div key={key} className={`${Width ? Width : 'max-w-lg'} ${SliderHeight} group h-full w-full  transition-all duration-300 hover:translate-y-[-8px]`}>
-      <Link href={`/course/${course._id}`} className="flex h-full">
+      <Link to={`/course/${course._id}`} className="flex h-full">
         <div className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-sky-700/30 bg-sky-950/40 backdrop-blur-sm transition-all duration-300 hover:border-sky-500/50 hover:shadow-[0_0_15px_rgba(56,189,248,0.15)]">
           <div className="relative">
             <img
