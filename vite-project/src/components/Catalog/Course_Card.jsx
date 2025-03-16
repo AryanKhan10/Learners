@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import RatingStars from '../RatingStars'
 import GetAvgRating from '../../utils/avgRating';
-function Course_Card({course, key, Height}) {
+function Course_Card({course, key, Height, SliderHeight, Width}) {
 
     const [avgReviewCount, setAvgReviewCount] = useState(0);
     console.log(course.instructor)
@@ -12,7 +12,7 @@ function Course_Card({course, key, Height}) {
     }, [course])
 
   return (
-    <div key={key} className="group h-full w-full max-w-sm transition-all duration-300 hover:translate-y-[-8px]">
+    <div key={key} className={`${Width ? Width : 'max-w-lg'} ${SliderHeight} group h-full w-full  transition-all duration-300 hover:translate-y-[-8px]`}>
       <Link href={`/course/${course._id}`} className="flex h-full">
         <div className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-sky-700/30 bg-sky-950/40 backdrop-blur-sm transition-all duration-300 hover:border-sky-500/50 hover:shadow-[0_0_15px_rgba(56,189,248,0.15)]">
           <div className="relative">
@@ -25,7 +25,7 @@ function Course_Card({course, key, Height}) {
           </div>
           <div className="flex flex-1 flex-col p-4">
             <div className="flex-1">
-              <p className="mb-1 line-clamp-2 min-h-[3.5rem] text-lg font-bold text-white">{course?.name}</p>
+              <p className=" line-clamp-2 min-h-[2.5rem] text-lg font-bold text-white">{course?.courseTitle}</p>
               <p className="mb-2 line-clamp-1 text-sm font-medium text-sky-200/80">
                 {course?.instructor?.firstName} {course?.instructor?.lastName}
               </p>

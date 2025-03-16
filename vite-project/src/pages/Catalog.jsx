@@ -41,8 +41,8 @@ console.log(catalogPageData)
   return (
     <div className="min-h-screen bg-gradient-to-b text-white">
       {/* Breadcrumb and Category Header */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-12 rounded-2xl bg-blue-900/40 p-8 backdrop-blur-sm">
+      <div className="container mx-auto pl-4 pe-8 py-8">
+        <div className="mb-12 rounded-2xl p-8 backdrop-blur-sm">
           <p className="mb-4 text-sm font-medium text-sky-300/70">
             <span className="hover:text-sky-300 cursor-pointer transition-colors">Home</span>
             {" / "}
@@ -58,7 +58,7 @@ console.log(catalogPageData)
 
         <div className="space-y-16">
           {/* Section 1: Courses to get you started */}
-          <div className="rounded-xl border border-sky-700/30 bg-sky-950/40 p-6 backdrop-blur-sm">
+          <div className="rounded-xl border border-sky-700/30 p-6 backdrop-blur-sm">
             <div className="mb-6 flex flex-col gap-x-3">
               <div className="mb-4 text-xl font-bold text-white md:text-2xl">Courses to get you started</div>
               <div className="flex border-b border-sky-800/50">
@@ -81,12 +81,12 @@ console.log(catalogPageData)
               </div>
             </div>
             <div className="py-4">
-              <CourseSlider courses={catalogPageData?.data?.selectedCategory?.courses} />
+              <CourseSlider courses={catalogPageData?.data?.mostSellingCourse} />
             </div>
           </div>
 
           {/* Section 2: Top Courses */}
-          <div className="rounded-xl border border-sky-700/30 bg-sky-950/40 p-6 backdrop-blur-sm">
+          <div className="rounded-xl border border-sky-700/30 p-6 backdrop-blur-sm">
             <p className="mb-6 text-xl font-bold text-white md:text-2xl">
               Top Courses in {catalogPageData?.data?.selectedCategory?.name}
             </p>
@@ -96,7 +96,7 @@ console.log(catalogPageData)
           </div>
 
           {/* Section 3: Frequently Bought */}
-          <div className="rounded-xl border border-sky-700/30 bg-sky-950/40 p-6 backdrop-blur-sm">
+          <div className="rounded-xl border border-sky-700/30 p-6 backdrop-blur-sm">
             <p className="mb-6 text-xl font-bold text-white md:text-2xl">Frequently Bought</p>
             <div className="py-4">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 place-content-center place-items-center">
