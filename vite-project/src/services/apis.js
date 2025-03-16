@@ -29,6 +29,7 @@ export const coursesEndpoints = {
     GET_INSTRUCTORE_COURSE_API: `${BASE_URL}/course/getInstructorCourse`,
     GET_FULL_COURSE_API: `${BASE_URL}/course/getFullCourseDetails`,
     DELETE_COURSE_API: `${BASE_URL}/course/deleteCourse`,
+    GET_COURSE_API: `${BASE_URL}/course/getCourseDetails`,
     // UPDATEPERSONALINFO_API: `${BASE_URL}/profile/updateProfile`,
 
 };

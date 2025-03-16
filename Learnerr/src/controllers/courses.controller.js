@@ -116,7 +116,7 @@ const getCourseDetails = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Course found.",
-            Data: courseDetaills
+            data: courseDetaills
         })
 
         
