@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import {CheckIcon, ShareIcon, Table } from "lucide-react"
 import apiConnector from '../../services/apiConnector'
 import { coursesEndpoints } from '../../services/apis'
@@ -6,15 +6,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { setCourse } from '../../slices/course'
+import { setEnrolled } from '../../slices/Enrolled'
 
 function BuyCard({Course}) {
 
+    // console.log(Course?._id)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {token} = useSelector(state=>state.auth)
+    const {profile} = useSelector(state=>state.profile)
     const {course} = useSelector(state=>state.course)
+    const {enrolledCourses} = useSelector(state => state.enrolled)
     const [enroll, setEnroll] = useState(false)
-    const [enrolledCourse, setEnrolledCourse] = useState(null)
+    // const [enrolledCourse, setEnrolledCourse] = useState(null)
 
     const buyCourse = async(courseId)=>{
         const toastId = toast.loading("loading...")
@@ -25,7 +29,7 @@ function BuyCard({Course}) {
             //   console.log(res.data.success)
     
             if(res.data.success){
-                setEnrolledCourse(res.data.data)
+                // setEnrolledCourse(res.data.data)
                 dispatch(setCourse(res.data.data))
                 setEnroll(true)                
                 toast.success(`Enrolled in ${Course.courseTitle}`)
@@ -36,8 +40,39 @@ function BuyCard({Course}) {
         }
         toast.dismiss(toastId)
     }
-    console.log(enrolledCourse)
-    console.log(course)
+    useEffect(()=>{
+        const getEnrolledCourses = async()=>{
+            try {
+                const res = await apiConnector("GET", coursesEndpoints.GET_ENROLLED_COURSE_API, null, {authentication: `Bearer ${token}`});
+                // console.log(res.data.data)
+                if(res.data.success){
+                    dispatch(setEnrolled(res.data.data))
+
+                    console.log(enrolledCourses)
+                    // const check = enrolledCourses.map((course)=>{
+                    //     course.studentsEnrolled.map((cid)=> {
+                    //         console.log(Course._id)
+                    //         cid=== profile?._id
+                    //     })
+                    // })
+                    enrolledCourses.map((course)=>{
+                        console.log(course._id, Course._id)
+                        course?._id===Course._id ? setEnroll(true) : null })
+                    // if(check){
+                    //     console.log("IN if")
+                    //     setEnroll(true)
+                    // }
+                    
+                }
+                // if(enrolledCourse.)
+            } catch (error) {
+                console.log("Error while fetching enrolled course", error)
+            }
+        }
+        getEnrolledCourses()
+    },[course])
+    // console.log(enrolledCourse)
+    console.log(Course)
   return (
     <div className="lg:col-span-1">
             <div className="bg-[#1a1f2c] rounded-lg overflow-hidden shadow-lg">

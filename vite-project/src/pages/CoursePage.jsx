@@ -29,7 +29,7 @@ const CoursePage = () => {
     useEffect(() => {
         if (course?.ratingAndReview) {
           setAvgReviewCount(GetAvgRating(course.ratingAndReview));
-          console.log(avgReviewCount)
+        //   console.log(avgReviewCount)
         }
         if(course?.createdAt){
             setDate(formateDate(course.createdAt))
@@ -74,7 +74,7 @@ const CoursePage = () => {
           </div>
 
           {/* Course card - right side (1/3 width on large screens) */}
-          <BuyCard Course={course}/>
+          {course && <BuyCard Course={course} />}
         </div>
       </div>
     </div>

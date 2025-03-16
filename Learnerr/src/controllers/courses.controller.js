@@ -446,4 +446,5 @@ export {
   getFullCourse,
   deleteCourse,
   buyCourse,
+  getEnrolledCourses
 };
