@@ -41,7 +41,7 @@ console.log(catalogPageData)
     if (categoryId) {
       getCatelogoryDetails()
     }
-  }, [])
+  }, [categoryId])
 
   return (
     <div className="min-h-screen bg-gradient-to-b text-white">
