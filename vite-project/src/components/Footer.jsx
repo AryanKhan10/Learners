@@ -11,7 +11,7 @@ import { Facebook, Twitter, Youtube, Instagram } from "lucide-react"
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center mb-4">
    
-              <span className="text-white font-semibold">StudyNotion</span>
+              <span className="text-white font-semibold">Learner</span>
             </Link>
             <div className="flex space-x-4 mt-4">
               <Link href="#" className="hover:text-white">
@@ -332,7 +332,7 @@ import { Facebook, Twitter, Youtube, Instagram } from "lucide-react"
               Terms
             </Link>
           </div>
-          <div className="text-sm">Made with ❤️ CodeHelp © 2023 StudyNotion</div>
+          <div className="text-sm pe-4">copyrights © 2025 Learner</div>
         </div>
       </div>
     </footer>
