@@ -5,6 +5,8 @@ const initialState = {
     editCourse: false,
     step:1,
 
+    catalogPageData:null
+
 }
 
 const courseSlice = createSlice({
@@ -18,6 +20,9 @@ const courseSlice = createSlice({
         setCourse(state, action){
              state.course = action.payload;
         },
+        setCatalogPageData(state, action){
+             state.catalogPageData = action.payload;
+        },
         setEditCourse(state, action){
              state.editCourse = action.payload;
         },
@@ -29,5 +34,5 @@ const courseSlice = createSlice({
         
     } 
 })
-export const {setStep, setCourse, setEditCourse, resetCourseState} = courseSlice.actions;
+export const {setStep, setCourse, setEditCourse, resetCourseState,setCatalogPageData} = courseSlice.actions;
 export default courseSlice.reducer

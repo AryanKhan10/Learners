@@ -6,10 +6,14 @@ import { categories } from "../services/apis"
 import { getCatalogPageDetail } from "../services/catalog"
 import Course_Card from "../components/Catalog/Course_Card"
 import CourseSlider from "../components/Catalog/CourseSlider"
+import { useDispatch, useSelector } from "react-redux"
+import { setCatalogPageData } from "../slices/course"
 
 function Catalog() {
   const { catalogName } = useParams()
-  const [catalogPageData, setCatalogPageData] = useState(null)
+  const dispatch = useDispatch()
+  const {catalogPageData} = useSelector( state=> state.course)
+  // const [catalogPageData, setCatalogPageData] = useState(null)
   const [categoryId, setCategoryId] = useState(null)
   const [active, setActive] = useState(false)
 console.log(catalogPageData)
@@ -25,10 +29,11 @@ console.log(catalogPageData)
   }, [catalogName])
 
   useEffect(() => {
+    console.log(categoryId)
     const getCatelogoryDetails = async () => {
       try {
         const res = await getCatalogPageDetail(categoryId)
-        setCatalogPageData(res)
+        dispatch(setCatalogPageData(res))
       } catch (error) {
         console.log("error while getting course details ", error)
       }
@@ -36,7 +41,7 @@ console.log(catalogPageData)
     if (categoryId) {
       getCatelogoryDetails()
     }
-  }, [categoryId])
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b text-white">
