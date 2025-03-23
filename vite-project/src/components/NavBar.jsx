@@ -15,8 +15,8 @@ function NavBar() {
 
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
-  const { totalIems } = useSelector((state) => state.cart);
-  
+  const { totalItems } = useSelector((state) => state.cart);
+  console.log(totalItems)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // console.log("cart ", totalIems);
   // console.log(user);
@@ -140,9 +140,9 @@ function NavBar() {
           <Link to={"/dashboard/cart"} onClick={() => setIsMenuOpen(false)}>
             <div className="relative">
               <CiShoppingCart className="w-6 h-6" />
-              {totalIems > 0 && (
+              {totalItems > 0 && (
                 <span className="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {totalIems}
+                  {totalItems}
                 </span>
               )}
             </div>
