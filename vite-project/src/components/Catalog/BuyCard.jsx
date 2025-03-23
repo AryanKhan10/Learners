@@ -1,12 +1,13 @@
 import React,{useEffect, useState} from 'react'
-import {CheckIcon, ShareIcon, Table } from "lucide-react"
+import {CheckIcon, ShareIcon } from "lucide-react"
 import apiConnector from '../../services/apiConnector'
 import { coursesEndpoints } from '../../services/apis'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { setCourse } from '../../slices/course'
 import { setEnrolled } from '../../slices/Enrolled'
+import { AddToCart } from '../../slices/cart'
 
 function BuyCard({Course}) {
 
@@ -14,9 +15,10 @@ function BuyCard({Course}) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const location =useLocation()
     const {token} = useSelector(state=>state.auth)
     const {enrolledCourses} = useSelector(state => state.enrolled)
-    // const {user} = useSelector(state=>state.profile) you can check this user id in course's enrolled student array if the id includes then change the text of button accordingly 
+    const {user} = useSelector(state=>state.profile) //you can check this user id in course's enrolled student array if the id includes then change the text of button accordingly 
 
     const {course} = useSelector(state=>state.course)
     const [enroll, setEnroll] = useState(false)
@@ -48,7 +50,20 @@ function BuyCard({Course}) {
     }
 
     const hanldeAddToCart = () =>{
-      
+      if(user && user.role === "instructor"){
+        toast.error("Instructor can't enroll in course")
+        return
+      }
+      if(!token){
+        navigate('/login')
+        return
+      }
+      dispatch(AddToCart(Course))
+    }
+    const handleShare = () =>{
+      navigator.clipboard.writeText(window.location.href)
+      // copy(window.location.href)
+      toast.success("Link copied to clipboard");
     }
 
     useEffect(()=>{
@@ -101,7 +116,7 @@ function BuyCard({Course}) {
                   }
                 </button>
                   {
-                    enroll && <button
+                    !enroll && <button
                                 onClick={hanldeAddToCart}
                                 className='w-full border-[1px] border-gray-600 hover:bg-gray-700
                                 font-bold py-3 px-4 rounded mb-3 transition duration-200'>Add to cart</button>
@@ -122,7 +137,8 @@ function BuyCard({Course}) {
                   </div>
                 </div>
 
-                <button className="w-full flex items-center justify-center border border-gray-600 hover:bg-gray-700 py-2 px-4 rounded transition duration-200">
+                <button onClick={handleShare}
+                className="w-full flex items-center justify-center border border-gray-600 hover:bg-gray-700 py-2 px-4 rounded transition duration-200">
                   <ShareIcon className="w-4 h-4 mr-2" />
                   Share
                 </button>
