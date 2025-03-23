@@ -14,7 +14,9 @@ const CoursePage = () => {
     const [avgReviewCount, setAvgReviewCount] = useState(0);
     const [date, setDate] = useState('');
     const [totalNoOfLecture, setTotalNoOfLecture] = useState(0)
-
+    const [isActive, setIsActive] = useState(Array(0))
+    const te =course?.courseContent.map(((sec)=>sec.subSection.reduce((acc,sub)=>acc+sub.timeDuration,0)))
+    console.log(te)
     // console.log(course)
     //Fetch courses
     useEffect(()=>{   
@@ -49,6 +51,11 @@ const CoursePage = () => {
       },[course])
       console.log(totalNoOfLecture)
 
+      const handleActive = (id) => {
+        setIsActive(
+          !isActive.includes(id) ? isActive.concat(id) : isActive.filter((i) => i !== id)
+        )
+      }
   return (
     <div className="min-h-screen bg-[#121620] text-white">
 
@@ -82,8 +89,32 @@ const CoursePage = () => {
             {/* What you'll learn section */}
             <div className="border border-gray-700 rounded-lg p-6 mt-8">
               <h2 className="text-2xl font-bold mb-4">What you'll learn</h2>
-              <p className="text-gray-400">Voluptate quod quam</p>
+              <p className="text-gray-400">{course?.whatYouWillLearn}</p>
             </div>
+
+            {/* Course content section */}
+            <div>
+              <div><p>Course Content:</p></div>
+
+              <div className="flex gap-x-3">
+                  <span>{course?.courseContent?.length} sections</span>
+                
+                <span>
+                  {totalNoOfLecture} lectures
+                </span>
+                <span>
+                  {/* {course?.courseContent?.reduce((acc, sec) => acc+=sec.timeDuration , 0)} total length */}
+                  {course?.courseContent?.map( (sec)=>sec?.subSection.reduce((acc, sec) => acc+=sec.timeDuration , 0))} total length
+                </span>
+              </div>
+              <div>
+                <button onClick={() =>setIsActive([])} className="text-white bg-[#1f2937] rounded-lg px-4 py-2 mt-4">
+                  Collapse all Sections
+                </button>
+              </div>
+               
+            </div>
+
           </div>
 
           {/* Course card - right side (1/3 width on large screens) */}
