@@ -17,6 +17,8 @@ function NavBar() {
   const { user } = useSelector((state) => state.profile);
   const { totalItems } = useSelector((state) => state.cart);
   console.log(totalItems)
+  // console.log(total)
+  // console.log(cart)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // console.log("cart ", totalIems);
   // console.log(user);

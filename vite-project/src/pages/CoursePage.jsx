@@ -114,6 +114,37 @@ const CoursePage = () => {
               </div>
                
             </div>
+            <div>
+        {/* {course?.courseContent.map((section) => (
+          <div key={section.id} className="border-b border-[#333]">
+            <div
+              className="flex justify-between p-4 cursor-pointer bg-[#2a2a2a]"
+              onClick={() => toggleSection(section.id)}
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  className={`text-xs text-gray-400 inline-block transition-transform duration-200 ${section.isExpanded ? "transform rotate-90" : ""}`}
+                >
+                  ▶
+                </span>
+                <span>{section.title}</span>
+              </div>
+              <span className="text-sm text-[#e6c700]">{section.lectures.length} lecture(s)</span>
+            </div>
+
+            {section.isExpanded && (
+              <div className="bg-[#111]">
+                {section.lectures.map((lecture) => (
+                  <div key={lecture.id} className="flex items-center gap-2 py-3 px-4 pl-10 border-b border-[#222]">
+                    <span className="text-xs text-gray-400">▶</span>
+                    <span className="text-sm">{lecture.title}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))} */}
+      </div>
 
           </div>
 

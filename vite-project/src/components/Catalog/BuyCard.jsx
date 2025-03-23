@@ -88,7 +88,7 @@ function BuyCard({Course}) {
         getEnrolledCourses()
     },[course])
 
-    console.log(Course)
+    // console.log(Course)
   return (
     <div className="lg:col-span-1">
             <div className="bg-[#1a1f2c] rounded-lg overflow-hidden shadow-lg">

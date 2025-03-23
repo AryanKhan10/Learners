@@ -23,7 +23,7 @@ function Dashboard() {
         )
     }
   return (
-    <div className='sidebar flex gap-2 lg:gap-16'>
+    <div className='sidebar flex justify-center md:me-40 md:ml-10 gap-2 lg:gap-16'>
       <SideBar/>
 
         {/* we don't know which page to show */}

@@ -9,9 +9,9 @@ function Cart() {
     <div className="max-w-4xl mx-auto p-4 text-gray-100">
         <h1 className="text-3xl font-bold mb-6 text-white">Your Cart</h1>
         {total > 0 ? (
-        <div>
+        <div className='md:w-[28rem]'> 
             <RenderCartCourses />
-            <RenderTotalAmount />
+            <RenderTotatAmmount />
         </div>
         ) : (
         <p className="text-xl text-gray-300">Your Cart is Empty</p>
