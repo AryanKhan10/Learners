@@ -8,13 +8,16 @@ import RatingStars from "../components/RatingStars"
 import { formateDate } from "../utils/formatDate"
 import BuyCard from "../components/Catalog/BuyCard"
 const CoursePage = () => {
+
     const {courseId} = useParams();
     const [course, setCourse]= useState(null);
     const [avgReviewCount, setAvgReviewCount] = useState(0);
     const [date, setDate] = useState('');
-    
-    useEffect(()=>{
-        
+    const [totalNoOfLecture, setTotalNoOfLecture] = useState(0)
+
+    // console.log(course)
+    //Fetch courses
+    useEffect(()=>{   
         const getCourseDetails = async ()=>{
             const res = await apiConnector("POST", coursesEndpoints.GET_COURSE_API, {courseId:courseId})
             // console.log(res.data.data)
@@ -36,6 +39,16 @@ const CoursePage = () => {
         }
       }, [course]);
 
+      //populate total no of lecture
+      useEffect(()=>{
+        let lecture = 0
+        course?.courseContent?.forEach( (sec) => {
+          lecture += sec?.subSection?.length || 0
+        })
+        setTotalNoOfLecture(lecture);
+      },[course])
+      console.log(totalNoOfLecture)
+
   return (
     <div className="min-h-screen bg-[#121620] text-white">
 
@@ -47,14 +60,14 @@ const CoursePage = () => {
             <p className="text-gray-400 mb-4">{course?.courseTitle}</p>
 
             <div className="flex items-center mb-2">
-              <span className="text-yellow-400 mr-2">4</span>
+              <span className="text-yellow-400 mr-2">{avgReviewCount}</span>
               <div className="flex mr-2">
               <RatingStars Review_Count={avgReviewCount} />
                
               </div>
-              <span className="text-gray-400">({avgReviewCount} reviews)</span>
+              <span className="text-gray-400">({course?.ratingAndReview.length} reviews)</span>
               <span className="mx-2 text-gray-500">|</span>
-              <span className="text-gray-400">{course?.studentsEnrolled?.length|| 2 } students enrolled</span>
+              <span className="text-gray-400">{course?.studentsEnrolled?.length|| 0 } students enrolled</span>
             </div>
 
             <p className="mb-2">Created By {course?.instructor?.firstName} {course?.instructor?.LastName}</p>

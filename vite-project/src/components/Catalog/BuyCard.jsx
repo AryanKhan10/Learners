@@ -13,33 +13,44 @@ function BuyCard({Course}) {
     // console.log(Course?._id)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
     const {token} = useSelector(state=>state.auth)
-    const {profile} = useSelector(state=>state.profile)
-    const {course} = useSelector(state=>state.course)
     const {enrolledCourses} = useSelector(state => state.enrolled)
+    // const {user} = useSelector(state=>state.profile) you can check this user id in course's enrolled student array if the id includes then change the text of button accordingly 
+
+    const {course} = useSelector(state=>state.course)
     const [enroll, setEnroll] = useState(false)
     // const [enrolledCourse, setEnrolledCourse] = useState(null)
 
     const buyCourse = async(courseId)=>{
-        const toastId = toast.loading("loading...")
-        try {
-            const res = await apiConnector("POST", coursesEndpoints.BUY_COURSE_API,{courseId},
-                {authentication : `Bearer ${token}`}
-              )
-            //   console.log(res.data.success)
-    
-            if(res.data.success){
-                // setEnrolledCourse(res.data.data)
-                dispatch(setCourse(res.data.data))
-                setEnroll(true)                
-                toast.success(`Enrolled in ${Course.courseTitle}`)
-                // console.log('hi')
-            }
-        } catch (error) {
-            toast.error(error.response.data.message)
-        }
-        toast.dismiss(toastId)
+       if(!token){
+        navigate('/login')
+        return
+       }
+       const toastId = toast.loading("loading...")
+       try {
+           const res = await apiConnector("POST", coursesEndpoints.BUY_COURSE_API,{courseId},
+               {authentication : `Bearer ${token}`}
+             )
+           //   console.log(res.data.success)
+   
+           if(res.data.success){
+               // setEnrolledCourse(res.data.data)
+               dispatch(setCourse(res.data.data))
+               setEnroll(true)                
+               toast.success(`Enrolled in ${Course.courseTitle}`)
+               // console.log('hi')
+           }
+       } catch (error) {
+           toast.error(error.response.data.message)
+       }
+       toast.dismiss(toastId)
     }
+
+    const hanldeAddToCart = () =>{
+      
+    }
+
     useEffect(()=>{
         const getEnrolledCourses = async()=>{
             try {
@@ -48,21 +59,11 @@ function BuyCard({Course}) {
                 if(res.data.success){
                     dispatch(setEnrolled(res.data.data))
 
-                    console.log(enrolledCourses)
-                    // const check = enrolledCourses.map((course)=>{
-                    //     course.studentsEnrolled.map((cid)=> {
-                    //         console.log(Course._id)
-                    //         cid=== profile?._id
-                    //     })
-                    // })
+                    // console.log(enrolledCourses)
+  
                     enrolledCourses.map((course)=>{
                         console.log(course._id, Course._id)
                         course?._id===Course._id ? setEnroll(true) : null })
-                    // if(check){
-                    //     console.log("IN if")
-                    //     setEnroll(true)
-                    // }
-                    
                 }
                 // if(enrolledCourse.)
             } catch (error) {
@@ -71,7 +72,7 @@ function BuyCard({Course}) {
         }
         getEnrolledCourses()
     },[course])
-    // console.log(enrolledCourse)
+
     console.log(Course)
   return (
     <div className="lg:col-span-1">
@@ -92,13 +93,19 @@ function BuyCard({Course}) {
                 </div>
 
                 <button
-                    onClick={!enroll? ()=>buyCourse(Course._id):()=>navigate("/enrolledCourses")}
+                    onClick={!enroll? ()=>buyCourse(Course._id):()=>navigate("/dashboard/enrolled-courses")}
                     className="w-full bg-yellow-400 hover:bg-yellow-500
                      text-black font-bold py-3 px-4 rounded mb-3 transition duration-200">
                   {
-                    !enroll? <p>Buy Now</p>: <p>Go To Course</p>
+                    !enroll ? <p>Buy Now</p>: <p>Go To Course</p>
                   }
                 </button>
+                  {
+                    enroll && <button
+                                onClick={hanldeAddToCart}
+                                className='w-full border-[1px] border-gray-600 hover:bg-gray-700
+                                font-bold py-3 px-4 rounded mb-3 transition duration-200'>Add to cart</button>
+                  }
 
                 <p className="text-center text-sm text-gray-400 mb-6">30-Day Money-Back Guarantee</p>
 
@@ -106,7 +113,12 @@ function BuyCard({Course}) {
                   <h4 className="font-bold mb-2">This Course Includes :</h4>
                   <div className="flex items-start mb-2">
                     <CheckIcon className="w-4 h-4 text-teal-400 mt-1 mr-2 flex-shrink-0" />
-                    <span className="text-teal-400">Numquam officia nih</span>
+                    {
+                      Course?.instructions?.map((item, index)=>(
+                        <span key={index} className="text-teal-400">{item}</span>
+
+                      ))
+                    }
                   </div>
                 </div>
 
