@@ -369,37 +369,64 @@ const deleteCourse = async (req, res) => {
 };
 const buyCourse = async (req, res) => {
     try {
-        const {courseId} = req.body;
-        const {userId, email} = req.user;
+        // const {courseId} = req.body;
+        // const {userId, email} = req.user;
 
-        const course = await Course.findById(courseId);
-        if(!course){
-            return res.status(404).json({
-                success: false,
-                message: "Course not Found"
-            })
-        }
+        // const course = await Course.findById(courseId);
+        // if(!course){
+        //     return res.status(404).json({
+        //         success: false,
+        //         message: "Course not Found"
+        //     })
+        // }
 
-        const user = course.studentsEnrolled.includes(userId);
-        console.log(user)
-        if(user){
-            return res.status(404).json({
-                success: false,
-                message: "User already enrolled"
-            })
-        }
-        const updatedCourse = await Course.findOneAndUpdate(
-            {_id:courseId},
-            {$push:{studentsEnrolled:userId}},{new:true}).populate("studentsEnrolled")
-        console.log(updatedCourse)
+        // const user = course.studentsEnrolled.includes(userId);
+        // console.log(user)
+        // if(user){
+        //     return res.status(404).json({
+        //         success: false,
+        //         message: "User already enrolled"
+        //     })
+        // }
+        // const updatedCourse = await Course.findOneAndUpdate(
+        //     {_id:courseId},
+        //     {$push:{studentsEnrolled:userId}},{new:true}).populate("studentsEnrolled")
+        // console.log(updatedCourse)
 
-        const newUser = await User.findByIdAndUpdate(
-            {_id:userId},
-            {$push:{courses: courseId}},{new:true})
+        // const newUser = await User.findByIdAndUpdate(
+        //     {_id:userId},
+        //     {$push:{courses: courseId}},{new:true})
 
         
-        const info = await mailSender(email, 'Enrolledment Mail', `Congratulations! You have enrolled yourself in ${updatedCourse?.courseTitle}`)
+        // const info = await mailSender(email, 'Enrolledment Mail', `Congratulations! You have enrolled yourself in ${updatedCourse?.courseTitle}`)
 
+        const courses = req.body;
+        console.log(courses)
+        const {userId,email} = req.user;
+        let updatedCourse;
+        for(const courseId of courses){
+          const course = await Course.findById(courseId);
+          if(!course){
+            return res.status(404).json({
+              success: false,
+              message: "Course not Found"
+            })
+          }
+
+          const user = course.studentsEnrolled.includes(userId);
+          // console.log(user)
+          if(user){
+              return res.status(404).json({
+                  success: false,
+                  message: "User already enrolled"
+              })
+          }
+           updatedCourse = await Course.findOneAndUpdate(
+              {_id:courseId},
+              {$push:{studentsEnrolled:userId}},{new:true}).populate("studentsEnrolled");
+          // console.log(updatedCourse)
+          const info = await mailSender(email, 'Enrolledment Mail', `Congratulations! You have enrolled yourself in ${updatedCourse?.courseTitle}`)
+        }
         res.status(200).json({
             success:true,
             message: "You have been Enrolled",
