@@ -5,10 +5,10 @@ import { coursesEndpoints } from '../../services/apis'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { setCourse } from '../../slices/course'
 import { setEnrolled } from '../../slices/Enrolled'
 import { AddToCart } from '../../slices/cart'
-
+import { enrollInCourses } from '../../services/course'
+import {setCourse} from '../../slices/course'
 function BuyCard({Course}) {
 
     // console.log(Course?._id)
@@ -29,24 +29,15 @@ function BuyCard({Course}) {
         navigate('/login')
         return
        }
-       const toastId = toast.loading("loading...")
-       try {
-           const res = await apiConnector("POST", coursesEndpoints.BUY_COURSE_API,{courseId},
-               {authentication : `Bearer ${token}`}
-             )
-           //   console.log(res.data.success)
-   
-           if(res.data.success){
-               // setEnrolledCourse(res.data.data)
-               dispatch(setCourse(res.data.data))
-               setEnroll(true)                
-               toast.success(`Enrolled in ${Course.courseTitle}`)
-               // console.log('hi')
-           }
-       } catch (error) {
-           toast.error(error.response.data.message)
-       }
-       toast.dismiss(toastId)
+      const result= await enrollInCourses([courseId],token)
+      if(result){
+        dispatch(setCourse(result))
+        setEnroll(true)
+            toast.success("Enrolled in course")
+        
+        navigate('/dashboard/enrolled-course')
+
+      }
     }
 
     const hanldeAddToCart = () =>{
