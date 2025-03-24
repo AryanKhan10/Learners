@@ -283,8 +283,9 @@ const getFullCourse = async (req, res) => {
     console.log("Course Progress ", courseProgress);
 
     let totalDuration = 0;
-    course.courseContent.forEach((section) => {
-      section.forEach((subSec) => {
+    // console.log(course.courseContent)
+    course.courseContent?.forEach((section) => {
+      section.subSection?.forEach((subSec) => {
         const timeDuration = parseInt(subSec.timeDuration);
         totalDuration += timeDuration;
       });
