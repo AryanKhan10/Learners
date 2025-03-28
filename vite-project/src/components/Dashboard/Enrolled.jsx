@@ -18,8 +18,8 @@ function Enrolled() {
 
     },[])
   return (
-    <div className="min-h-screen bg-[#1d3a6d] text-white p-8">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="min-h-screen  text-white py-8">
+      <div className="sm:w-[29rem] md:w-[30rem] lg:w-[43rem] mx-auto space-y-8">
         <h1 className="text-2xl font-bold">Enrolled Courses</h1>
 
         {!enrolledCourses ? (
@@ -31,7 +31,7 @@ function Enrolled() {
             <div className="text-gray-400">You have not enrolled in any course yet</div>
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="bg-[#2a2a2a8d] space-y-6">
             <div className="grid grid-cols-12 px-6 py-3 bg-[#2a2a2a] rounded-lg text-sm font-medium">
               <div className="col-span-6">Course Name</div>
               <div className="col-span-3 text-center">Duration</div>
@@ -45,32 +45,32 @@ function Enrolled() {
                   className="bg-[#2a2a2a] rounded-lg shadow-lg"
                 >
                   <div className="grid grid-cols-12 gap-4 p-4 items-center">
-                    <div className="col-span-6 flex space-x-4">
+                    <div className="col-span-4 sm:col-span-6 flex flex-col sm:flex-row space-y-3 space-x-4">
                       <img
                         src={course.thumbnail}
-                        alt={`${course.name} thumbnail`}
+                        alt={`${course.courseTitle} thumbnail`}
                         className="w-24 h-16 object-cover rounded-md"
                       />
                       <div className="space-y-1">
                         <h3 className="font-medium">
-                          {course.name}
+                          {course.courseTitle}
                         </h3>
                         <p className="text-sm text-gray-400 line-clamp-2">
-                          {course.description}
+                          {course.courseDescription}
                         </p>
                       </div>
                     </div>
 
                     <div className="col-span-3 text-center">
                       <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#333333]">
-                        {course.totalDuration}
+                        {/* {course.timeDuration} */} no
                       </div>
                     </div>
 
                     <div className="col-span-3 space-y-2">
-                      <div className="flex justify-between items-center text-sm px-1">
+                      <div className=" flex space-x-1 justify-between items-center text-sm px-1">
                         <span>Progress</span>
-                        <span>{course.progressPercentage}%</span>
+                        <span>{course.progressPercentage ? course.progressPercentage +'%' : '0%'}</span>
                       </div>
                       <div className="h-2 bg-[#333333] rounded-full overflow-hidden">
                       <ProgressBar 

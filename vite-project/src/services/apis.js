@@ -23,7 +23,7 @@ export const catalogEndpoints = {
 
 };
 export const coursesEndpoints = {
-    GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/profile/getUserData`,
+    GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/course/getEnrolledCourses`,
     CREATE_COURSE_API: `${BASE_URL}/course/createCourse`,
     EDIT_COURSE_API: `${BASE_URL}/course/editCourse`,
     GET_INSTRUCTORE_COURSE_API: `${BASE_URL}/course/getInstructorCourse`,
