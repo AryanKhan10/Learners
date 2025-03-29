@@ -25,7 +25,8 @@
     "react-simple-star-rating": "^5.1.7",
     "react-super-responsive-table": "^6.0.1",
     "react-type-animation": "^3.2.0",
-    "swiper": "^11.2.5"
+    "swiper": "^11.2.5",
+    "video-react": "^0.16.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

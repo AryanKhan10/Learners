@@ -22,10 +22,10 @@ function VideoSidbar({ setReviewModal }) {
       if (!courseSectionData.length) return;
 
       // for hightlighting the active section and subsection using where we are currently on our UI
-      const section = courseSectionData.findIndex(
+      const section = courseSectionData?.findIndex(
         (section) => section._id === sectionId
       );
-      const subSection = courseSectionData[section].subSection.findIndex(
+      const subSection = courseSectionData[section]?.subSection?.findIndex(
         (subSection) => subSection._id === subSectionId
       );
       const activeSubSecId =
@@ -49,7 +49,7 @@ function VideoSidbar({ setReviewModal }) {
       <div>
         {/* for button */}
         <div>
-          <button onClick={navigate(() => `/dashboard/enrolled-course`)}>
+          <button onClick={()=>navigate( `/dashboard/enrolled-course`)}>
             <FaBackward />
             Back
           </button>

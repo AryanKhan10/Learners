@@ -12,12 +12,15 @@ function ViewCourse() {
     const {courseId} = useParams();
     const {token} = useSelector(state=>state.auth);
     const dispatch = useDispatch();
-
+    const {courseEntireData} = useSelector((state)=>state.viewCourse)
     useEffect(()=>{
+        
+        console.log('hi')
+
         const fetchCourse = async()=>{
             const result = await getFullDetailOfCourse(courseId, token);
             if(result){
-                console.log(result)
+                console.log(result.course.courseContent)
                 dispatch(setCourseEntireData(result.course))
                 dispatch(setCourseSectionData(result.course.courseContent))
                 dispatch(setCompletedLectures(result.completedVedios))
@@ -30,7 +33,7 @@ function ViewCourse() {
             }
         }
         fetchCourse()
-    },[])
+    },[courseId])
   return (
     <>
     <div>
@@ -38,10 +41,11 @@ function ViewCourse() {
             <VideoSidbar setReviewModal={setReviewModal}/>
         </div>
         <div>
-            <Outlet/>
+        <Outlet/>
+            {/* { courseEntireData.length>0 && <Outlet/>} */}
         </div>
     </div>
-    { reviewModal && <CourseReviewModal setReviewModal/>}
+    { reviewModal && <CourseReviewModal setReviewModal={setReviewModal}/>}
     </>
   )
 }
