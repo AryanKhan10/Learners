@@ -35,18 +35,15 @@ function ViewCourse() {
         fetchCourse()
     },[courseId])
   return (
-    <>
-    <div>
-        <div>
-            <VideoSidbar setReviewModal={setReviewModal}/>
-        </div>
-        <div>
-        <Outlet/>
-            {/* { courseEntireData.length>0 && <Outlet/>} */}
-        </div>
+     <div className="flex min-h-screen bg-gray-100">
+      
+        <VideoSidbar setReviewModal={setReviewModal} />
+      
+      <div className="flex-1 overflow-x-hidden">
+        <Outlet />
+      </div>
+      {reviewModal && <CourseReviewModal setReviewModal={setReviewModal} />}
     </div>
-    { reviewModal && <CourseReviewModal setReviewModal={setReviewModal}/>}
-    </>
   )
 }
 

@@ -120,72 +120,81 @@ function VideoDetails({setReviewModal}) {
     }
 
   return (
-    <div>
-        {
-            !videoData ? ( <div>No video exist.</div> ) : ( 
-                <div>
-                    <Player
-                    ref={ref}
-                    aspectRatio='16:9'
-                    playsInline
-                    onEnded={()=>{setVideoEnded(true)}}
-                    src={videoData.videoURL}
-                        >
-                    
-                    <AiFillPlayCircle/>
+    <div className="h-screen bg-gray-900 flex flex-col">
+      {!videoData ? (
+        <div className="flex-1 flex items-center justify-center text-white text-xl">
+          No video exists.
+        </div>
+      ) : (
+        <>
+          <div className="relative flex-1 bg-black">
+            <Player
+              ref={ref}
+              aspectRatio="16:9"
+              playsInline
+              onEnded={() => setVideoEnded(true)}
+              src={videoData.videoURL}
+              width="100%"
+              height="100%"
+            >
+              <AiFillPlayCircle className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-white opacity-60 hover:opacity-100 transition-opacity cursor-pointer" />
+            </Player>
+          </div>
 
-                    {
-                        videoData && (
-                        <div>
-                            {
-                                 !completedLectures.includes(subSectionId) && (
-                                    <button 
-                                        disabled={loading}
-                                        onClick={()=>handleLectureComplete()}
-                                        
-                                        >
-                                            {!loading ? "Mark as Completed": "Loading..."}
-                                    </button>
-                                 )
-                            }
-                            <button 
-                                disabled={loading}
-                                onClick={()=>{
-                                    if(ref.current){
-                                        ref.current.seek(0);
-                                        setVideoEnded(false)
-                                    }
-                                }}
-                                
-                                >
-                                Rewatch
-                            </button>
-                            <div>
-                                {
-                                    !isFirstVideo() && (
-                                        <button
-                                            disabled={loading}
-                                            onClick={goToPreviousVideo}
-                                            >Prev</button>
-                                    )
-                                }
-                                {
-                                    !isLastVideo() && (
-                                        <button
-                                            disabled={loading}
-                                            onClick={goToNextVideo}
-                                            >Next</button>
-                                    )
-                                }
-                            </div>
-                        </div>)
+          <div className="p-6 bg-gray-900">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex gap-3">
+                {!completedLectures.includes(subSectionId) && (
+                  <button
+                    disabled={loading}
+                    onClick={() => handleLectureComplete()}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
+                  >
+                    {!loading ? "Mark as Completed" : "Loading..."}
+                  </button>
+                )}
+                <button
+                  disabled={loading}
+                  onClick={() => {
+                    if (ref.current) {
+                      ref.current.seek(0);
+                      setVideoEnded(false);
                     }
-                    </Player>
-                </div> )
-        }
-        <h1>{videoData?.title}</h1>
-        <p>{videoData?.description}</p>
-    </div>
+                  }}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                >
+                  Rewatch
+                </button>
+              </div>
+
+              <div className="flex gap-3">
+                {!isFirstVideo() && (
+                  <button
+                    disabled={loading}
+                    onClick={goToPreviousVideo}
+                    className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 disabled:opacity-50 transition-colors"
+                  >
+                    Previous
+                  </button>
+                )}
+                {!isLastVideo() && (
+                  <button
+                    disabled={loading}
+                    onClick={goToNextVideo}
+                    className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 disabled:opacity-50 transition-colors"
+                  >
+                    Next
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <h1 className="text-2xl font-bold text-white mb-2">{videoData?.title}</h1>
+            <p className="text-gray-400">{videoData?.description}</p>
+          </div>
+        </>
+      )}
+      </div>
   )
 }
 

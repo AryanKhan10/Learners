@@ -4,7 +4,7 @@ import profile from '../slices/profile.js'
 import cart from '../slices/cart.js'
 import course from '../slices/course.js'
 import viewCourse from '../slices/viewCourse.js'
-import enrolled from '../slices/Enrolled.js'
+import enrolled from '../slices/enrolled.js'
 
 const rootReducer =  combineReducers({
   auth,

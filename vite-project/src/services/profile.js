@@ -70,12 +70,12 @@ export async function getEnrolledCourses(token) {
     const resp = await apiConnector("GET", coursesEndpoints.GET_USER_ENROLLED_COURSES_API,null, {
         authentication: `Bearer ${token}`,
     });
-
+    console.log(resp)
     if(!resp.data.success){
         throw new Error(resp.data.message)
     }
     // console.log(resp)
-    // courses = resp.data.data
+    courses = resp.data.data
   } catch (error) {
     console.log("Error Fetching Enrolled Courses",error)
     toast.error("Error Fetching Enrolled Courses")

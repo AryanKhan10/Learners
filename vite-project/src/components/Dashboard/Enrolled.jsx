@@ -11,6 +11,7 @@ function Enrolled() {
     console.log(enrolledCourses)
     const getCourses = async()=>{
         const resp = await getEnrolledCourses(token);
+        console.log(resp)
         setEnrolledCourses(resp)
 
     }

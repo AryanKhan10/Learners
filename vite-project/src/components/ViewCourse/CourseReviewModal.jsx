@@ -1,4 +1,4 @@
-import { CrossIcon } from "lucide-react";
+import { Cross, X } from "lucide-react";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import RatingStars from "../RatingStars";
@@ -11,9 +11,11 @@ function CourseReviewModal({setReviewModal}) {
   const {
     register,
     handleSubmit,
+    watch,
     setValue,
     formState:{errors},
   } = useForm()
+  const rating = watch("rating", 0)
 
   useEffect(()=>{
     setValue("courseExperience", '')
@@ -36,51 +38,81 @@ function CourseReviewModal({setReviewModal}) {
     }
   console.log(user);
   return (
-    <div>
-      <div>
-        <div>
-          <div>
-            <p>Add Review</p>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-xl w-full max-w-md shadow-xl">
+        <div className="p-6">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">Add Review</h2>
+            <button
+              onClick={() => setReviewModal(false)}
+              className="text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
           </div>
-          <div>
-            <CrossIcon onClick={()=>setReviewModal(false)} />
-          </div>
-        </div>
-        <div>
-          <img
-            className="rounded-full w-[60px] h-[60px] object-cover border-2 border-blue-400"
-            src={user?.image}
-            alt={`profile ${user?.firstName}`}
-          />
-          <div>
-            <p className="text-xl font-semibold">
-              {user?.firstName} {user?.lastName}
-            </p>
-            <p className="text-gray-400">{user?.email}</p>
-          </div>
-        </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <RatingStars Review_Count={rating} onChange={ratingChanged}/>
-
+          {/* User Info */}
+          <div className="flex items-center gap-4 mb-8">
+            <img
+              className="w-16 h-16 rounded-full object-cover border-2 border-blue-400"
+              src={user?.image}
+              alt={`profile ${user?.firstName}`}
+            />
             <div>
-                <label htmlFor="courseExperience">
-                    Add Your Experience
-                </label>
-                <textarea 
-                name="courseExperience" id="courseExperience"
-                placeholder="Add Your Experience here" cols={4} rows={4}
-                {...register("courseExperience", {required:true})}/>
-                {errors?.courseExperience && <p className="text-red-500">Please add your experience</p>}
+              <p className="text-xl font-semibold text-gray-900">
+                {user?.firstName} {user?.lastName}
+              </p>
+              <p className="text-gray-500">{user?.email}</p>
+            </div>
+          </div>
+
+          {/* Review Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div className="flex justify-center">
+              <RatingStars Review_Count={rating} onChange={ratingChanged} />
             </div>
 
             <div>
-            <button onClick={()=>setReviewModal(false)}>Cancel</button>
-            <button type="submit">Submit</button>
+              <label
+                htmlFor="courseExperience"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Add Your Experience
+              </label>
+              <textarea
+                id="courseExperience"
+                placeholder="Share your learning experience..."
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                rows={4}
+                {...register("courseExperience", { required: true })}
+              />
+              {errors?.courseExperience && (
+                <p className="mt-1 text-sm text-red-600">
+                  Please share your experience
+                </p>
+              )}
             </div>
-        </form>
+
+            <div className="flex justify-end gap-3 pt-4">
+              <button
+                type="button"
+                onClick={() => setReviewModal(false)}
+                className="px-6 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+      </div>
   );
 }
 

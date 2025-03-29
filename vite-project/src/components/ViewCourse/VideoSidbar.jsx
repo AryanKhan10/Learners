@@ -15,7 +15,7 @@ function VideoSidbar({ setReviewModal }) {
     completedLectures,
     totalNoOfLectures,
   } = useSelector((state) => state.viewCourse);
-
+  console.log(activeStatus)
   useEffect(() => {
     (() => {
       // if courseSectionData is not available, return
@@ -44,71 +44,80 @@ function VideoSidbar({ setReviewModal }) {
     courseEntireData,
   ]);
   return (
-    <div>
-      {/* for button and heading */}
-      <div>
-        {/* for button */}
-        <div>
-          <button onClick={()=>navigate( `/dashboard/enrolled-course`)}>
-            <FaBackward />
-            Back
-          </button>
-          <button onClick={() => setReviewModal(true)}>
-            <MdReviews />
-            Add Review
-          </button>
-        </div>
-        {/* for headings */}
-        <div>
-          <p>{courseEntireData?.courseTitle}</p>
-          <p>
-            {completedLectures?.length}/ {totalNoOfLectures}
-          </p>
-        </div>
+    <div className="min-h-screen bg-gray-900 overflow-y-auto text-white p-4">
+      {/* Header buttons */}
+      <div className="flex justify-between items-center mb-6">
+        <button 
+          onClick={() => navigate(`/dashboard/enrolled-course`)}
+          className="flex items-center gap-2 px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-all"
+        >
+          <FaBackward className="text-sm" />
+          <span>Back</span>
+        </button>
+        <button 
+          onClick={() => setReviewModal(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-all"
+        >
+          <MdReviews className="text-sm" />
+          <span>Add Review</span>
+        </button>
       </div>
 
-      {/* for sections and subsec*/}
-      <div>
-        {courseSectionData.map((section, index) => (
-          <div onClick={() => setActiveStatus(section._id)} key={section._id}>
-            {/* sec  */}
-            <div>
-              <div>
-                {section.sectionTitle}
-                <FaArrowDown />
-              </div>
-            </div>
-            {/* sub sec  */}
-            <div>
-              {activeStatus === section._id && (
-                <div>
-                  {section.subSection.map((subSection, index) => (
-                    <div
-                      className={`{videoActivebar === subSection._id ? 'active' : ''}`}
-                      onClick={() => {
-                        navigate(
-                          `/view-course/${courseEntireData._id}/section/${section._id}/sub-section/${subSection._id}`
-                        );
-                        setVedioActiveBar(subSection._id);
-                      }}
-                      key={subSection._id}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={completedLectures.includes(subSection._id)}
-                        onChange={() => {}}
-                      />
+      {/* Course info */}
+      <div className="mb-8">
+        <h2 className="text-xl font-bold mb-2">{courseEntireData?.courseTitle}</h2>
+        <p className="text-gray-400">
+          Progress: {completedLectures?.length} / {totalNoOfLectures}
+        </p>
+      </div>
 
-                      <span>{subSection.subSectionTitle}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+      {/* Sections */}
+      <div className="space-y-4">
+        {courseSectionData.map((section) => (
+          <div key={section._id} className="border border-gray-700 rounded-lg">
+            <div 
+              onClick={() => setActiveStatus(section._id)}
+              className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-800 rounded-t-lg"
+            >
+              <div className="font-medium">{section.sectionName}</div>
+              <FaArrowDown className={`transform transition-transform ${
+                activeStatus === section._id ? 'rotate-180' : 'rotate-45'
+              }`} />
             </div>
+
+            {/* Subsections */}
+            {activeStatus === section._id && (
+              <div className="border-t border-gray-700 p-2">
+                {section.subSection.map((subSection) => (
+                  <div
+                    key={subSection._id}
+                    onClick={() => {
+                      navigate(
+                        `/view-course/${courseEntireData._id}/section/${section._id}/sub-section/${subSection._id}`
+                      );
+                      setVedioActiveBar(subSection._id);
+                    }}
+                    className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer ${
+                      videoActivebar === subSection._id
+                        ? 'bg-blue-600'
+                        : 'hover:bg-gray-800'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={completedLectures.includes(subSection._id)}
+                      onChange={() => {}}
+                      className="w-4 h-4 rounded border-gray-600"
+                    />
+                    <span className="text-sm">{subSection.subSectionTitle}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>
-    </div>
+      </div>
   );
 }
 
