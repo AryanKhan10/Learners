@@ -445,6 +445,21 @@ const getEnrolledCourses = async (req, res)=>{
     try {
         const userId = req.user.userId;
         const enrolledCourses = await Course.find({studentsEnrolled: {$in: userId}})
+        .populate({
+          path: "instructor",
+          populate: {
+            path: "additionalDetails",
+          },
+        })
+        .populate("category")
+        .populate({
+          path: "courseContent",
+          populate: {
+            path: "subSection",
+          },
+        })
+        .populate("ratingAndReview")
+        .exec();
         if(!enrolledCourses){
             return res.status(404).json({
                 success: false,

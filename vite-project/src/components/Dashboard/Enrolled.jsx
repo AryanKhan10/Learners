@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { getEnrolledCourses } from '../../services/profile';
+import { useNavigate } from 'react-router-dom';
 function Enrolled() {
     const {token} = useSelector(state=>state.auth);
-
+    const navigate  = useNavigate()
     const [enrolledCourses, setEnrolledCourses] = useState(null);
 
+    console.log(enrolledCourses)
     const getCourses = async()=>{
         const resp = await getEnrolledCourses(token);
         setEnrolledCourses(resp)
@@ -14,7 +16,6 @@ function Enrolled() {
     }
     useEffect(()=>{
         getCourses()
-        console.log(enrolledCourses)
 
     },[])
   return (
@@ -44,7 +45,8 @@ function Enrolled() {
                   key={index}
                   className="bg-[#2a2a2a] rounded-lg shadow-lg"
                 >
-                  <div className="grid grid-cols-12 gap-4 p-4 items-center">
+                  <div className="grid grid-cols-12 gap-4 p-4 items-center" 
+                    onClick={()=> navigate( `/view-course/${course._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection[0]?._id}` )}>
                     <div className="col-span-4 sm:col-span-6 flex flex-col sm:flex-row space-y-3 space-x-4">
                       <img
                         src={course.thumbnail}
