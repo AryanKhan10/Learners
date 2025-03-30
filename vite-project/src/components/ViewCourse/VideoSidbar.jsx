@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FaArrowDown, FaBackward } from "react-icons/fa";
+import { RiArrowUpWideFill } from "react-icons/ri";
+import { IoCaretBack } from "react-icons/io5";
 import { MdReviews } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -15,7 +16,7 @@ function VideoSidbar({ setReviewModal }) {
     completedLectures,
     totalNoOfLectures,
   } = useSelector((state) => state.viewCourse);
-  console.log(activeStatus)
+  console.log(courseSectionData)
   useEffect(() => {
     (() => {
       // if courseSectionData is not available, return
@@ -46,12 +47,12 @@ function VideoSidbar({ setReviewModal }) {
   return (
     <div className="min-h-screen bg-gray-900 overflow-y-auto text-white p-4">
       {/* Header buttons */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between gap-2 items-center mb-6">
         <button 
           onClick={() => navigate(`/dashboard/enrolled-course`)}
           className="flex items-center gap-2 px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-all"
         >
-          <FaBackward className="text-sm" />
+          <IoCaretBack className="text-sm" />
           <span>Back</span>
         </button>
         <button 
@@ -76,12 +77,12 @@ function VideoSidbar({ setReviewModal }) {
         {courseSectionData.map((section) => (
           <div key={section._id} className="border border-gray-700 rounded-lg">
             <div 
-              onClick={() => setActiveStatus(section._id)}
+              onClick={activeStatus === section._id ? () => setActiveStatus(''):() => setActiveStatus(section._id)}
               className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-800 rounded-t-lg"
             >
               <div className="font-medium">{section.sectionName}</div>
-              <FaArrowDown className={`transform transition-transform ${
-                activeStatus === section._id ? 'rotate-180' : 'rotate-45'
+              <RiArrowUpWideFill className={`transform transition-transform ${
+                activeStatus === section._id ? 'rotate-180' : 'rotate-0'
               }`} />
             </div>
 
@@ -109,7 +110,7 @@ function VideoSidbar({ setReviewModal }) {
                       onChange={() => {}}
                       className="w-4 h-4 rounded border-gray-600"
                     />
-                    <span className="text-sm">{subSection.subSectionTitle}</span>
+                    <span className="text-sm">{subSection.title}</span>
                   </div>
                 ))}
               </div>

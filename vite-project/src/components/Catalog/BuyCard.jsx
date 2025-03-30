@@ -35,7 +35,7 @@ function BuyCard({Course}) {
         setEnroll(true)
             toast.success("Enrolled in course")
         
-        navigate('/dashboard/enrolled-course')
+        navigate('/dashboard/enrolled-courses')
 
       }
     }
