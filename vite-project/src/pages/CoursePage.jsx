@@ -15,8 +15,23 @@ const CoursePage = () => {
     const [date, setDate] = useState('');
     const [totalNoOfLecture, setTotalNoOfLecture] = useState(0)
     const [isActive, setIsActive] = useState(Array(0))
-    const te =course?.courseContent.map(((sec)=>sec.subSection.reduce((acc,sub)=>acc+sub.timeDuration,0)))
-    console.log(te)
+
+    const totalDuration = course?.courseContent.reduce((courseAcc, sec) => {
+      return courseAcc + sec.subSection.reduce((secAcc, sub) => secAcc + sub.timeDuration, 0);
+    }, 0);
+    
+    // Convert seconds to HH:MM:SS format
+      const formatDuration = (seconds) => {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = Math.floor(seconds % 60);;
+
+        return `${hours>0 ? hours+'h':''} ${minutes >0? minutes+'m':''} ${remainingSeconds}s`;
+      };
+
+    const formattedDuration = formatDuration(totalDuration);
+    console.log(formattedDuration); // Example Output: "2h 35m 20s"
+
     // console.log(course)
     //Fetch courses
     useEffect(()=>{   
@@ -104,7 +119,7 @@ const CoursePage = () => {
                 </span>
                 <span>
                   {/* {course?.courseContent?.reduce((acc, sec) => acc+=sec.timeDuration , 0)} total length */}
-                  {course?.courseContent?.map( (sec)=>sec?.subSection.reduce((acc, sec) => acc+=sec.timeDuration , 0))} total length
+                  {formattedDuration} total length
                 </span>
               </div>
               <div>

@@ -117,11 +117,13 @@ function BuyCard({Course}) {
 
                 <div className="mb-4">
                   <h4 className="font-bold mb-2">This Course Includes :</h4>
-                  <div className="flex items-start mb-2">
-                    <CheckIcon className="w-4 h-4 text-teal-400 mt-1 mr-2 flex-shrink-0" />
+                  <div className="flex flex-col items-start mb-2">
                     {
                       Course?.instructions?.map((item, index)=>(
-                        <span key={index} className="text-teal-400">{item}</span>
+                        <div className='flex items-start'>
+                          <CheckIcon className="w-4 h-4 text-teal-400 mt-1 mr-2 flex-shrink-0" />
+                          <span key={index} className="text-teal-400">{item}</span>
+                        </div>
 
                       ))
                     }
