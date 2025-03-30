@@ -148,7 +148,7 @@ function VideoDetails({setReviewModal}) {
                   <button
                     disabled={loading}
                     onClick={() => handleLectureComplete()}
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
+                    className="px-4 py-2 bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800 text-indigo-900 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 transition-colors duration-300 touch-none"
                   >
                     {!loading ? "Mark as Completed" : "Loading..."}
                   </button>
@@ -161,7 +161,7 @@ function VideoDetails({setReviewModal}) {
                       setVideoEnded(false);
                     }
                   }}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                  className="px-4 py-2 rounded-lg bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800 text-indigo-900 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 transition-colors duration-300 touch-none"
                 >
                   Rewatch
                 </button>

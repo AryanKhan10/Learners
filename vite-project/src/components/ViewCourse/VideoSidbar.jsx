@@ -57,7 +57,7 @@ function VideoSidbar({ setReviewModal }) {
         </button>
         <button 
           onClick={() => setReviewModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-all"
+          className="flex items-center gap-2 px-4 py-2  justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:ring-offset-zinc-950 dark:focus-visible:ring-zinc-300 cursor-pointer h-10 min-w-[120px] sm:min-w-40 relative overflow-hidden bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800 text-indigo-900 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 transition-colors duration-300 touch-none"
         >
           <MdReviews className="text-sm" />
           <span>Add Review</span>
@@ -100,7 +100,7 @@ function VideoSidbar({ setReviewModal }) {
                     }}
                     className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer ${
                       videoActivebar === subSection._id
-                        ? 'bg-blue-600'
+                        ? 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800 text-indigo-900 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 transition-colors duration-300 touch-none'
                         : 'hover:bg-gray-800'
                     }`}
                   >
