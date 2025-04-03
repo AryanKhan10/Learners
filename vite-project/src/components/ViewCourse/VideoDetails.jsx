@@ -11,6 +11,7 @@ function VideoDetails({setReviewModal}) {
     const {courseId, sectionId, subSectionId} = useParams();
     const {courseEntireData, courseSectionData, completedLectures, totalNoOfLectures} = useSelector(state=>state.viewCourse);
     const {token} = useSelector(state=>state.auth);
+    console.log(completedLectures)
     const ref = useRef();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -144,7 +145,7 @@ function VideoDetails({setReviewModal}) {
           <div className="p-6 bg-gray-900">
             <div className="flex items-center justify-between mb-6">
               <div className="flex gap-3">
-                {!completedLectures.includes(subSectionId) && (
+                {!completedLectures.includes(subSectionId)&& videoEnded && (
                   <button
                     disabled={loading}
                     onClick={() => handleLectureComplete()}
