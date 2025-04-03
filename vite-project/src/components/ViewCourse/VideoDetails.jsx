@@ -155,18 +155,22 @@ function VideoDetails({setReviewModal}) {
                     {!loading ? "Mark as Completed" : "Loading..."}
                   </button>
                 )}
-                <button
-                  disabled={loading}
-                  onClick={() => {
-                    if (ref.current) {
-                      ref.current.seek(0);
-                      setVideoEnded(false);
-                    }
-                  }}
-                  className="px-4 py-2 rounded-lg bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800 text-indigo-900 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 transition-colors duration-300 touch-none"
-                >
-                  Rewatch
-                </button>
+                {!completedLectures.includes(subSectionId)&& videoEnded &&
+                  (
+                    <button
+                      disabled={loading}
+                      onClick={() => {
+                        if (ref.current) {
+                          ref.current.seek(0);
+                          setVideoEnded(false);
+                        }
+                      }}
+                      className="px-4 py-2 rounded-lg bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800 text-indigo-900 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 transition-colors duration-300 touch-none"
+                    >
+                      Rewatch
+                    </button>
+                  )
+                }
               </div>
 
               <div className="flex gap-3">
@@ -179,7 +183,7 @@ function VideoDetails({setReviewModal}) {
                     Previous
                   </button>
                 )}
-                {!isLastVideo() && (
+                {!isLastVideo() && videoEnded && (
                   <button
                     disabled={loading}
                     onClick={goToNextVideo}
