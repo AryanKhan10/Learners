@@ -65,21 +65,23 @@ function VideoDetails({setReviewModal}) {
     }
 
     const goToPreviousVideo = () => {
+
         const sectionIndex = courseSectionData?.findIndex((section) => section._id === sectionId);
-        const noOfSubSections = courseSectionData[sectionIndex].length;
+        const noOfSubSections = courseSectionData[sectionIndex]?.subSection.length;
         const subSecIndex = courseSectionData[sectionIndex]?.subSection?.findIndex((video) => video._id === subSectionId);
 
         // previous vedio of same secton i-e current index is first
-        if(sectionIndex !==  0){
+        if(subSecIndex !==  0){
             const prevSubSecId = courseSectionData[sectionIndex]?.subSection[subSecIndex - 1]._id
-            navigate(`view-course/${courseId}/section/${sectionId}/sub-section/${prevSubSecId}`)
+            navigate(`/view-course/${courseId}/section/${sectionId}/sub-section/${prevSubSecId}`)
         }
         else{
+
             // previous section, last vedio
-            const prevSecId = courseSectionData[sectionIndex - 1]._id
+            const prevSecId = courseSectionData[sectionIndex-1]._id
             const noOfSubSec = courseSectionData[sectionIndex - 1]?.subSection.length
             const prevSubSecId = courseSectionData[sectionIndex - 1]?.subSection[noOfSubSec -1]._id
-            navigate(`view-course/${courseId}/section/${prevSecId}/sub-section/${prevSubSecId}`)
+            navigate(`/view-course/${courseId}/section/${prevSecId}/sub-section/${prevSubSecId}`)
 
 
         }
@@ -88,23 +90,22 @@ function VideoDetails({setReviewModal}) {
     const goToNextVideo = () => {
 
         const sectionIndex = courseSectionData?.findIndex((section) => section._id === sectionId);
-        const noOfSubSections = courseSectionData[sectionIndex]?.length;
+        const noOfSubSections = courseSectionData[sectionIndex]?.subSection.length;
         const subSecIndex = courseSectionData[sectionIndex]?.subSection?.findIndex((video) => video._id === subSectionId);
 
         // next vedio of same secton i-e current index is not last
-        if(sectionIndex !== noOfSubSections -1){
-            const nextSubSecId = courseSectionData[sectionIndex]?.subSection[subSecIndex + 1]._id
-            navigate(`view-course/${courseId}/section/${sectionId}/sub-section/${nextSubSecId}`)
-
+        if(subSecIndex !== noOfSubSections -1){
+          
+          const nextSubSecId = courseSectionData[sectionIndex]?.subSection[subSecIndex + 1]._id
+          navigate(`/view-course/${courseId}/section/${sectionId}/sub-section/${nextSubSecId}`)
         }
         else{
+
             // next section, 1st vedio
-            const nextSecId = courseSectionData[sectionIndex + 1]._id
-            const nextSubSecId = courseSectionData[sectionIndex + 1]?.subSection[0]._id
+            const nextSecId = courseSectionData[sectionIndex + 1]?._id
+            const nextSubSecId = courseSectionData[sectionIndex + 1]?.subSection[0]?._id
 
-            navigate(`view-course/${courseId}/section/${nextSecId}/sub-section/${nextSubSecId}`)
-
-
+            navigate(`/view-course/${courseId}/section/${nextSecId}/sub-section/${nextSubSecId}`)
         }
     }
 
@@ -148,7 +149,7 @@ function VideoDetails({setReviewModal}) {
                 {!completedLectures.includes(subSectionId)&& videoEnded && (
                   <button
                     disabled={loading}
-                    onClick={() => handleLectureComplete()}
+                    onClick={() => ishandleVideoCompleted()}
                     className="px-4 py-2 bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800 text-indigo-900 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 transition-colors duration-300 touch-none"
                   >
                     {!loading ? "Mark as Completed" : "Loading..."}
