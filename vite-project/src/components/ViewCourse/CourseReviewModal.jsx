@@ -1,12 +1,12 @@
-"use client"
 
 import { X } from "lucide-react"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
+import { createRating } from "../../services/rating"
 import ReactStars from "react-rating-stars-component" 
 
-function CourseReviewModal({ setReviewModal, createRating }) {
+function CourseReviewModal({ setReviewModal }) {
   const { user } = useSelector((state) => state.profile)
   const { token } = useSelector((state) => state.auth)
   const { courseEntireData } = useSelector((state) => state.viewCourse)
@@ -35,7 +35,7 @@ function CourseReviewModal({ setReviewModal, createRating }) {
         rating: data.rating,
         review: data.courseExperience,
       },
-      { token },
+       token ,
     )
     setReviewModal(false)
   }

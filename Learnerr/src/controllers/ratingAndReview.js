@@ -11,10 +11,14 @@ const createReview = async (req, res) => {
         //create rating adn review
         // update the course
 
-        const id = req.user.id;
-        const {raating, review, courseId} = req.body;
-        const courseDetails = await Course.findOne(courseId,{studentsEnrolled:{$in:[id]}}) /// {studentsEnrolled:{$elemMatch:{$in:id}}}
-
+        const userId = req.user.userId;
+        const {rating, review, courseId} = req.body;
+        console.log(courseId, userId)
+        const courseDetails = await Course.findOne(
+            {_id:courseId,
+                studentsEnrolled:{$elemMatch:{$in:userId}}
+            }) /// {studentsEnrolled:{$elemMatch:{$in:id}}}
+            console.log(courseDetails)
         if(!courseDetails){
             return res.status(404).json({
                 success: false,
@@ -22,7 +26,7 @@ const createReview = async (req, res) => {
             })
         }
 
-        const alreadyReviewed = await RatingAndReview.findOne({course:courseId,user:id})
+        const alreadyReviewed = await RatingAndReview.findOne({course:courseId,user:userId})
         if(alreadyReviewed){
             return res.status(403).json({
                 success: false,
@@ -30,7 +34,13 @@ const createReview = async (req, res) => {
             })
         }
 
-        const ratingReview = await RatingAndReview.create({ courseId,user,rating, review})
+        const ratingReview = await RatingAndReview.create(
+            {   course:courseId,
+                user:userId,
+                rating:rating, 
+                review:review
+            })
+    console.log(ratingReview)
         await Course.findByIdAndUpdate(courseId,
                                     {$push:{ratingAndReview:ratingReview}},
                                     {new:true})
@@ -43,7 +53,7 @@ const createReview = async (req, res) => {
         res.status(500).json({
             success: false,
             message: "problem while creating review.",
-            error: error
+            error: error.message
         })
     }
 }
