@@ -39,7 +39,7 @@ function ViewCourse() {
       
         <VideoSidbar setReviewModal={setReviewModal} />
       
-      <div className="flex-1 overflow-x-hidden">
+      <div className="flex-1 overflow-x-hidden bg-gray-900">
         <Outlet />
       </div>
       {reviewModal && <CourseReviewModal setReviewModal={setReviewModal} />}
