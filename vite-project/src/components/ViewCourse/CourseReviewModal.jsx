@@ -1,42 +1,45 @@
-import { Cross, X } from "lucide-react";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import RatingStars from "../RatingStars";
-import { useForm } from "react-hook-form";
+"use client"
 
-function CourseReviewModal({setReviewModal}) {
-  const { user } = useSelector((state) => state.profile);
-  const { token } = useSelector((state) => state.auth);
-  const { courseEntireData } = useSelector((state) => state.viewCourse);
+import { X } from "lucide-react"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { useForm } from "react-hook-form"
+import ReactStars from "react-rating-stars-component" 
+
+function CourseReviewModal({ setReviewModal, createRating }) {
+  const { user } = useSelector((state) => state.profile)
+  const { token } = useSelector((state) => state.auth)
+  const { courseEntireData } = useSelector((state) => state.viewCourse)
   const {
     register,
     handleSubmit,
     watch,
     setValue,
-    formState:{errors},
+    formState: { errors },
   } = useForm()
-  const rating = watch("rating", 0)
 
-  useEffect(()=>{
-    setValue("courseExperience", '')
+  useEffect(() => {
+    setValue("courseExperience", "")
     setValue("rating", 0)
-  },[])
+  }, [])
 
-  const ratingChanged = (newRating) => {
-    setValue("rating", newRating);
+  const ratingChanged = (rate) => {
+    console.log(rate)
+    setValue("rating", rate)
   }
-    const onSubmit = async (data) => {
-         await createRating(
-            {
-                courseId: courseEntireData._id,
-                rating:data.rating,
-                review:data.courseExperience
-            },
-            {token}
-        );
-        setReviewModal(false);
-    }
-  console.log(user);
+
+  const onSubmit = async (data) => {
+    await createRating(
+      {
+        courseId: courseEntireData._id,
+        rating: data.rating,
+        review: data.courseExperience,
+      },
+      { token },
+    )
+    setReviewModal(false)
+  }
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl w-full max-w-md shadow-xl">
@@ -56,7 +59,7 @@ function CourseReviewModal({setReviewModal}) {
           <div className="flex items-center gap-4 mb-8">
             <img
               className="w-16 h-16 rounded-full object-cover border-2 border-blue-400"
-              src={user?.image}
+              src={user?.image || "/placeholder.svg"}
               alt={`profile ${user?.firstName}`}
             />
             <div>
@@ -70,14 +73,11 @@ function CourseReviewModal({setReviewModal}) {
           {/* Review Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="flex justify-center">
-              <RatingStars Review_Count={rating} onChange={ratingChanged} />
+              <ReactStars count={5} onChange={ratingChanged} size={25} activeColor="#ffd700" />
             </div>
 
             <div>
-              <label
-                htmlFor="courseExperience"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
+              <label htmlFor="courseExperience" className="block text-sm font-medium text-gray-700 mb-2">
                 Add Your Experience
               </label>
               <textarea
@@ -87,11 +87,7 @@ function CourseReviewModal({setReviewModal}) {
                 rows={4}
                 {...register("courseExperience", { required: true })}
               />
-              {errors?.courseExperience && (
-                <p className="mt-1 text-sm text-red-600">
-                  Please share your experience
-                </p>
-              )}
+              {errors?.courseExperience && <p className="mt-1 text-sm text-red-600">Please share your experience</p>}
             </div>
 
             <div className="flex justify-end gap-3 pt-4">
@@ -112,8 +108,9 @@ function CourseReviewModal({setReviewModal}) {
           </form>
         </div>
       </div>
-      </div>
-  );
+    </div>
+  )
 }
 
-export default CourseReviewModal;
+export default CourseReviewModal
+
