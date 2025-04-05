@@ -123,14 +123,14 @@ function VideoDetails({setReviewModal}) {
     }
 
   return (
-    <div className="h-screen bg-gray-900 flex flex-col">
+    <div className="px-2 h-screen bg-gray-900 flex flex-col">
       {!videoData ? (
         <div className="flex-1 flex items-center justify-center text-white text-xl">
           No video exists.
         </div>
       ) : (
         <>
-          <div className="relative flex-1 bg-black">
+          <div className="relative bg-black">
             <Player
               ref={ref}
               aspectRatio="16:9"
