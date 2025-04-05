@@ -1,9 +1,12 @@
-import { CourseProgress } from "../models/courseProgress.model";
+import { CourseProgress } from "../models/courseProgress.model.js";
 
 const updateCrourseProgress = async (req, res) => {
     try {
         const {courseId, subSectionId} = req.body;
         const userId = req.user.userId;
+        if(!courseId || !subSectionId) {
+            return res.status(400).json({success:false, message: "Course ID and Subsection ID are required" });
+        }
         const courseProgress = await CourseProgress.findOne({userId, courseId});
 
         //check if course progress exists

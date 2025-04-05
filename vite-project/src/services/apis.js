@@ -32,7 +32,7 @@ export const coursesEndpoints = {
     GET_COURSE_API: `${BASE_URL}/course/getCourseDetails`,
     BUY_COURSE_API: `${BASE_URL}/course/buyCourse`,
     GET_ENROLLED_COURSE_API: `${BASE_URL}/course/getEnrolledCourses`,
-    // UPDATEPERSONALINFO_API: `${BASE_URL}/profile/updateProfile`,
+    UPDATE_COURSE_PROGRRESS_API: `${BASE_URL}/course/update-courseProgress`,
 
 };
 export const sectionEndpoints = {

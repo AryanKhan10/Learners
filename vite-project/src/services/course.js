@@ -75,3 +75,21 @@ export async function getFullDetailOfCourse (courseId,token) {
         toast.error("Couldn't fetching full Course details")
     }
 }
+export async function markLectureAsCompleted ({courseId, subSectionId}, token){
+
+    try {
+        console.log(token)
+        const resp = await apiConnector("POST", coursesEndpoints.UPDATE_COURSE_PROGRRESS_API, {courseId, subSectionId},
+            { Authentication: `Bearer ${token}` })
+        console.log(resp)
+        if(!resp.data.success){
+            throw new Error(resp.data.message)
+        }
+
+        toast.success("Lecture marked as completed")
+        return resp.data.success
+    } catch (error) {
+        console.log("Error while marking lecture as completed",error)
+        toast.error("Couldn't mark lecture as completed")
+    }
+}

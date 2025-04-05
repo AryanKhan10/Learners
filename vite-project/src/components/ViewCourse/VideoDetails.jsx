@@ -5,7 +5,7 @@ import { updateCompletedLectures } from '../../slices/viewCourse';
 import { Player } from 'video-react';
 import 'video-react/dist/video-react.css'; // import css
 import { AiFillPlayCircle } from "react-icons/ai"
-
+import { markLectureAsCompleted } from '../../services/course';
 function VideoDetails({setReviewModal}) {
 
     const {courseId, sectionId, subSectionId} = useParams();
@@ -112,6 +112,7 @@ function VideoDetails({setReviewModal}) {
     const ishandleVideoCompleted = async() => {
 
         setLoading(true)
+        console.log(token)
             const res = await markLectureAsCompleted({courseId: courseId, subSectionId: subSectionId}, token)
 
             if(res){
