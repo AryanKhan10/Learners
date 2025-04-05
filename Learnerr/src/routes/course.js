@@ -5,6 +5,7 @@ import { createCategory, getAllCategory, categoryPageDetails } from "../controll
 import { createSection, updateSection, deleteSection } from "../controllers/section.controller.js"
 import { createCourse, getCourseDetails, getAllCourses, editCourse, instructorCourses, getFullCourse, deleteCourse, buyCourse, getEnrolledCourses } from "../controllers/courses.controller.js"
 import { createSubSec, updateSubSec, deleteSubSec } from "../controllers/subSection.controller.js";
+import { updateCrourseProgress } from "../controllers/courseProgress.controller.js";
 const router = express.Router();
 
 router.post("/createCourse", auth, isInstructor, createCourse)
@@ -33,4 +34,5 @@ router.post("/createRating", auth, isStudent, createReview)
 router.get("/getRating", getAllRating)
 router.get("/getAverageReviews", getAvgReview)
 
+router.post("/update-courseProgress", auth, isStudent, updateCrourseProgress)
 export default router;
