@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
         const token = req.body.token || req.cookies.token || req.headers["authentication"]?.replace("Bearer ",""); 
 
         //verify token 
-        console.log("token",token)
+        // console.log("token",token)
         if(!token){
             return res.status(401).json({
                 success:false,

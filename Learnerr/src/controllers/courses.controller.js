@@ -422,12 +422,27 @@ const buyCourse = async (req, res) => {
                   message: "User already enrolled"
               })
           }
+
+          //create Course progress i-e zero progress
+          const courseProgress = await CourseProgress.create({
+            courseId:courseId, userId:userId, completedVedios: []
+          })
+
+          // find user to add course and progress to their list of enrolled courses
+          const enrolledStudent = await User.findByIdAndUpdate(
+            {_id:userId},
+            {$push:{courses: courseId, courseProgress: courseProgress._id}},{new:true})
+          
            updatedCourse = await Course.findOneAndUpdate(
               {_id:courseId},
-              {$push:{studentsEnrolled:userId}},{new:true}).populate("studentsEnrolled");
-          // console.log(updatedCourse)
-          const info = await mailSender(email, 'Enrolledment Mail', `Congratulations! You have enrolled yourself in ${updatedCourse?.courseTitle}`)
+              {$push:{studentsEnrolled:userId}},
+              {new:true})
+              .populate("studentsEnrolled");
+
+
+              const info = await mailSender(email, 'Enrolledment Mail', `Congratulations! You have enrolled yourself in ${updatedCourse?.courseTitle}`)
         }
+
         res.status(200).json({
             success:true,
             message: "You have been Enrolled",

@@ -3,11 +3,12 @@ import { CourseProgress } from "../models/courseProgress.model.js";
 const updateCrourseProgress = async (req, res) => {
     try {
         const {courseId, subSectionId} = req.body;
-        const userId = req.user.userId;
+        const {userId} = req.user;
+        console.log(userId,courseId)
         if(!courseId || !subSectionId) {
             return res.status(400).json({success:false, message: "Course ID and Subsection ID are required" });
         }
-        const courseProgress = await CourseProgress.findOne({userId, courseId});
+        const courseProgress = await CourseProgress.findOne({courseId:courseId, userId:userId});
 
         //check if course progress exists
         if (!courseProgress) {
@@ -21,7 +22,7 @@ const updateCrourseProgress = async (req, res) => {
             }else{
                 courseProgress.completedVedios.push(subSectionId);
                 await courseProgress.save();
-                return res.status(200).json({ message: "Video marked as completed" });
+                return res.status(200).json({success:true, message: "Video marked as completed" });
             }
         }
     } catch (error) {
