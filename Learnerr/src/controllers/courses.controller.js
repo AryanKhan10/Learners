@@ -277,10 +277,10 @@ const getFullCourse = async (req, res) => {
       });
     }
     const courseProgress = await CourseProgress.findOne({
-      courseID: courseId,
+      courseId: courseId,
       userId: userId,
     });
-    console.log("Course Progress ", courseProgress);
+    // console.log("Course Progress ", courseProgress);
 
     let totalDuration = 0;
     // console.log(course.courseContent)
@@ -299,16 +299,17 @@ const getFullCourse = async (req, res) => {
     }
 
     const duration = convertSecondsToDuration(totalDuration);
-
+    console.log('completed Videos', courseProgress?.completedVedios)
     res.status(200).json({
       success: true,
       data: {
         course,
         totalDuration: duration,
-        completedVedios: courseProgress?.completedVedios ? completedVedios : [],
+        completedVedios: courseProgress?.completedVedios ?? [],
       },
     });
   } catch (error) {
+    console.log("Error while getting full course detail", error);
     res.status(500).json({
       success: false,
       message: "Failed to get full course detail",

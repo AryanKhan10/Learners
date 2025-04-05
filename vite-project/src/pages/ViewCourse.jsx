@@ -19,6 +19,7 @@ function ViewCourse() {
 
         const fetchCourse = async()=>{
             const result = await getFullDetailOfCourse(courseId, token);
+            console.log(result)
             if(result){
                 console.log(result.course.courseContent)
                 dispatch(setCourseEntireData(result.course))
