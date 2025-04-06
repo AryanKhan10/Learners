@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
 import LoginPage from "./pages/Loginpage";

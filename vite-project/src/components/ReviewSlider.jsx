@@ -40,7 +40,7 @@ function ReviewSlider() {
                 spaceBetween={10}
                 pagination={true}
                 navigation={true}
-                loop={true}
+                loop={review.length > 4}
                 
                 autoplay={{
                     delay: 2500,
