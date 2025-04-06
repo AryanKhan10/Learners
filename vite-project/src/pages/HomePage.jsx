@@ -8,7 +8,7 @@ import Footer from "../components/Footer"
 import TimeLine from "../components/Home/TimeLine"
 import InstructorSection from "../components/Home/InstructorSection"
 import ExploreMore from "../components/Home/ExploreMore"
-
+import ReviewSlider from "../components/ReviewSlider"
 function HomePage() {
   return (
     <div className="w-full">
@@ -168,6 +168,10 @@ function HomePage() {
         <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-semibold mt-10">Review from Other Learners</h2>
       </div>
       {/* section 5 */}
+
+      <h2 className="text-center text-gray-400 py-2 text-lg">Review from Other Learners</h2>
+
+      <ReviewSlider/>
       <Footer />
     </div>
   )

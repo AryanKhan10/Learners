@@ -48,6 +48,7 @@ export const sectionEndpoints = {
 };
 export const ratingAndReviewEndpoints = {
     CREATE_RATING_API: `${BASE_URL}/course/createRating`,
+    GET_RATING_API: `${BASE_URL}/course/getRating`,
     
 
 
