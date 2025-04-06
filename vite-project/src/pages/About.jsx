@@ -3,6 +3,7 @@ import { TypeAnimation } from 'react-type-animation';
 import HighlightText from '../components/Home/HighlightText'
 import Form from '../components/About/Form';
 import Footer from '../components/Footer'
+import ReviewSlider from '../components/ReviewSlider';
 function About() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
@@ -139,7 +140,8 @@ function About() {
         </div>
 
         <Form/>
-
+            <h2 className="text-center text-gray-100 font-bold py-2 text-3xl">Review from Other Learners</h2>
+              <ReviewSlider/>
       </div>
         <Footer/>
     </div>
