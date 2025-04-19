@@ -28,7 +28,7 @@ function Code({ position, heading, subheading, btn1, btn2, code, gradient, codeC
       {/* sec 2 */}
       <div className="w-full lg:w-[50%] h-fit flex flex-row justify-end text-[8px] sm:text-[10px] mt-8 lg:mt-0 py-4 bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 rounded-lg shadow-xl overflow-hidden">
         {/* grad */}
-        <div className="text-center flex flex-col w-[10%] text-slate-700 font-mono font-bold text-xs sm:text-sm lg:text-base">
+        <div className="text-center flex flex-col w-[10%] text-slate-700 font-mono font-bold text-base">
           {[...Array(13)].map((_, index) => (
             <p key={index}>{index + 1}</p>
           ))}
@@ -42,7 +42,7 @@ function Code({ position, heading, subheading, btn1, btn2, code, gradient, codeC
             style={{
               whiteSpace: "pre-line",
               display: "block",
-              fontSize: "12px",
+              fontSize: "16px",
               sm: "14px",
               md: "16px",
               lg: "18.5px",
