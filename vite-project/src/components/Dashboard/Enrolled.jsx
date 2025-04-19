@@ -8,13 +8,12 @@ function Enrolled() {
     const navigate  = useNavigate()
     const [enrolledCourses, setEnrolledCourses] = useState(null);
 
-    console.log(enrolledCourses)
+    
     const getCourses = async()=>{
-        const resp = await getEnrolledCourses(token);
-        console.log(resp)
-        setEnrolledCourses(resp)
-
-    }
+      const resp = await getEnrolledCourses(token);
+      console.log(resp)
+      setEnrolledCourses(resp)
+      }
     useEffect(()=>{
         getCourses()
 
@@ -66,7 +65,10 @@ function Enrolled() {
 
                     <div className="col-span-3 text-center">
                       <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#333333]">
-                        {/* {course.timeDuration} */} no
+                        {/* {course?.courseContent?.map((sec)=>sec?.subSection?.map((sub,ind)=> (
+                          <div className="">{sub.timeDuration}</div>
+                        )
+                        ))} */}n0
                       </div>
                     </div>
 

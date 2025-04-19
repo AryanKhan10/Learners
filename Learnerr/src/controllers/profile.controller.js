@@ -2,7 +2,7 @@ import {Profile} from "../models/profile.model.js";
 import {User} from "../models/user.model.js";
 import uploadFile from "../utiles/uploadFile.js";
 import fileUpload from "express-fileupload";
-
+import { Course } from '../models/course.model.js'
 // create is leye nai kr rahe kiu k user signup krte hue hi hm ne os ki profile ko null kr deya tha
 const updateProfile = async (req, res) => {
   try {
@@ -141,4 +141,29 @@ const getUserData = async(req, res) => {
   }
 }
 
-export { updateProfile, deleteAccount, updateProfilePic, getUserData };
+const instructorDashboard = async (req, res) => {
+  try {
+    
+    const courseDetails = await Course.find({instructor: req.user.userId});
+
+    const courseData = courseDetails.map((course)=>{
+      const totalStudentsEnrolled = course.studentsEnrolled = course.studentsEnrolled.length;
+      const totalAmount = totalStudentsEnrolled*course.price;
+
+      const course = {
+        _id: course._id,
+        courseTitle: course.courseTitle,
+        courseDescription: course.courseDescription,
+        totalStudentsEnrolled,
+        totalAmount,
+      }
+      return course;
+    });
+
+    res.status(200).json({course:courseData});
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error'});
+  }
+}
+
+export { updateProfile, deleteAccount, updateProfilePic, getUserData, instructorDashboard};
