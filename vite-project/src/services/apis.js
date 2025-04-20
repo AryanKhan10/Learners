@@ -16,6 +16,7 @@ export const authEndpoints = {
 export const profileEndpoints = {
     UPDATEPROPIC_API: `${BASE_URL}/profile/updateProfilePicture`,
     UPDATEPERSONALINFO_API: `${BASE_URL}/profile/updateProfile`,
+    INSTRUCTOR_STATS_API: `${BASE_URL}/profile/instructorDashboard`,
 
 };
 export const catalogEndpoints = {
