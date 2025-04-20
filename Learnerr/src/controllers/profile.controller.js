@@ -150,17 +150,17 @@ const instructorDashboard = async (req, res) => {
       const totalStudentsEnrolled = course.studentsEnrolled = course.studentsEnrolled.length;
       const totalAmount = totalStudentsEnrolled*course.price;
 
-      const course = {
+      const courseInfo = {
         _id: course._id,
         courseTitle: course.courseTitle,
         courseDescription: course.courseDescription,
         totalStudentsEnrolled,
         totalAmount,
       }
-      return course;
+      return courseInfo;
     });
 
-    res.status(200).json({course:courseData});
+    res.status(200).json({courses:courseData});
   } catch (error) {
     res.status(500).json({ message: 'Internal Server Error'});
   }
