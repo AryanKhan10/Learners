@@ -1,4 +1,4 @@
-import { StarIcon, ClockIcon, GlobeIcon, CheckIcon, ShareIcon } from "lucide-react"
+import { StarIcon, ClockIcon, GlobeIcon, CheckIcon, ShareIcon, ArrowBigDown } from "lucide-react"
 import { useEffect, useState } from "react"
 import apiConnector from "../services/apiConnector"
 import { coursesEndpoints } from "../services/apis"
@@ -7,6 +7,7 @@ import GetAvgRating from "../utils/avgRating"
 import RatingStars from "../components/RatingStars"
 import { formateDate } from "../utils/formatDate"
 import BuyCard from "../components/Catalog/BuyCard"
+import { IoMdArrowDropdown,IoMdArrowDropup } from "react-icons/io";
 const CoursePage = () => {
 
     const {courseId} = useParams();
@@ -64,13 +65,15 @@ const CoursePage = () => {
         })
         setTotalNoOfLecture(lecture);
       },[course])
-      console.log(totalNoOfLecture)
+      console.log(course)
 
       const handleActive = (id) => {
+        console.log(id)
         setIsActive(
           !isActive.includes(id) ? isActive.concat(id) : isActive.filter((i) => i !== id)
         )
       }
+      console.log(isActive)
   return (
     <div className="min-h-screen bg-[#121620] text-white">
 
@@ -130,26 +133,26 @@ const CoursePage = () => {
                
             </div>
             <div>
-        {/* {course?.courseContent.map((section) => (
-          <div key={section.id} className="border-b border-[#333]">
+        {course?.courseContent.map((section) => (
+          <div key={section._id} className="border-b border-[#333]">
             <div
               className="flex justify-between p-4 cursor-pointer bg-[#2a2a2a]"
-              onClick={() => toggleSection(section.id)}
+              onClick={() => handleActive(section._id)}
             >
               <div className="flex items-center gap-2">
                 <span
                   className={`text-xs text-gray-400 inline-block transition-transform duration-200 ${section.isExpanded ? "transform rotate-90" : ""}`}
                 >
-                  ▶
+                  {isActive.includes(section._id) ? <IoMdArrowDropdown className="w-4 h-4" /> : <IoMdArrowDropup className="w-4 h-4" />}
                 </span>
                 <span>{section.title}</span>
               </div>
-              <span className="text-sm text-[#e6c700]">{section.lectures.length} lecture(s)</span>
+              <span className="text-sm text-[#e6c700]">{section.subSection.length} lecture(s)</span>
             </div>
 
-            {section.isExpanded && (
+            {isActive.includes(section._id) && (
               <div className="bg-[#111]">
-                {section.lectures.map((lecture) => (
+                {section.subSection.map((lecture) => (
                   <div key={lecture.id} className="flex items-center gap-2 py-3 px-4 pl-10 border-b border-[#222]">
                     <span className="text-xs text-gray-400">▶</span>
                     <span className="text-sm">{lecture.title}</span>
@@ -158,7 +161,7 @@ const CoursePage = () => {
               </div>
             )}
           </div>
-        ))} */}
+        ))}
       </div>
 
           </div>

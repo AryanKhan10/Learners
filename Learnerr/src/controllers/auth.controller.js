@@ -136,7 +136,7 @@ const signup = async (req, res) => {
             contactNumber, 
             accountType,
             additionalDetails:profileDetail._id, // id use ki hai user model mai
-            image:`https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`
+            
         });
         console.log("savePass", savePass)
         res.status(200).json({
