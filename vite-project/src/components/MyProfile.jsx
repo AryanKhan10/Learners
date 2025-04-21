@@ -2,6 +2,7 @@ import { Edit } from 'lucide-react';
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Avatar from 'react-avatar';
 
 function MyProfile() {
     const {user} = useSelector(state => state.profile);
@@ -17,11 +18,17 @@ function MyProfile() {
             <div className='bg-gray-800 rounded-lg p-6 shadow-lg'>
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-4 text-white'>
-                        <img 
+                        { user.image ? (
+                            <img 
                             className='rounded-full w-[60px] h-[60px] object-cover border-2 border-blue-400'
                             src={user?.image} 
                             alt={`profile ${user?.firstName}`}
-                        />
+                        />):(
+                            <Avatar name={`${user.firstName} ${user.lastName}`} className='rounded-full w-[60px] h-[60px]  object-cover ' />
+                        )
+                        }
+                        
+
                         <div>
                             <p className='text-xl font-semibold'>{user?.firstName} {user?.lastName}</p>
                             <p className='text-gray-400'>{user?.email}</p>

@@ -8,6 +8,8 @@ import { categories } from "../services/apis.js";
 import { IoIosArrowDown } from "react-icons/io";
 import LoginDropDown from "./LoginDropDown.jsx";
 import logo from '../assets/logo.png'
+import Avatar from 'react-avatar';
+
 function NavBar() {
 
   const location = useLocation();
@@ -169,12 +171,17 @@ function NavBar() {
           <>
             <div className="relative group cursor-pointer pb-2">
               <p className="flex items-center gap-1">
-                <img
-                  src={user?.image}
-                  alt="profile"
-                  loading="lazy"
-                  className="rounded-full w-[35px] h-[35px] bg-orange-500"
-                />
+                
+                { user.image ? (
+                            <img 
+                            className="rounded-full w-[35px] object-cover h-[35px] bg-orange-500"
+                            src={user?.image} 
+                            alt={`profile ${user?.firstName}`}
+                        />):(
+                            <Avatar color={Avatar.getRandomColor('sitebase', ['green', 'orange','red'])} name={`${user.firstName} ${user.lastName}`} size="40" round={true} />
+                        )
+                        }
+                
                 <IoIosArrowDown className="pt-1" />
               </p>
               <div

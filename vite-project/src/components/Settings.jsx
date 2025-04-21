@@ -7,6 +7,8 @@ import Buttons from './Home/Buttons'
 import { updateProfile } from '../services/profile'
 import { useNavigate } from 'react-router-dom'
 import {updatePersonalInfo} from '../services/profile'
+import Avatar from 'react-avatar';
+
 function Settings() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -84,7 +86,14 @@ function Settings() {
           <div></div>    
         </div> ) : (
           <div className="flex items-center gap-4">
-        <img src={user?.image} className='w-[60px] h-[60px] rounded-full border-2 border-blue-700' alt="" />
+        {
+          user.image ? (
+            <img src={user?.image} className='w-[60px] h-[60px] object-cover rounded-full border-2 border-blue-700' alt="" />
+          ):(
+            <Avatar color={Avatar.getRandomColor('sitebase', ['green', 'orange','red'])} name={`${user.firstName} ${user.lastName}`} size="70" round={true} />
+            
+          )
+        }
         <div>
           <p className="text-sm text-gray-400 mb-2">Change Profile Picture</p>
           <div className="flex gap-3">
