@@ -8,7 +8,7 @@ import RatingStars from "../components/RatingStars"
 import { formateDate } from "../utils/formatDate"
 import BuyCard from "../components/Catalog/BuyCard"
 import { IoMdArrowDropdown,IoMdArrowDropup } from "react-icons/io";
-const CoursePage = () => {
+const CoursePage = () => {g
 
     const {courseId} = useParams();
     const [course, setCourse]= useState(null);
