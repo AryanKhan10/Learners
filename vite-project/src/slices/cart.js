@@ -57,7 +57,7 @@ const cartSlice = createSlice({
             localStorage.removeItem("total");
             localStorage.removeItem("totalItems");
 
-            toast.success("Cart has been reset");
+            // toast.success("Cart has been reset");
         },
     },
 });

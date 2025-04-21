@@ -61,41 +61,44 @@ const createReview = async (req, res) => {
 //get avg reviews
 const getAvgReview = async (req, res) => {
     try {
-        const courseId = req.body.courseId;
-
-       const avg = await RatingAndReview.aggregate([
-                    {
-                        $match:{
-                            course: new mongoose.Types.ObjectId(courseId)
-                        },
-                    },{
-                        $group:{
-                            _id:null,
-                            averageRatng: {$avg:"$rating"}
-                        }
-                    }
-       ])
-
-       if(avg.length<0){
-        return res.status(200).json({
+        console.log(req.body.courseIds)
+        const courseIds = req.body.courseIds; // Array of course IDs
+        const objectIds = new mongoose.Types.ObjectId(courseIds);
+    
+        const avgRatings = await RatingAndReview.aggregate([
+            {
+                $match: {
+                    course: objectIds 
+                }
+            },
+            {
+                $group: {
+                    _id: "$course",
+                    averageRating: { $avg: "$rating" }
+                }
+            }
+        ]);
+    
+        // Format result as { courseId: avgRating }
+        // const formatted = {};
+        // objectIds.forEach(id => {
+        //     const match = avgRatings.find(item => item._id.toString() === id.toString());
+        //     formatted[id] = match ? match.averageRating : 0;
+        // });
+    
+        res.status(200).json({
             success: true,
-            message: "Average rating is 0, no rating is given.",
-            averageRatng:0
-        })
-       }
-
-       res.status(200).json({
-        success: true,
-        averageRatng:result[0].averageRatng
-    })
-
-        
+            message: "Average ratings fetched successfully.",
+            averageRatings: avgRatings
+        });
+    
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error
-        })
+            error: error.message || error
+        });
     }
+    
 }
 
 // get all reviews

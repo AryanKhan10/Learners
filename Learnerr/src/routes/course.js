@@ -32,7 +32,7 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 
 router.post("/createRating", auth, isStudent, createReview)
 router.get("/getRating", getAllRating)
-router.get("/getAverageReviews", getAvgReview)
+router.post("/getAverageReviews", getAvgReview)
 
 router.post("/update-courseProgress", auth, isStudent, updateCrourseProgress)
 export default router;
