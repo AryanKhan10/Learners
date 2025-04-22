@@ -28,8 +28,7 @@ function HomePage() {
         </div>
 
         <div className="text-slate-300 text-sm sm:text-md font-semibold w-full sm:w-[90%] mt-4 text-center">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci fugit eveniet necessitatibus? Sit doloribus
-          consequuntur quas? Illum quos quas ea facere esse officia.
+        Our courses are designed to help you unlock your potential and excel in the tech industry. With hands-on learning and expert guidance, you'll gain the knowledge needed to tackle real-world challenges and thrive in a digital world.
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 mt-6">
@@ -89,10 +88,10 @@ function HomePage() {
           position={"lg:flex-row-reverse"}
           heading={
             <div className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white">
-              Unlock Your <HighlightText text={"coding potential"} /> with our online courses
+              Unlock your <HighlightText text={"programming skills"} /> with our expert-led online courses
             </div>
           }
-          subheading={"Our courses are designed and taught by industry experts who have years of experience"}
+          subheading={"Our courses are crafted and delivered by seasoned professionals with extensive industry experience."}
           btn1={{
             text: "try it yourself",
             linkto: "/signup",
@@ -103,20 +102,20 @@ function HomePage() {
             linkto: "/login",
             active: false,
           }}
-          code={`<!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <link rel="icon" href="/vite.svg" />
-                </head>
-                <body>
-                    <div class="card">
-                        <img src="#" alt="Image">
-                        <h2>/</h2>
-                        <p>description...</p>
-                    </div>
-                </body>
-                </html>`}
-          codeColor={"text-yellow-300"}
+          code={`def add_task(task):
+        tasks.append(task)
+    print(f"Task '{task}' added.")
+def remove_task(task):
+    if task in tasks:
+        tasks.remove(task)
+        print(f"Task '{task}' removed.")
+    else:
+        print("Task not found.")
+def display_tasks():
+    print("Tasks:")
+    for task in tasks:
+        print(f"- {task}")`}
+          codeColor={"text-orange-300"}
         />
 
         <ExploreMore />
@@ -147,8 +146,7 @@ function HomePage() {
             </div>
             <div className="flex flex-col gap-4 items-start w-full lg:w-[50%]">
               <div className="text-base sm:text-lg md:text-[19px]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quia laboriosam sint maxime rem dolor.
-                Est iste quas dolore nemo?
+              Our courses are tailored to provide you with the practical knowledge and expertise required to succeed in today's competitive job market. Start learning now and open doors to exciting career opportunities.
               </div>
               <Buttons active={true} linkto={"/signup"}>
                 Learn more

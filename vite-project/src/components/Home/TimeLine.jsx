@@ -7,23 +7,23 @@ import timelines from "../../assets/timeline.jpg"
 const timeline = [
   {
     logo: <FaHandFist className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] text-purple-500" />,
-    heading: "Leadership",
-    description: "Fully committed to success company",
+    heading: "Leadership through Empowerment",
+    description: "We believe in raising voices and inspiring action to drive our company",
   },
   {
     logo: <FaGraduationCap className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] text-red-500" />,
-    heading: "Leadership",
-    description: "Fully committed to success company",
+    heading: "Leadership through Knowledge",
+    description: "Our leaders are lifelong learners, dedicated to growth and excellence.",
   },
   {
     logo: <IoDiamondSharp className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] text-teal-500" />,
-    heading: "Leadership",
-    description: "Fully committed to success company",
+    heading: "Leadership through Value",
+    description: "We lead by delivering unmatched value and setting standards of excellence.",
   },
   {
     logo: <MdDocumentScanner className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] text-yellow-400" />,
-    heading: "Leadership",
-    description: "Fully committed to success company",
+    heading: "Leadership through Strategy",
+    description: "Thoughtful planning and precise execution guide our path to success.y",
   },
 ]
 
