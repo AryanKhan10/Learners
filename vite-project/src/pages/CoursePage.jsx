@@ -7,8 +7,10 @@ import GetAvgRating from "../utils/avgRating"
 import RatingStars from "../components/RatingStars"
 import { formateDate } from "../utils/formatDate"
 import BuyCard from "../components/Catalog/BuyCard"
+import { RiVideoOnAiLine } from "react-icons/ri";
 import { IoMdArrowDropdown,IoMdArrowDropup } from "react-icons/io";
-const CoursePage = () => {g
+
+const CoursePage = () => {
 
     const {courseId} = useParams();
     const [course, setCourse]= useState(null);
@@ -73,14 +75,14 @@ const CoursePage = () => {g
           !isActive.includes(id) ? isActive.concat(id) : isActive.filter((i) => i !== id)
         )
       }
-      console.log(isActive)
+      console.log(course?.ratingAndReview)
   return (
     <div className="min-h-screen bg-[#121620] text-white">
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Course details - left side (2/3 width on large screens) */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 ">
             <h1 className="text-4xl font-bold mb-1">My Course</h1>
             <p className="text-gray-400 mb-4">{course?.courseTitle}</p>
 
@@ -111,7 +113,7 @@ const CoursePage = () => {g
             </div>
 
             {/* Course content section */}
-            <div>
+            <div className="my-5">
               <div><p>Course Content:</p></div>
 
               <div className="flex gap-x-3">
@@ -134,16 +136,16 @@ const CoursePage = () => {g
             </div>
             <div>
         {course?.courseContent.map((section) => (
-          <div key={section._id} className="border-b border-[#333]">
+          <div key={section._id} className="border-b border-[#0e1317]">
             <div
-              className="flex justify-between p-4 cursor-pointer bg-[#2a2a2a]"
+              className="flex justify-between p-4 cursor-pointer bg-[#232c35]"
               onClick={() => handleActive(section._id)}
             >
               <div className="flex items-center gap-2">
                 <span
                   className={`text-xs text-gray-400 inline-block transition-transform duration-200 ${section.isExpanded ? "transform rotate-90" : ""}`}
                 >
-                  {isActive.includes(section._id) ? <IoMdArrowDropdown className="w-4 h-4" /> : <IoMdArrowDropup className="w-4 h-4" />}
+                  {isActive.includes(section._id) ? <IoMdArrowDropup className="w-4 h-4" /> : <IoMdArrowDropdown className="w-4 h-4" />}
                 </span>
                 <span>{section.title}</span>
               </div>
@@ -151,11 +153,13 @@ const CoursePage = () => {g
             </div>
 
             {isActive.includes(section._id) && (
-              <div className="bg-[#111]">
+              <div className="bg-[#2a353fb3]">
                 {section.subSection.map((lecture) => (
-                  <div key={lecture.id} className="flex items-center gap-2 py-3 px-4 pl-10 border-b border-[#222]">
-                    <span className="text-xs text-gray-400">▶</span>
-                    <span className="text-sm">{lecture.title}</span>
+                  <div key={lecture.id} className="flex items-center gap-2 py-3 px-4 pl-10 border border-[#141a20]">
+                    {/* <span className="text-xs text-gray-400">▶</span> */}
+                    <span className="text-sm flex items-center gap-2">
+                      <RiVideoOnAiLine/>
+                       {lecture.title}</span>
                   </div>
                 ))}
               </div>
