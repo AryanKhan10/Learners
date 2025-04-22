@@ -430,9 +430,10 @@ function CourseInformation() {
             )}
             <button
               type="submit"
+              disabled={loading}
               className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-700 transition-colors"
             >
-              {!editCourse ? "Next" : "Save Changes"}
+              {!loading ? (!editCourse ? "Next" : "Save Changes") : "loading..."}
             </button>
           </div>
         </form>

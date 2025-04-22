@@ -146,7 +146,7 @@ function CourseBuilder() {
         </div>
       </form>
 
-      {course?.courseContent && <NestedView handleEditSectionName={handleEditSectionName} />}
+      {course?.courseContent && course?.courseContent.length>0 &&<NestedView handleEditSectionName={handleEditSectionName} />}
 
       <div className="mt-8 flex justify-end space-x-4">
         <button

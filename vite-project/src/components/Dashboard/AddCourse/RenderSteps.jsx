@@ -22,25 +22,10 @@ function RenderSteps() {
     },
   ];
   return (
-    //   <div className="flex items-center justify-between mb-12 max-w-2xl">
-    //   <div className="flex items-center">
-    //     <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">1</div>
-    //     <div className="ml-2">Course Information</div>
-    //   </div>
-    //   <div className="flex-1 border-t border-gray-600 mx-4"></div>
-    //   <div className="flex items-center">
-    //     <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">2</div>
-    //     <div className="ml-2 text-gray-400">Course Builder</div>
-    //   </div>
-    //   <div className="flex-1 border-t border-gray-600 mx-4"></div>
-    //   <div className="flex items-center">
-    //     <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">3</div>
-    //     <div className="ml-2 text-gray-400">Publish</div>
-    //   </div>
-    // </div>
+
     <div className="flex lg:flex-row flex-col-reverse sm:items-center md:items-start lg:items-start gap-4 justify-center ">
       <div className="lg:w-7/12">
-      <div className="flex items-center justify-between mb-1">
+      <div className="flex items-center justify-between mb-1 ">
         {courseSteps.map((item) => (
           <div key={item.id}
            className="flex items-center">
@@ -54,7 +39,11 @@ function RenderSteps() {
             </div>
             {/* to show dotted lines */}
             {item.id !== courseSteps.length && (
-              <div className="flex-1 outline-dashed w-10 mx-4"></div>
+              <div
+                className={`${
+                  step > item.id ? "bg-blue-500" : "bg-gray-700"
+                } h-1 w-56`}
+              ></div>
             )}
           </div>
         ))}
