@@ -76,35 +76,36 @@ const SideBar = () => {
         )
       }
   return (
-    <>
-    <div className='fixed top-[4.6rem] left-0 min-h-screen w-10 xsm:w-16 sm:w-44 bg-gray-800 flex flex-col pt-7 justify-start shadow-lg'>
-      {
-        sidebar.map((link, index) => {
-          if(link.type && user?.accountType !== link.type) return null;
-          return <SideBarLinks key={index} link={link} />
-        })
-      }
-      <div className="mt-6">
+   <>
+      <div className="fixed  top-[4.6rem]  left-0 h-screen md:h-auto md:min-h-screen w-16 md:w-64 bg-gray-800 flex flex-col pt-7 justify-start shadow-lg z-10">
+        <div className="flex flex-col space-y-2">
+          {sidebar.map((link, index) => {
+            if (link.type && user?.accountType !== link.type) return null
+            return <SideBarLinks key={index} link={link} />
+          })}
+        </div>
+        <div className="mt-6 flex flex-col space-y-2">
+          <SideBarLinks link={{ name: "Settings", icon: <Settings />, path: "/dashboard/settings" }} />
 
-          <SideBarLinks link={{name:'Settings', icon:<Settings/>, path:'/dashboard/settings'}}/>
-          
-        <button className='text-gray-400 px-4 mt-2 gap-2 text-sm font-medium flex justify-start '
-          onClick={()=>setConfirmationModal({
-            text1:"Are you sure?",
-            text2:"You will be logged out of your account.",
-            btn1Text:"Logout",
-            btn2Text:"Cancel",
-            btn1Handler:()=>dispatch(logout(navigate)),
-            btn2Handler:()=>setConfirmationModal(null)
-          })}>
-          <LogOut/>
-          <p className='hidden sm:block'>Logout</p>
-        </button>
+          <button
+            className="text-gray-400 px-4 mt-2 gap-2 text-sm font-medium flex justify-start items-center hover:bg-gray-700 hover:text-white py-2 rounded-md transition-colors"
+            onClick={() =>
+              setConfirmationModal({
+                text1: "Are you sure?",
+                text2: "You will be logged out of your account.",
+                btn1Text: "Logout",
+                btn2Text: "Cancel",
+                btn1Handler: () => dispatch(logout(navigate)),
+                btn2Handler: () => setConfirmationModal(null),
+              })
+            }
+          >
+            <LogOut className="h-5 w-5 flex-shrink-0" />
+            <p className="hidden md:block">Logout</p>
+          </button>
+        </div>
       </div>
-    </div>
-    {
-      confirmationModal && <ConfirmationModal data = {confirmationModal}/>
-    }
+      {confirmationModal && <ConfirmationModal data={confirmationModal} />}
     </>
   )
 }

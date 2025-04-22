@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="w-screen min-h-screen bg-gray-900 flex flex-col ">
       <NavBar />
-      <div className="mt-20">
+      <div className="mt-16">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

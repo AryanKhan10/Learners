@@ -23,15 +23,14 @@ function Dashboard() {
         )
     }
   return (
-    <div className='sidebar flex justify-center sm:gap-16 lg:gap-0'>
-      <div className='xsm:w-3/12'>
-
-      <SideBar/>
+    <div className="flex flex-col md:flex-row w-full min-h-screen">
+      <div className="w-64 lg:w-72 flex-shrink-0">
+        <SideBar />
       </div>
 
-        {/* we don't know which page to show */}
-      <div className="w-9/12 mx-2 flex "> 
-        <Outlet/>
+      {/* Main content area */}
+      <div className="md:w-full ms-10  md:ms-0 overflow-auto p-4 justify-end">
+        <Outlet />
       </div>
     </div>
   )
