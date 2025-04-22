@@ -16,8 +16,8 @@ function MyProfile() {
 
             {/* Profile Section */}
             <div className='bg-gray-800 rounded-lg p-6 shadow-lg'>
-                <div className='flex items-center justify-between'>
-                    <div className='flex items-center gap-4 text-white'>
+                <div className='flex flex-col items-start justify-between'>
+                    <div className='flex w-full justify-between items-center gap-4 text-white'>
                         { user.image ? (
                             <img 
                             className='rounded-full w-[60px] h-[60px] object-cover border-2 border-blue-400'
@@ -29,18 +29,18 @@ function MyProfile() {
                         }
                         
 
-                        <div>
+                        <button 
+                            onClick={() => navigate('/dashboard/settings')}
+                            className='flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-200'
+                        >
+                            <span>Edit</span>
+                            <Edit className='w-4 h-4' />
+                        </button>
+                    </div>
+                        <div  className='text-white'>
                             <p className='text-xl font-semibold'>{user?.firstName} {user?.lastName}</p>
                             <p className='text-gray-400'>{user?.email}</p>
                         </div>
-                    </div>
-                    <button 
-                        onClick={() => navigate('/dashboard/settings')}
-                        className='flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-200'
-                    >
-                        <span>Edit</span>
-                        <Edit className='w-4 h-4' />
-                    </button>
                 </div>
             </div>
 
