@@ -23,15 +23,15 @@ function RenderSteps() {
   ];
   return (
 
-    <div className="flex lg:flex-row flex-col-reverse sm:items-center md:items-start lg:items-start gap-4 justify-center ">
+    <div className="flex items-center lg:flex-row flex-col-reverse sm:items-center md:items-start lg:items-start gap-4 justify-center ">
       <div className="lg:w-7/12">
-      <div className="flex items-center justify-between mb-1 ">
+      <div className="hidden sm:flex  items-center justify-between mb-1">
         {courseSteps.map((item) => (
           <div key={item.id}
-           className="flex items-center">
+           className="flex items-center w-full gap-2">
             {/* highlighted number */}
             <div
-              className={`${
+              className={` ${
                 step === item.id ? "bg-blue-500" : ""
               } w-8 h-8 rounded-full flex items-center justify-center`}
             >
@@ -42,13 +42,13 @@ function RenderSteps() {
               <div
                 className={`${
                   step > item.id ? "bg-blue-500" : "bg-gray-700"
-                } h-1 w-56`}
+                }  h-1 w-[10rem] sm:w-[12.5rem] md:w-[11.5rem] lg:w-[9rem] xl:w-[11rem]`}
               ></div>
             )}
           </div>
         ))}
       </div>
-      <div className="flex gap-28  mb-10 max-w-3xl">
+      <div className="hidden sm:flex    gap-28  mb-10 max-w-3xl">
         {courseSteps.map((item) => (
           <div key={item.id} className="text-white">{item.name}</div>
         ))}
@@ -60,7 +60,7 @@ function RenderSteps() {
 </div>
 
   {/* Tips Section */}
-  <div className="col-span-1 w-9/12 lg:w-5/12 mb-10 mx-2">
+  <div className="col-span-1 w-10/12 lg:w-5/12 mb-10 mx-2 ms-4 sm:ms-0">
             <div className="bg-gray-800 rounded-lg p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Zap className="text-yellow-400" />

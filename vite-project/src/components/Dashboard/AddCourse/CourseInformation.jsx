@@ -205,7 +205,7 @@ function CourseInformation() {
 
   return (
     <div className="">
-      <div className="col-span-2 flex w-full flex-col ">
+      <div className="col-span-2 flex w-full flex-col ms-3 sm:ms-0">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Title */}
           <div>

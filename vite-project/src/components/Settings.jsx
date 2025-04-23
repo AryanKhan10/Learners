@@ -66,7 +66,9 @@ function Settings() {
     dispatch(updatePersonalInfo(gender, about, dateOfBirth, contactNumber, token))
   }
   
-  
+  const deleteAccount = async () => {
+    
+  }
   return (
     <div className="min-h-screen p-6 max-w-4xl mx-auto text-white">
     <h1 className="text-2xl font-semibold mb-8">Edit Profile</h1>
@@ -199,12 +201,6 @@ function Settings() {
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-3">
-        {/* <Buttons type="submit" linkto="/dashboard/profile" active={false} color="text-white">
-          Cancel
-        </Buttons>
-        <Buttons type="submit" linkto="/dashboard/profile" active={true}>
-          Save
-        </Buttons> */}
         <button type='submit' className='text-black  px-4 py-2 text-md font-semibold rounded-md hover:bg-yellow-400 hover:scale-105 transition-all duration-200 bg-yellow-500'>Save</button>
       </div>
     </form>
