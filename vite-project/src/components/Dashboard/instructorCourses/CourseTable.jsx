@@ -24,22 +24,22 @@ function CourseTable({ courses, setCourses, setConfirmationModal }) {
     }
 
     return (
-        <div className="min-h-screen bg-gray-900 md:p-6">
+        <div className="min-h-screen bg-gray-900 lg:p-6">
         <div className="w-full overflow-hidden bg-gray-800 rounded-lg shadow">
           <div className="overflow-x-auto">
             <table className="w-full min-w-full divide-y divide-gray-700">
               <thead>
                 <tr>
-                  <th className="px-4 py-4 text-left text-sm font-semibold text-white/80 hidden md:table-cell">
+                  <th className="px-4 py-4 text-left text-sm font-semibold text-white/80 hidden lg:table-cell">
                     Courses
                   </th>
-                  <th className="px-4 py-4 text-left text-sm font-semibold text-white/80 hidden md:table-cell">
+                  <th className="px-4 py-4 text-left text-sm font-semibold text-white/80 hidden lg:table-cell">
                     Duration
                   </th>
-                  <th className="px-4 py-4 text-left text-sm font-semibold text-white/80 hidden md:table-cell">
+                  <th className="px-4 py-4 text-left text-sm font-semibold text-white/80 hidden lg:table-cell">
                     Price
                   </th>
-                  <th className="px-4 py-4 text-left text-sm font-semibold text-white/80 hidden md:table-cell">
+                  <th className="px-4 py-4 text-left text-sm font-semibold text-white/80 hidden lg:table-cell">
                     Action
                   </th>
                 </tr>
@@ -53,14 +53,14 @@ function CourseTable({ courses, setCourses, setConfirmationModal }) {
                   </tr>
                 ) : (
                   courses?.map((course) => (
-                    <tr key={course._id} className="block md:table-row border-b border-gray-700 hover:bg-white/5">
+                    <tr key={course._id} className="block lg:table-row border-b border-gray-700 hover:bg-white/5">
                       {/* Mobile view - card style */}
-                      <td className="block md:table-cell md:py-6 px-4">
-                        <div className="flex flex-col md:flex-row gap-4 py-4 md:py-0">
+                      <td className="block lg:table-cell lg:py-6 px-4">
+                        <div className="flex flex-col lg:flex-row gap-4 py-4 lg:py-0">
                           <img
                             src={course.thumbnail}
                             loading="lazy"
-                            className="w-full md:w-[150px] h-[200px] md:h-[100px] rounded-lg object-cover"
+                            className="w-full lg:w-[150px] h-[300px] lg:h-[100px] rounded-lg object-cover"
                             alt={course.courseTitle}
                           />
                           <div className="flex flex-col gap-2 flex-grow">

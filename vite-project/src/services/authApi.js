@@ -111,7 +111,7 @@ export function login(email, password, navigate){
             localStorage.setItem("user", JSON.stringify(response.data.registeredUser))
             dispatch(setUser(response.data.registeredUser))
 
-            navigate('/dashboard')
+            navigate('/dashboard/profile')
         } catch (error) {
             console.log("Error while Signing.", error);
             toast.error("Failed to Login")
