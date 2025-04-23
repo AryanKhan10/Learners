@@ -38,8 +38,8 @@ function MyProfile() {
                         </button>
                     </div>
                         <div  className='text-white'>
-                            <p className='text-xl font-semibold'>{user?.firstName} {user?.lastName}</p>
-                            <p className='text-gray-400'>{user?.email}</p>
+                            <p className='text lg sm:text-xl font-semibold'>{user?.firstName} {user?.lastName}</p>
+                            <p className='text-sm sm:text-base text-gray-400'>{user?.email}</p>
                         </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@ function MyProfile() {
             {/* About Section */}
             <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
                 <div className="flex justify-between items-center mb-4">
-                    <p className='text-xl font-semibold text-white'>About</p>
+                    <p className='text lg sm:text-xl font-semibold text-white'>About</p>
                     <button 
                         onClick={() => navigate('/dashboard/settings')}
                         className='flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-200'
@@ -64,7 +64,7 @@ function MyProfile() {
             {/* Personal Details Section */}
             <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
                 <div className="flex justify-between items-center mb-6">
-                    <p className='text-xl font-semibold text-white'>Personal Details</p>
+                    <p className='text lg sm:text-xl font-semibold text-white'>Personal Details</p>
                     <button 
                         onClick={() => navigate('/dashboard/settings')}
                         className='flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-200'
@@ -99,7 +99,7 @@ function MyProfile() {
 const DetailItem = ({ label, value }) => (
     <div className="space-y-1">
         <p className="text-sm text-gray-400">{label}</p>
-        <p className="text-white font-medium">{value}</p>
+        <p className="text-xs sm:text-base text-white font-medium">{value}</p>
     </div>
 )
 

@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Check, X, Eye, EyeOff } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { resetPassword } from '../services/authApi';
 function UpdatePassword() {
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: ''
   });
+
+  const navigate = useNavigate()
   const{loading} = useSelector(state=>state.auth)
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -55,7 +57,7 @@ function UpdatePassword() {
       // extract token from the url
       const token = location.pathname.split('/').at(-1);
     console.log(token)
-    dispatch(resetPassword(password, confirmPassword, token))
+    dispatch(resetPassword(password, confirmPassword, token, navigate))
     }
   };
 

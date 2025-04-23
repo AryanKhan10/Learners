@@ -215,6 +215,5 @@ const login = async (req, res) => {
     }
 }
 
-//change password 
 
 export {sendOTP, signup, login}
