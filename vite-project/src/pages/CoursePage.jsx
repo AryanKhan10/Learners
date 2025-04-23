@@ -9,9 +9,11 @@ import { formateDate } from "../utils/formatDate"
 import BuyCard from "../components/Catalog/BuyCard"
 import { RiVideoOnAiLine } from "react-icons/ri";
 import { IoMdArrowDropdown,IoMdArrowDropup } from "react-icons/io";
-
+import { useDispatch, useSelector } from "react-redux"
+import { formatDuration } from "../utils/formatDuration"
 const CoursePage = () => {
 
+    const dispatch = useDispatch()
     const {courseId} = useParams();
     const [course, setCourse]= useState(null);
     const [avgReviewCount, setAvgReviewCount] = useState(0);
@@ -23,18 +25,10 @@ const CoursePage = () => {
       return courseAcc + sec.subSection.reduce((secAcc, sub) => secAcc + sub.timeDuration, 0);
     }, 0);
     
-    // Convert seconds to HH:MM:SS format
-      const formatDuration = (seconds) => {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const remainingSeconds = Math.floor(seconds % 60);;
-
-        return `${hours>0 ? hours+'h':''} ${minutes >0? minutes+'m':''} ${remainingSeconds}s`;
-      };
+    
 
     const formattedDuration = formatDuration(totalDuration);
     console.log(formattedDuration); // Example Output: "2h 35m 20s"
-
     // console.log(course)
     //Fetch courses
     useEffect(()=>{   

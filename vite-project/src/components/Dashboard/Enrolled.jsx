@@ -32,8 +32,8 @@ function Enrolled() {
             <div className="text-gray-400">You have not enrolled in any course yet</div>
           </div>
         ) : (
-          <div className="bg-[#2a2a2a8d] space-y-6">
-            <div className="grid grid-cols-12 px-6 py-3 bg-[#2a2a2a] rounded-lg text-sm font-medium">
+          <div className="bg-[#151e32b8] space-y-6 rounded-md shadow-sm drop-shadow-sm shadow-[#60a5fab0]">
+            <div className="grid grid-cols-12 px-6 py-3 bg-[#182135] border-b-[1px] border-[#60a5fab0] rounded-lg text-sm font-medium">
               <div className="col-span-6">Course Name</div>
               <div className="col-span-3 text-center">Duration</div>
               <div className="col-span-3 text-center">Progress</div>
@@ -43,7 +43,7 @@ function Enrolled() {
               {enrolledCourses.map((course, index) => (
                 <div
                   key={index}
-                  className="bg-[#2a2a2a] rounded-lg shadow-lg"
+                  className="bg-[#111827] rounded-lg shadow-lg border-b-[1px] border-[#60a5fab0] hover:scale-105 transition-all duration-200 hover:cursor-pointer"
                 >
                   <div className="grid grid-cols-12 gap-4 p-4 items-center" 
                     onClick={()=> navigate( `/view-course/${course._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection[0]?._id}` )}>
