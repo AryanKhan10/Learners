@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 const initialState = {
     courseSectionData: [],
     courseEntireData: [],
-    completedLectures: [],
-    totalNoOfLectures:0
+    completedLectures: localStorage.getItem('completedLectures')?  localStorage.getItem('completedLectures') :[],
+    totalNoOfLectures:localStorage.getItem('totalNoOfLectures')?  localStorage.getItem('totalNoOfLectures'): 0
 };
 
 const viewCourseSlice = createSlice({
@@ -20,12 +20,15 @@ const viewCourseSlice = createSlice({
         },
         setTotalNoOfLectures(state, action) {
            state.totalNoOfLectures = action.payload;
+             localStorage.setItem('totalNoOfLectures', action.payload)
         },
         setCompletedLectures(state, action) {
            state.completedLectures = action.payload;
+           localStorage.setItem('completedLectures', JSON.stringify(action.payload))
         },
         updateCompletedLectures(state, action) {
            state.completedLectures = [...state.completedLectures, action.payload];
+             localStorage.setItem('completedLectures', JSON.stringify([...state.completedLectures, action.payload]))
         },
     },
 });
