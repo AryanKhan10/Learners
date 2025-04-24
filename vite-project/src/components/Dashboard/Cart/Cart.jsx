@@ -14,7 +14,15 @@ function Cart() {
             <RenderTotatAmmount />
         </div>
         ) : (
-        <p className="text-xl text-gray-300">Your Cart is Empty</p>
+          <div className="flex flex-col items-center justify-center py-12 px-4">
+          <p className="text-xl text-gray-400 mb-4">Your Cart is Empty</p>
+          <button 
+              onClick={() => window.history.back()}
+              className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200"
+          >
+              Continue Shopping
+          </button>
+      </div>
         )}
   </div>
   )
