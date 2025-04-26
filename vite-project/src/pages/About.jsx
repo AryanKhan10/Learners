@@ -17,7 +17,7 @@ function About() {
           </h1>
           
           <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
-            Studynotion is at the forefront of driving innovation in online education. We're passionate about creating a 
+            Learner is at the forefront of driving innovation in online education. We're passionate about creating a 
             brighter future by offering cutting-edge courses, leveraging emerging technologies, and nurturing a vibrant 
             learning community.
           </p>

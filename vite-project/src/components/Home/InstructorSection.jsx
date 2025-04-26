@@ -19,8 +19,7 @@ function InstructorSection() {
           <HighlightText text={" Instructor"} />
         </div>
         <p className="font-medium w-full md:w-[70%] text-sm md:text-base text-gray-400">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consequuntur fugiat sequi! Architecto,
-          nesciunt rem?
+        Share your knowledge, inspire learners, and make an impact. Join us and start shaping the future today!
         </p>
 
         <div className="w-full md:w-fit flex justify-center md:justify-start">

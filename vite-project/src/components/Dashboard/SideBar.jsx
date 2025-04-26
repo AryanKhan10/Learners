@@ -77,7 +77,7 @@ const SideBar = () => {
       }
   return (
    <>
-      <div className="fixed  top-[4.6rem]  left-0 h-screen md:h-auto md:min-h-screen w-16 md:w-64 bg-gray-800 flex flex-col pt-7 justify-start shadow-lg z-10">
+      <div className="fixed  top-[4.6rem]  left-0 h-screen md:h-auto md:min-h-screen w-16 md:w-64 bg-[#0c2641] flex flex-col pt-7 justify-start shadow-lg z-10">
         <div className="flex flex-col space-y-2">
           {sidebar.map((link, index) => {
             if (link.type && user?.accountType !== link.type) return null
