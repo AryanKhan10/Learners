@@ -34,6 +34,7 @@ export const coursesEndpoints = {
     BUY_COURSE_API: `${BASE_URL}/course/buyCourse`,
     GET_ENROLLED_COURSE_API: `${BASE_URL}/course/getEnrolledCourses`,
     UPDATE_COURSE_PROGRRESS_API: `${BASE_URL}/course/update-courseProgress`,
+    GET_COURSE_PROGRRESS_API: `${BASE_URL}/course/get-courseProgress`,
 
 };
 export const sectionEndpoints = {

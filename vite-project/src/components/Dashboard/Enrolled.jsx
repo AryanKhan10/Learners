@@ -1,29 +1,45 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import ProgressBar from "@ramonak/react-progress-bar";
 import { ArrowRight, Clock, BookOpen } from 'lucide-react';
+import { useSelector } from 'react-redux';
 import { getEnrolledCourses } from '../../services/profile';
 import { useNavigate } from 'react-router-dom';
 import { formatDuration } from '../../utils/formatDuration';
+import { courseProgress } from '../../services/course';
+
 function Enrolled() {
     const {token} = useSelector(state=>state.auth);
     const navigate  = useNavigate()
     const [enrolledCourses, setEnrolledCourses] = useState(null);
     const [courseDuration, setCourseDuration] = useState([]);
     const [loading, setLoading] = useState(true)
+    const [progress, setProgress] = useState([])
 
     console.log(enrolledCourses)
 
     const getCourses = async()=>{
       const resp = await getEnrolledCourses(token);
-      console.log(resp)
+      // console.log(resp)
       setEnrolledCourses(resp)
       }
-
+    const getCourseProgress = async ()=>{
+      console.log(enrolledCourses)
+      if(enrolledCourses){
+        let ids = []
+        enrolledCourses.map((course)=> ids.push(course._id))
+        console.log(ids)
+        const result = await courseProgress(ids,token)
+        console.log(result)
+        if(result){
+          setProgress(result)
+        }
+      }
+    }
     useEffect(()=>{
         getCourses()
         setLoading(false)
     },[])
+
+    
     console.log(courseDuration)
     useEffect(() => {
       const calculateDurations = () => {
@@ -45,6 +61,8 @@ function Enrolled() {
       };
     
       calculateDurations();
+      getCourseProgress()
+
     }, [enrolledCourses]);
   return (
     <div className="min-h-screen bg-gray-900 text-white py-8 px-4">
@@ -104,7 +122,7 @@ function Enrolled() {
                       <div className="flex items-center space-x-1 text-green-300">
                         <BookOpen size={16} />
                         <span className="text-sm">
-                          {course.progressPercentage ? `${course.progressPercentage}%` : '0%'}
+                          {progress.length>0 && progress.find((prog)=> prog.id===course._id)?.progress}
                         </span>
                       </div>
                     </div>
@@ -113,12 +131,16 @@ function Enrolled() {
                       <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
                         <div 
                           className="h-full bg-blue-500 rounded-full"
-                          style={{ width: `${course.progressPercentage || 0}%` }}
+                          style={{width: progress.length>0 
+                            ? `${progress.find((prog) => prog.id === course._id)?.progress || 0}%`
+                            : '0%',}}
                         ></div>
                       </div>
                       <div className="flex justify-between text-xs text-gray-400">
                         <span>Progress</span>
-                        <span>{course.progressPercentage ? `${course.progressPercentage}%` : '0%'}</span>
+                        <span>
+                        {progress.length > 0 && `${progress.find((prog) => prog.id === course._id)?.progress || 0}%`}
+                          </span>
                       </div>
                     </div>
                     
@@ -152,12 +174,16 @@ function Enrolled() {
                     <div className="col-span-3 space-y-2">
                       <div className="flex justify-between items-center text-sm px-1">
                         <span>Progress</span>
-                        <span>{course.progressPercentage ? `${course.progressPercentage}%` : '0%'}</span>
+                        <span>
+                        {progress.length > 0 && `${progress.find((prog) => prog.id === course._id)?.progress || 0}%`}
+                        </span>
                       </div>
                       <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
                         <div 
                           className="h-full bg-blue-500 rounded-full"
-                          style={{ width: `${course.progressPercentage || 0}%` }}
+                          style={{width: progress.length>0 
+                            ? `${progress.find((prog) => prog.id === course._id)?.progress || 0}%`
+                            : '0%',}}
                         ></div>
                       </div>
                     </div>

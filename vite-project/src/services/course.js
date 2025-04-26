@@ -93,3 +93,20 @@ export async function markLectureAsCompleted ({courseId, subSectionId}, token){
         toast.error("Couldn't mark lecture as completed")
     }
 }
+export async function courseProgress (courses, token){
+
+    try {
+        console.log(token)
+        const resp = await apiConnector("POST", coursesEndpoints.GET_COURSE_PROGRRESS_API, {courses},
+            { Authentication: `Bearer ${token}` })
+        console.log(resp)
+        if(!resp.data.success){
+            throw new Error(resp.data.message)
+        }
+
+        return resp.data.progress
+    } catch (error) {
+        console.log("Coudn't got course progress",error)
+        toast.error(error.message)
+    }
+}

@@ -51,7 +51,7 @@ const getCourseProgess = async (req, res) => {
   try {
     const { courses } = req.body;
     const userId = req.user.userId;
-
+    console.log(courses)
     const progress = await CourseProgress.find({
       userId: userId,
       courseId: { $in: courses },
@@ -74,7 +74,7 @@ const getCourseProgess = async (req, res) => {
         })
 
        const completedVediosLength = course.completedVedios.length
-       const courseProgress = (completedVediosLength/subsecLength) *100
+       const courseProgress = Math.floor((completedVediosLength / subsecLength) * 100)
 
         let courseLength={ id:course.courseId._id, progress:courseProgress }
         progressArray.push(courseLength)
