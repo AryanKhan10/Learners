@@ -49,7 +49,7 @@ function VideoSidbar({ setReviewModal }) {
       {/* Header buttons */}
       <div className="flex justify-between gap-2 items-center mb-6">
         <button 
-          onClick={() => navigate(`/dashboard/enrolled-course`)}
+          onClick={() => navigate(`/dashboard/enrolled-courses`)}
           className="flex items-center gap-2 px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-all"
         >
           <IoCaretBack className="text-sm" />

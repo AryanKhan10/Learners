@@ -66,7 +66,14 @@ function NavBar() {
     <div className="fixed -top-6 left-0 right-0 z-50 pt-2 bg-gray-900 flex flex-col lg:flex-row w-full justify-evenly text-white mt-5 border-b-[1px] border-gray-700 pb-2">
       <div className="flex justify-between items-center px-4 lg:px-0 lg:w-5/12">
         {/* <div className="">Logo</div> */}
-        <img className="w-[60px] h-[60px] rounded-full" src={logo} alt="learner" loading="lazy"/>
+        {/* <img className="w-[60px] h-[60px] rounded-full" src={logo} alt="learner" loading="lazy"/> */}
+        <div className="flex flex-col">
+        <p className="font-lobster text-xl font-bold text-purple-600">Learner</p>
+        <div className="flex items-center gap-2">
+        <div className=" bg-purple-600 w-[56px] h-[4px] rounded-sm"> </div>
+        <div className="bg-purple-600 w-[4px] h-[4px] rounded-full"></div>
+        </div>
+        </div>
         {/* Hamburger Menu Button */}
         <button
           className="lg:hidden p-2 hover:bg-gray-800 rounded-md"

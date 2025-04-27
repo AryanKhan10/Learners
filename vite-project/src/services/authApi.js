@@ -129,6 +129,8 @@ export function logout(navigate){
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         localStorage.removeItem('enrolledCourses')
+        localStorage.removeItem('totalNoOfLectures')
+        localStorage.removeItem('completedLectures')
         toast.success("Logged Out")
         navigate('/')
 }

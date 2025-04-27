@@ -21,7 +21,7 @@ function RenderTotaaAmmount() {
         dispatch(setCourse(result))
             toast.success("Enrolled successfully!")
             dispatch(resetCart());
-            navigate('/dashboard/enrolled-course')
+            navigate('/dashboard/enrolled-courses')
 
       }
       setLoading(false)

@@ -15,7 +15,7 @@ function MyProfile() {
             </h1>
 
             {/* Profile Section */}
-            <div className='bg-gray-800 rounded-lg p-6 shadow-lg'>
+            <div className='bg-gray-800/40 border-[1px] border-[#1d436a] rounded-lg p-6 shadow-lg'>
                 <div className='flex flex-col items-start justify-between'>
                     <div className='flex w-full justify-between items-center gap-4 text-white'>
                         { user.image ? (
@@ -45,7 +45,7 @@ function MyProfile() {
             </div>
 
             {/* About Section */}
-            <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+            <div className="bg-gray-800/40 border-[1px] border-[#1d436a] rounded-lg p-6 shadow-lg">
                 <div className="flex justify-between items-center mb-4">
                     <p className='text lg sm:text-xl font-semibold text-white'>About</p>
                     <button 
@@ -62,7 +62,7 @@ function MyProfile() {
             </div>
 
             {/* Personal Details Section */}
-            <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+            <div className="bg-gray-800/40 border-[1px] border-[#1d436a] rounded-lg p-6 shadow-lg">
                 <div className="flex justify-between items-center mb-6">
                     <p className='text lg sm:text-xl font-semibold text-white'>Personal Details</p>
                     <button 

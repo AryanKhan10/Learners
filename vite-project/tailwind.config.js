@@ -24,6 +24,9 @@ export default {
           50: '#F9FAFB',
         },
       },
+      fontFamily: {
+        lobster: ['Lobster', 'cursive'],
+      },
     },
   },
   plugins: [],
