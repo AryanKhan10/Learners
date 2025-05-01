@@ -1,5 +1,7 @@
 import axios from 'axios'
-const instance = axios.create()
+const instance = axios.create({
+    withCredentials: true, // 💥 very important to enable cookies
+  })
 const apiConnector = (method, url, bodyData, headers, params)=>{
     // console.log(params)
     return instance({

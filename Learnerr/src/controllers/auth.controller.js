@@ -183,23 +183,30 @@ const login = async (req, res) => {
                 email: registeredUser.email,
                 accountType: registeredUser.accountType
             }
-            const token = jwt.sign(payload, process.env.SECRET_KEY, {
-                expiresIn:"2h"
+            const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {
+                expiresIn:"1min"
+            })
+            const refreshToken = jwt.sign(payload, process.env.SECRET_KEY, {
+                expiresIn:"2min"
             })
 
             registeredUser.token = token;
             registeredUser.password = undefined; //cookie mai user snd krna hai is leye password ko hatana hoga
             // send token in cookie
             const options = {
-                expires: new Date(Date.now() + 3*24*60*60*1000),
+                expires: new Date(Date.now() + 1*60*1000),
                 httpOnly:true
             }
 
-            res.cookie("token", token, options).status(200).json({
+            res.cookie("token", refreshToken, options).status(200).json({
                 success:true,
                 registeredUser,
-                token,
                 message:"Loggin Successfully."
+            })
+            res.json({
+                success:true,
+                accessToken,
+                user:registeredUser
             })
         }else{
             return res.status(401).json({
@@ -214,6 +221,44 @@ const login = async (req, res) => {
         })
     }
 }
+const refreshToken = async (req, res) => {
+    try {
+        const token = req.cookies.refreshToken;
+        if(!token){
+            return res.status(401).json({
+                success:false,
+                message:"Token not found.",
+            })
+        }
+        // verify the token
+        jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+            if(err){
+                return res.status(403).json({
+                    success:false,
+                    message:"Invalid token.",
+                })
+            }
+            const payload = { 
+                userId: user._id,
+                email: user.email,
+                accountType: user.accountType
+            }
+            const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {
+                expiresIn:"1min"
+            })
+            res.status(200).json({
+                success:true,
+                accessToken,
+            })
+        })
+        
+    } catch (error) {
+        console.log("error in refresh token", error)
+        res.status(500).json({
+            success:false,
+            message:"Error in refresh token.",
+        })
+    }
+}
 
-
-export {sendOTP, signup, login}
+export {sendOTP, signup, login, refreshToken}
