@@ -11,7 +11,8 @@ export const settingEndpoints = {
 export const authEndpoints = {
     SENDOTP_API: `${BASE_URL}/auth/sendOTP`,
     SIGNUP_API: `${BASE_URL}/auth/signup`,
-    LOGIN_API: `${BASE_URL}/auth/login`
+    LOGIN_API: `${BASE_URL}/auth/login`,
+    REFRESH_API: `${BASE_URL}/auth/refresh-token`,
 };
 export const profileEndpoints = {
     UPDATEPROPIC_API: `${BASE_URL}/profile/updateProfilePicture`,

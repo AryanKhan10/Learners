@@ -460,6 +460,7 @@ const buyCourse = async (req, res) => {
 const getEnrolledCourses = async (req, res)=>{
     try {
         const userId = req.user.userId;
+        console.log("userId............. ", userId)
         const enrolledCourses = await Course.find({studentsEnrolled: {$in: userId}})
         .populate({
           path: "instructor",

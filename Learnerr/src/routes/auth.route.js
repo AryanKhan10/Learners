@@ -6,7 +6,7 @@ import { resetPassword,resetPasswordToken } from "../controllers/resetPassword.c
 router.post("/sendOTP" ,sendOTP)
 router.post("/signup" ,signup)
 router.post("/login" ,login)
-router.post("/refresh" ,refreshToken)
+router.get("/refresh-token" ,refreshToken)
 router.post("/reset-password-token", resetPasswordToken)
 router.post("/reset-password", resetPassword)
 

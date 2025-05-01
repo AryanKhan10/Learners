@@ -17,8 +17,9 @@ function Enrolled() {
     console.log(enrolledCourses)
 
     const getCourses = async()=>{
+      console.log(token)
       const resp = await getEnrolledCourses(token);
-      // console.log(resp)
+      console.log("r ",resp)
       setEnrolledCourses(resp)
       }
     const getCourseProgress = async ()=>{
@@ -26,7 +27,8 @@ function Enrolled() {
       if(enrolledCourses){
         let ids = []
         enrolledCourses.map((course)=> ids.push(course._id))
-        console.log(ids)
+        console.log("ids",ids)
+        console.log("token",token)
         const result = await courseProgress(ids,token)
         console.log(result)
         if(result){

@@ -7,10 +7,7 @@ import rootReducer from "./reducers/index.js";
 import { Toaster } from 'react-hot-toast';
 import "./index.css";
 import App from "./App.jsx";
-
-const store = configureStore({
-  reducer: rootReducer,
-});
+import store from "./store/store.js";
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>

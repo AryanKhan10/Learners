@@ -4,7 +4,7 @@ const updateCrourseProgress = async (req, res) => {
   try {
     const { courseId, subSectionId } = req.body;
     const { userId } = req.user;
-    console.log(userId, courseId);
+    // console.log(userId, courseId);
     if (!courseId || !subSectionId) {
       return res
         .status(400)
@@ -51,7 +51,8 @@ const getCourseProgess = async (req, res) => {
   try {
     const { courses } = req.body;
     const userId = req.user.userId;
-    console.log(courses)
+    console.log("courses ", courses);
+    console.log("userId ", userId);
     const progress = await CourseProgress.find({
       userId: userId,
       courseId: { $in: courses },
@@ -59,7 +60,7 @@ const getCourseProgess = async (req, res) => {
       .populate({ path: "courseId" ,populate: { path: "courseContent" , populate: { path: "subSection" }}})
       .populate("completedVedios")
       .exec();
-    // console.log(progress);
+    console.log("progress", progress);
     if (progress.length === 0) {
       return res
         .status(404)

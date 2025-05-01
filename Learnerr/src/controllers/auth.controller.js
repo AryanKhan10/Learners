@@ -184,30 +184,27 @@ const login = async (req, res) => {
                 accountType: registeredUser.accountType
             }
             const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {
-                expiresIn:"1min"
+                expiresIn:"7min"
             })
             const refreshToken = jwt.sign(payload, process.env.SECRET_KEY, {
-                expiresIn:"2min"
+                expiresIn:"15day"
             })
 
-            registeredUser.token = token;
+            registeredUser.token = refreshToken;
             registeredUser.password = undefined; //cookie mai user snd krna hai is leye password ko hatana hoga
             // send token in cookie
             const options = {
-                expires: new Date(Date.now() + 1*60*1000),
+                expires: new Date(Date.now() + 15*24*60*60*1000),
                 httpOnly:true
             }
 
-            res.cookie("token", refreshToken, options).status(200).json({
-                success:true,
-                registeredUser,
-                message:"Loggin Successfully."
-            })
-            res.json({
-                success:true,
-                accessToken,
-                user:registeredUser
-            })
+            res.cookie("refreshToken", refreshToken, options).status(200).json({
+                success: true,
+                message: "Login Successful.",
+                accessToken, // sent in body
+                registeredUser
+              })
+              
         }else{
             return res.status(401).json({
                 success:false,
@@ -215,6 +212,7 @@ const login = async (req, res) => {
             })
         }
     } catch (error) {
+        console.log("error in login", error)
         res.status(500).json({
             success:false,
             message:"Login failed. Please try again later.",
@@ -223,6 +221,7 @@ const login = async (req, res) => {
 }
 const refreshToken = async (req, res) => {
     try {
+        console.log("Ref token", req.cookies.refreshToken)
         const token = req.cookies.refreshToken;
         if(!token){
             return res.status(401).json({
@@ -231,12 +230,12 @@ const refreshToken = async (req, res) => {
             })
         }
         // verify the token
-        jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
-            if(err){
-                return res.status(403).json({
-                    success:false,
-                    message:"Invalid token.",
-                })
+        try {
+            const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+            const user = await User.findById(decoded.userId);
+            if (!user) {
+              return res.status(401).json({ success: false, message: "User not found." });
             }
             const payload = { 
                 userId: user._id,
@@ -244,13 +243,23 @@ const refreshToken = async (req, res) => {
                 accountType: user.accountType
             }
             const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {
-                expiresIn:"1min"
+                expiresIn:"7min"
             })
+
+            console.log("accessToken", accessToken)
             res.status(200).json({
                 success:true,
                 accessToken,
             })
-        })
+            
+        } catch (error) {
+            return res.status(401).json({
+                success:false,
+                message:"Token is invalid.",
+            })
+            
+        }
+      
         
     } catch (error) {
         console.log("error in refresh token", error)

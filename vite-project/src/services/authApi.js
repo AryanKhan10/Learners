@@ -106,8 +106,8 @@ export function login(email, password, navigate){
 
             }
             toast.success(response.data.message);
-            dispatch(setToken(response.data.token))
-            localStorage.setItem("token", JSON.stringify(response.data.token))
+            dispatch(setToken(response.data.accessToken))
+            localStorage.setItem("token", JSON.stringify(response.data.accessToken))
             localStorage.setItem("user", JSON.stringify(response.data.registeredUser))
             dispatch(setUser(response.data.registeredUser))
 
