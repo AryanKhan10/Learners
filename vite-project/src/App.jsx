@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 
 import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
-import LoginPage from "./pages/Loginpage";
+import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import UpdatePassword from "./pages/UpdatePassword";
