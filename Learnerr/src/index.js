@@ -14,7 +14,7 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
 app.use(cors({
-    origin:['http://localhost:5173','http://localhost:5174'],
+    origin:process.env.Frontend_URL,
     credentials:true,
 }))
 app.use(cookieParser())
