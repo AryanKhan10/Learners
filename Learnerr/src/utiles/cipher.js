@@ -7,6 +7,9 @@ const key = crypto.createHash('sha256')
     .update(String(process.env.ENCRYPTION_KEY || 'default_passphrase'))
     .digest(); // 32-byte buffer
 
+    console.log("key length:", key.length);
+    console.log("Encryption key:", key.toString('hex'));
+
 // Encrypt function
 const encrypt = (text) => {
     try {

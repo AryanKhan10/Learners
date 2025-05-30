@@ -15,6 +15,10 @@ const OTPSchema = new mongoose.Schema(
             type: String, 
             required: true 
         }, // Encrypted secret key
+        otpSecretIv: {
+            type: String, 
+            required: true 
+        }, 
         otpIv: { 
             type: String, 
             required: true 
