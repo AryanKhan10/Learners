@@ -108,7 +108,7 @@ const signup = async (req, res) => {
 
     // retrieve most recent otp from db
     const recentOtp = await OTP.findOne({ email })
-      .sort({ createrAt: -1 })
+      .sort({ createdAt: -1 })
       .limit(1);
     console.log("recentOtp", recentOtp);
     if (!recentOtp) {
