@@ -29,7 +29,7 @@ function NavBar() {
     try {
       const result = await apiConnector("GET", categories.CATEGORIES_API);
       setCatalogLinks(result.data.allTag);
-      console.log(catalogLinks);
+      console.log(res);
     } catch (error) {
       console.log("Error while fetching Categories: ", error);
     }

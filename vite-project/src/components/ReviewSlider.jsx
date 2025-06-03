@@ -40,7 +40,7 @@ function ReviewSlider() {
                 spaceBetween={10}
                 pagination={true}
                 navigation={true}
-                loop={review.length > 4}
+                loop={review?.length > 4}
                 
                 autoplay={{
                     delay: 2500,
@@ -68,7 +68,7 @@ function ReviewSlider() {
                 className="mySwiper"
                 >
                     {
-                        review.map((item, index) => (
+                        review?.map((item, index) => (
                             <SwiperSlide key={index} className='w-[95%] h-full flex items-center shadow-lg'>
                                 <div className='w-full h-full flex flex-col  p-5 bg-[#0D1117] rounded-lg  '>
                                     <div className='flex gap-2'>

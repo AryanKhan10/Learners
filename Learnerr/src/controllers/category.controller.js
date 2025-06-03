@@ -36,6 +36,7 @@ const getAllCategory = async (req, res) => {
             message:"Categories fetched!",
             allTag
         })
+        console.log("allTag", allTag)
     } catch (error) {
         res.status(500).json({
             success:false,
